@@ -1,7 +1,9 @@
-var db = require ("../../lib/db.js");
+var db = require ("../../lib/db.js"),
+    marked = require("marked"),
+    crypto = require('crypto');
 
 var Post = function(data) {
-  if(data) {
+  if (data) {
     this.id = data.id;
     this.date = data.date;
     this.title = data.title;
@@ -11,6 +13,45 @@ var Post = function(data) {
     this.confirmation_code = data.confirmation_code;
     this.confirmed = data.confirmed;
   }
+
+  this.generate_confirmation_code = function() {
+    var text = (new Date()) + "--" + this.email + "--" + this.title + "--" + this.text_markdown;
+
+    var shasum = crypto.createHash('sha1');
+    shasum.update(text);
+    this.confirmation_code = shasum.digest('hex');
+  }
+
+  this.format_text = function(callback) {
+    marked(this.text_markdown, function(err, result) {
+      if (err) throw err;
+      this.text_formatted = result;
+      
+      callback();
+    }.bind(this));
+  }
+
+  this.save = function(handler) {
+    this.format_text(function() {
+      if (this.id) {
+        // Update
+      } else {
+        this.generate_confirmation_code();
+
+        db.insert('posts', {
+          title: this.title,
+          text_markdown: this.text_markdown,
+          text_formatted: this.text_formatted,
+          email: this.email,
+          confirmation_code: this.confirmation_code,
+          confirmed: false
+        }, 'RETURNING id, date', function(data) {
+          this.id = data.id;
+          this.date = data.date;
+        }.bind(this));
+      }
+    }.bind(this));
+  };
 }
 
 Post.getAllConfirmed = function(handler) {
@@ -25,7 +66,7 @@ Post.getAllConfirmed = function(handler) {
   });
 }
 
-Idea.findById = function(id, handler) {
+Post.findById = function(id, handler) {
   db.perform_query('SELECT * FROM posts WHERE (confirmed = true AND id = $1) LIMIT 1', [id], function(data) {
     var post;
 
@@ -40,7 +81,7 @@ Idea.findById = function(id, handler) {
 };
 
 
-Idea.findByConfirmationCode = function(code, handler) {
+Post.findByConfirmationCode = function(code, handler) {
   db.perform_query('SELECT * FROM posts WHERE (confirmed = false AND confirmation_code = $1) LIMIT 1', [code], function(data) {
     var post;
 
@@ -53,3 +94,5 @@ Idea.findByConfirmationCode = function(code, handler) {
     handler(post);
   });
 };
+
+module.exports = Post;

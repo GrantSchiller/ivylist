@@ -1,9 +1,10 @@
 var helper = require("../../lib/helper"),
-    db = require("../../lib/db");
+    db = require("../../lib/db"),
+    Post = require('../models/post');
 
 function index(response, request, params, postData) {
-  Idea.count(function(c) {
-    helper.render("ideas/index.html", { count: c }, response, 200);
+  Post.getAllConfirmed(function(posts) {
+    helper.render("posts/index.html", null, response, 200);
   });
 }
 

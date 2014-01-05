@@ -9,7 +9,8 @@
     "db-migrate": "*",
     "mocha": "*",
     "jake": "*",
-    "dateformat": "*"
+    "dateformat": "*",
+    "marked": "~0.2.10"
   },
   "engines": {
     "node": "0.10.x",
