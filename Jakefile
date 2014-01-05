@@ -1,5 +1,4 @@
-var db = require("./lib/db.js"),
-    Admin = require("./app/models/admin");
+var db = require("./lib/db.js");
 
 process.env.DATABASE_URL = process.env.DATABASE_URL || "postgres://postgres@localhost/ivylist_development";
 

@@ -7,10 +7,12 @@ exports.up = function(db, callback) {
       type: 'serial',
       primaryKey: true
     },
-    title: 'string',
-    text_md: 'string'
-    text_formatted: 'string'
-    email: 'string'
+    title: 'varchar(256)',
+    text_markdown: 'text',
+    text_formatted: 'text',
+    email: 'varchar(64)',
+    confirmation_code: 'char(40)',
+    confirmed: 'boolean'
   }, callback);
 };
 
