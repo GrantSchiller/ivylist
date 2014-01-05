@@ -1,0 +1,5 @@
+{
+	"dev": "postgres://postgres@localhost/ivylist_development",
+	"test": "postgres://postgres@localhost/ivylist_test",
+	"prod": { "ENV": "DATABASE_URL" }
+}
