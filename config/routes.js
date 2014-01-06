@@ -9,8 +9,8 @@ module.exports = {
     action: posts_controller.index,
     accept: ["GET"],
 
-    'new': {
-      // action: posts_controller.new,
+    'add': {
+      action: posts_controller.add,
       accept: ["GET"]
     },
     ':id': {

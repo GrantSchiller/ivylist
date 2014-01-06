@@ -8,4 +8,9 @@ function index(response, request, params, postData) {
   });
 }
 
+function add(response, request, params, postData) {
+  helper.render("posts/new.html", null, response, 200);
+}
+
 exports.index = index;
+exports.add = add;
