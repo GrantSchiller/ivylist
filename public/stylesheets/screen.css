@@ -26,6 +26,55 @@ button, input, select, textarea { margin: 0; }
 time { display: block; }
 
 /* ---------------------------------------------------------------------------------------
+   Main
+   --------------------------------------------------------------------------------------- */
+
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 0.875em;
+}
+a {
+	text-decoration: none;
+}
+
+hr.topDivider {
+	border-top: 2px solid #000;
+	border-bottom: 0;
+	margin: 10px 0 0 0;
+}
+
+#main {
+	width: 65%;
+	margin: 20px auto;
+}
+
+#main ol {
+	list-style-type: none;
+}
+
+a li.post {
+	margin-bottom: 15px;
+	padding-top: 15px;
+	border-top: 1px solid #000;
+	line-height: 1.5em;
+}
+ol a:first-child li.post {
+	border-top: none;
+}
+
+li.post time {
+	float: left;
+	display: block;
+	width: 50px;
+	height: 100%;
+	color: #696969;
+}
+li.post p.title {
+	font-weight: bold;
+	color: #1b1b1b;
+}
+
+/* ---------------------------------------------------------------------------------------
    Etc.
    --------------------------------------------------------------------------------------- */
    
