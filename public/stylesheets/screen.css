@@ -32,20 +32,23 @@ time { display: block; }
 body {
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 0.875em;
+	background-color: #fcfcfc;
 }
 a {
 	text-decoration: none;
 }
 
-hr.topDivider {
-	border-top: 2px solid #000;
-	border-bottom: 0;
-	margin: 10px 0 0 0;
+header {
+	padding: 20px 0;
+}
+
+.middle {
+	width: 65%;
+	margin: 0 auto;
 }
 
 #main {
-	width: 65%;
-	margin: 20px auto;
+	margin-top: 5px;
 }
 
 #main ol {
@@ -53,10 +56,10 @@ hr.topDivider {
 }
 
 a li.post {
-	margin-bottom: 15px;
-	padding-top: 15px;
-	border-top: 1px solid #000;
-	line-height: 1.5em;
+	margin-bottom: 13px;
+	padding-top: 13px;
+	border-top: 1px solid #b9b9b9;
+	line-height: 1.7em;
 }
 ol a:first-child li.post {
 	border-top: none;
@@ -72,6 +75,49 @@ li.post time {
 li.post p.title {
 	font-weight: bold;
 	color: #1b1b1b;
+}
+a:visited li.post p.title {
+	color: #696969;
+}
+a:visited li.post time {
+	color: #8f8f8f;
+}
+
+/* ---------------------------------------------------------------------------------------
+   Header
+   --------------------------------------------------------------------------------------- */
+
+header h1 {
+	font-size: 3em;
+}
+
+/* 
+	PENN:
+	Red: #95001a
+	Blue: #01256e
+	Off-white: #f1f1f1	*/
+header.penn {
+	background: #01256e;
+}
+
+header.penn h1 {
+	color: #f1f1f1;
+	font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+/* 
+	BROWN:
+	Brown: #54301a
+	Red: #CC0000
+	Off-white: #fffdfa	*/
+header.brown {
+	background: #54301a;
+}
+
+header.brown h1 {
+	color: #fffdfa;
+	font-family: "Minion Pro", Georgia, "Times New Roman", Times, serif;
+	text-transform: uppercase;
 }
 
 /* ---------------------------------------------------------------------------------------
