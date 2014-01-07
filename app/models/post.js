@@ -70,8 +70,8 @@ var Post = function(data) {
   };
 }
 
-Post.getAllConfirmed = function(handler) {
-  db.perform_query('SELECT * FROM posts WHERE confirmed = true ORDER BY date', function(data) {
+Post.getAllConfirmed = function(offset, limit, handler) {
+  db.perform_query('SELECT * FROM posts WHERE confirmed = true ORDER BY date DESC LIMIT ' + limit + ' OFFSET ' + offset, function(data) {
     var posts = [];
 
     for (var n=0; n<data.rows.length; n++) {

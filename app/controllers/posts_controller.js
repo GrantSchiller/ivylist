@@ -12,8 +12,11 @@ var helper = require("../../lib/helper"),
 // });
 
 function index(response, request, params, postData) {
-  Post.getAllConfirmed(function(posts) {
-    helper.render("posts/index.html", { posts: posts }, response, 200);
+  var perPage = 20;
+  var page = params.page ? parseInt(params.page) : 1;
+
+  Post.getAllConfirmed(perPage * (page - 1), perPage, function(posts) {
+    helper.render("posts/index.html", { posts: posts, page: page }, response, 200);
   });
 }
 
