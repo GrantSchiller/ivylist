@@ -39,17 +39,24 @@ a {
 	text-decoration: none;
 }
 
+#main {
+	padding-top: 20px;
+}
+
 #main h1 {
 	font-weight: bold;
 	font-size: 1.5em;
+	margin-bottom: 10px;
 }
 #main p {
 	line-height: 1.5em;
 }
+#main p em {
+	font-weight: bold;
+}
 
 .new-post-title {
 	padding-left: 16.74%;
-	margin: 20px 0 10px 0;
 }
 
 input[type=text], input[type=email], textarea {
@@ -134,10 +141,6 @@ header h1 {
 	margin: 0 auto;
 }
 
-#main {
-	margin-top: 5px;
-}
-
 #main ol {
 	list-style-type: none;
 }
@@ -150,6 +153,7 @@ a li.post {
 }
 ol a:first-child li.post {
 	border-top: none;
+	padding-top: 0;
 }
 
 li.post time {

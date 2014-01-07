@@ -44,10 +44,14 @@ var Post = function(data) {
           text_formatted: this.text_formatted,
           email: this.email,
           confirmation_code: this.confirmation_code,
-          confirmed: false
+          confirmed: false,
+          date: new Date()
         }, 'RETURNING id, date', function(data) {
           this.id = data.id;
           this.date = data.date;
+          this.confirmed = false;
+
+          handler();
         }.bind(this));
       }
     }.bind(this));

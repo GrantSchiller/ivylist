@@ -5,17 +5,18 @@ module.exports = {
     action: posts_controller.index,
     accept: ["GET"]
   },
+
+  'new': {
+    action: posts_controller.add,
+    accept: ["GET"]
+  },
   'posts': {
     action: posts_controller.index,
     accept: ["GET"],
 
-    'add': {
-      action: posts_controller.add,
-      accept: ["GET"]
-    },
-    ':id': {
-      // action: posts_controller.show,
-      accept: ["GET"],
+    'create': {
+      action: posts_controller.create,
+      accept: ["POST"],
     }
   }
 }
