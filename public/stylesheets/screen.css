@@ -33,17 +33,104 @@ body {
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 0.875em;
 	background-color: #fcfcfc;
+	color: #1b1b1b;
 }
 a {
 	text-decoration: none;
 }
 
+#main h1 {
+	font-weight: bold;
+	font-size: 1.5em;
+}
+#main p {
+	line-height: 1.5em;
+}
+
+.new-post-title {
+	padding-left: 16.74%;
+	margin: 20px 0 10px 0;
+}
+
+input[type=text], input[type=email], textarea {
+	border: 0;
+	float: right;
+	width: 70%;
+	padding: 1.5%;
+	background: #e7e7e7;
+	color: #1b1b1b;
+}
+input[type=text]:focus, input[type=email]:focus, textarea:focus {
+	background: #f6f6f6;
+}
+label {
+	margin-top: 1.5%;
+	text-align: right;
+	float: left;
+	width: 25%;
+	clear: both;
+}
+textarea {
+	height: 150px;
+	resize: vertical;
+	line-height: 1.5em;
+}
+input[type=submit] {
+	float: right;
+	border: none;
+	color: #fcfcfc;
+	background: #004b90;
+	padding: 8px 12px;
+	font-size: 1em;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	cursor: pointer;
+	margin-top: 5px;
+}
+
+input.title {
+	font-weight: bold;
+	font-size: 1em;
+}
+
+form p.error {
+	background: #ff9999;
+}
+form p.error:before {
+	height: 14px;
+	font-size: .875em;
+	margin-bottom: 5px;
+	width: 72.8285714%;
+	float: right;
+	text-align: center;
+}
+
+form p.error.email:before {
+	content: "Please enter a valid @penn.edu address.";
+}
+form p.error.title:before {
+	content: "Please enter a title.";
+}
+form p.error.text:before {
+	content: "Please enter some text";
+}
+
+#main form p {
+	/*margin-bottom: 10px;*/
+	padding: 5px;
+	line-height: 1em;
+}
+
 header {
 	padding: 20px 0;
 }
+header h1 {
+	font-size: 3em;
+}
 
 .middle {
-	width: 65%;
+	width: 700px;
 	margin: 0 auto;
 }
 
@@ -76,31 +163,36 @@ li.post p.title {
 	font-weight: bold;
 	color: #1b1b1b;
 }
-a:visited li.post p.title {
+a:visited li.post p.title, label {
 	color: #696969;
 }
 a:visited li.post time {
 	color: #8f8f8f;
 }
 
-/* ---------------------------------------------------------------------------------------
-   Header
-   --------------------------------------------------------------------------------------- */
-
-header h1 {
-	font-size: 3em;
+.group > form.postForm {
+	float: left;
+	width: 62%;
 }
+.side_text {
+	width: 35%;
+	float: right;
+	margin-bottom: 10px;
+}
+
+/* ---------------------------------------------------------------------------------------
+   School colors
+   --------------------------------------------------------------------------------------- */
 
 /* 
 	PENN:
 	Red: #95001a
 	Blue: #01256e
 	Off-white: #f1f1f1	*/
-header.penn {
+.penn header {
 	background: #01256e;
 }
-
-header.penn h1 {
+.penn header h1 {
 	color: #f1f1f1;
 	font-family: Georgia, "Times New Roman", Times, serif;
 }
@@ -110,11 +202,10 @@ header.penn h1 {
 	Brown: #54301a
 	Red: #CC0000
 	Off-white: #fffdfa	*/
-header.brown {
+.brown header {
 	background: #54301a;
 }
-
-header.brown h1 {
+.brown header h1 {
 	color: #fffdfa;
 	font-family: "Minion Pro", Georgia, "Times New Roman", Times, serif;
 	text-transform: uppercase;
@@ -135,13 +226,45 @@ header.brown h1 {
 img, object, embed {
 	max-width: 100%;
 }
-::-moz-selection {
-	background: #FFF;
-	color: #444;
-	text-shadow: none;
+
+@media screen and (max-width: 1000px) {
+	.middle {
+		/*width: 65%;*/
+		/*background: green;*/
+	}
 }
-::selection {
-	background: #FFF;
-	color: #444;
-	text-shadow: none;
+
+@media screen and (max-width: 875px) {
+	.middle {
+		width: 80%;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.group > form.postForm {
+		float: none;
+		width: 100%;
+	}
+	.side_text {
+		width: 100%;
+		float: none;
+	}
+
+	input[type=text], input[type=email], textarea {
+		width: 77%;
+		padding: 2.5%;
+	}
+	label {
+		margin-top: 2.5%;
+		width: 15%;
+	}
+
+	.new-post-title {
+		padding-left: 0%;
+	}
+	form p.error:before {
+		width: 100%;
+		float: none;
+		text-align: center;
+	}
 }
