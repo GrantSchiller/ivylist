@@ -52,6 +52,9 @@ a {
 	line-height: 1.5em;
 }
 #main p em {
+	font-style: italic;
+}
+#main p strong {
 	font-weight: bold;
 }
 
@@ -182,6 +185,10 @@ a:visited li.post time {
 	width: 35%;
 	float: right;
 	margin-bottom: 10px;
+}
+
+article.post p {
+	margin-bottom: 14px;
 }
 
 /* ---------------------------------------------------------------------------------------

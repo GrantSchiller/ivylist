@@ -67,6 +67,16 @@ function create(response, request, params, postData) {
   }
 }
 
+function show(response, request, params, postData) {
+  Post.findById(parseInt(params.id), function(post) {
+    if (post) {
+      helper.render("posts/show.html", { post: post }, response, 200);
+    } else {
+      helper.renderError(404, response);
+    }
+  });
+}
+
 function confirm(response, request, params, postData) {
   Post.findByConfirmationCode(params.confirmation_code, function(post) {
     if (post) {
@@ -86,4 +96,5 @@ function confirm(response, request, params, postData) {
 exports.index = index;
 exports.add = add;
 exports.create = create;
+exports.show = show;
 exports.confirm = confirm;

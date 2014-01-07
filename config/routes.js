@@ -17,6 +17,10 @@ module.exports = {
     'create': {
       action: posts_controller.create,
       accept: ["POST"]
+    },
+    ':id': {
+      action: posts_controller.show,
+      accept: ["GET"]
     }
   },
 

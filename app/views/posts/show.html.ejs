@@ -1,0 +1,12 @@
+<% var title = post.title %> 
+<% include ../layouts/head %>
+
+<article class="post">
+	<h1><%= post.title %></h1>
+
+	<%- post.text_formatted %>
+</article>
+
+<p class="contact_link"><a href="mailto:<%= post.email %>">Contact this poster</a></p>
+
+<% include ../layouts/foot %>
