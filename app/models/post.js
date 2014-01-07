@@ -1,6 +1,7 @@
 var db = require ("../../lib/db.js"),
-    marked = require("marked"),
-    crypto = require('crypto');
+    marked = require('marked'),
+    crypto = require('crypto'),
+    dateformat = require('dateformat');
 
 var Post = function(data) {
   if (data) {
@@ -56,6 +57,10 @@ var Post = function(data) {
       }
     }.bind(this));
   };
+
+  this.prettyDate = function() {
+    return dateformat(this.date, "mmm d");
+  }
 }
 
 Post.getAllConfirmed = function(handler) {

@@ -4,7 +4,7 @@ var helper = require("../../lib/helper"),
 
 function index(response, request, params, postData) {
   Post.getAllConfirmed(function(posts) {
-    helper.render("posts/index.html", null, response, 200);
+    helper.render("posts/index.html", { posts: posts }, response, 200);
   });
 }
 
