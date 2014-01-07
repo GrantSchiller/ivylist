@@ -1,6 +1,15 @@
 var helper = require("../../lib/helper"),
     db = require("../../lib/db"),
+    nodemailer = require("nodemailer"),
     Post = require('../models/post');
+
+// var smtpTransport = nodemailer.createTransport("SMTP", {
+//   service: "Gmail",
+//   auth: {
+//     user: "max@luzuriaga.com",
+//     pass: ""
+//   }
+// });
 
 function index(response, request, params, postData) {
   Post.getAllConfirmed(function(posts) {
@@ -24,6 +33,33 @@ function create(response, request, params, postData) {
     });
 
     post.save(function() {
+      var confirmLink ='http://' + request.headers.host + "/confirm/" + post.confirmation_code;
+      var mail = nodemailer.mail;
+
+      mail({
+        from: "Max Luzuriaga <max@luzuriaga.com>",
+        to: post.email,
+        subject: "Confirm your Ivylist post",
+        text: confirmLink,
+        html: '<a href="' + confirmLink + '">Confirm your post!</a>'
+      });
+
+      // var mailOptions = {
+      //   from: "Max Luzuriaga <max@luzuriaga.com>",
+      //   to: post.email,
+      //   subject: "Confirm your Ivylist post",
+      //   text: confirmLink,
+      //   html: '<a href="' + confirmLink + '">Confirm your post!</a>'
+      // }
+
+      // smtpTransport.sendMail(mailOptions, function(error, response){
+      //   if(error){
+      //     console.log(error);
+      //   }else{
+      //     console.log("Message sent: " + response.message);
+      //   }
+      // });
+
       helper.render("posts/create.html", { post: post }, response, 200);
     });
   } else {
