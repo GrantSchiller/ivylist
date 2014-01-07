@@ -200,6 +200,9 @@ a:visited li.post time {
 	color: #f1f1f1;
 	font-family: Georgia, "Times New Roman", Times, serif;
 }
+body.penn {
+	background: #eff4ff;
+}
 
 /* 
 	BROWN:
@@ -213,6 +216,9 @@ a:visited li.post time {
 	color: #fffdfa;
 	font-family: "Minion Pro", Georgia, "Times New Roman", Times, serif;
 	text-transform: uppercase;
+}
+body.brown {
+	background: #fff4e9;
 }
 
 /* ---------------------------------------------------------------------------------------
