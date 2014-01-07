@@ -16,7 +16,14 @@ module.exports = {
 
     'create': {
       action: posts_controller.create,
-      accept: ["POST"],
+      accept: ["POST"]
+    }
+  },
+
+  'confirm': {
+    ':confirmation_code': {
+      action: posts_controller.confirm,
+      accept: ["GET"]
     }
   }
 }

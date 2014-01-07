@@ -31,6 +31,23 @@ function create(response, request, params, postData) {
   }
 }
 
+function confirm(response, request, params, postData) {
+  Post.findByConfirmationCode(params.confirmation_code, function(post) {
+    if (post) {
+      if (post.confirmed) {
+        helper.redirectTo("/posts/" + post.id, request, response);
+      } else {
+        post.confirm(function() {
+          helper.redirectTo("/posts/" + post.id, request, response);
+        });
+      }
+    } else {
+      helper.renderError(404, response);
+    }
+  });
+}
+
 exports.index = index;
 exports.add = add;
 exports.create = create;
+exports.confirm = confirm;

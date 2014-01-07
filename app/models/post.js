@@ -58,9 +58,16 @@ var Post = function(data) {
     }.bind(this));
   };
 
+  this.confirm = function(handler) {
+    this.confirmed = true;
+    db.perform_query('UPDATE posts SET confirmed = true WHERE id = $1', [this.id], function(data) {
+      handler();
+    });
+  };
+
   this.prettyDate = function() {
     return dateformat(this.date, "mmm d");
-  }
+  };
 }
 
 Post.getAllConfirmed = function(handler) {
@@ -91,7 +98,7 @@ Post.findById = function(id, handler) {
 
 
 Post.findByConfirmationCode = function(code, handler) {
-  db.perform_query('SELECT * FROM posts WHERE (confirmed = false AND confirmation_code = $1) LIMIT 1', [code], function(data) {
+  db.perform_query('SELECT * FROM posts WHERE confirmation_code = $1 LIMIT 1', [code], function(data) {
     var post;
 
     if(data.rows.length == 0) {
