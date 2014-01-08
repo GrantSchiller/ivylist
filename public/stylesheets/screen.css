@@ -223,7 +223,7 @@ nav.pagination span.elipsis {
 .penn header {
 	background: #01256e;
 }
-.penn header h1 {
+.penn header h1 a {
 	color: #f1f1f1;
 	font-family: Georgia, "Times New Roman", Times, serif;
 }
@@ -239,7 +239,7 @@ body.penn {
 .brown header {
 	background: #54301a;
 }
-.brown header h1 {
+.brown header h1 a {
 	color: #fffdfa;
 	font-family: "Minion Pro", Georgia, "Times New Roman", Times, serif;
 	text-transform: uppercase;
