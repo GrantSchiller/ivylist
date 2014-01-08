@@ -10,7 +10,7 @@
     "mocha": "*",
     "jake": "*",
     "dateformat": "*",
-    "marked": "~0.2.10",
+    "marked": "*",
     "nodemailer": "*"
   },
   "engines": {

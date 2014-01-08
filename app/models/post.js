@@ -3,6 +3,23 @@ var db = require ("../../lib/db.js"),
     crypto = require('crypto'),
     dateformat = require('dateformat');
 
+var renderer = new marked.Renderer();
+renderer.heading = function(text, level) {
+  var hashes = '';
+  for (var i = 0; i < level; i++) {
+    hashes += '#';
+  }
+  return '<p>' + hashes + ' ' + text + '</p>';
+}
+renderer.hr = function() {
+  return '';
+}
+
+marked.setOptions({
+  sanitize: true,
+  renderer: renderer
+});
+
 var Post = function(data) {
   if (data) {
     this.id = data.id;
