@@ -34,7 +34,7 @@ function add(response, request, params, postData) {
 function create(response, request, params, postData) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   var target = "friendscentral.org";
-  if (re.test(postData.email) && (postData.email.substr(postData.email.length - target.length) == target) && postData.title && postData.text) {
+  if (re.test(postData.email) && (postData.email.substr(postData.email.length - target.length) == target) && postData.title.trim().length == 0 && postData.text.trim().length == 0) {
     var post = new Post({
       title: postData.title,
       email: postData.email,

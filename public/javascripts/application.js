@@ -20,13 +20,13 @@ $(function() {
 		}
 
 		var title = $("p.title input").val();
-		if (title == "") {
+		if ($.trim(title).length == 0) {
 			$('.postForm p.title').addClass("error");
 			e.preventDefault();
 		}
 
 		var text = $("p.text textarea").val();
-		if (text == "") {
+		if ($.trim(text).length == 0) {
 			$('.postForm p.text').addClass("error");
 			e.preventDefault();
 		}
