@@ -13,10 +13,16 @@ var helper = require("../../lib/helper"),
 
 function index(response, request, params, postData) {
   var perPage = 20;
-  var page = params.page ? parseInt(params.page) : 1;
+  var currentPage = params.page ? parseInt(params.page) : 1;
 
-  Post.getAllConfirmed(perPage * (page - 1), perPage, function(posts) {
-    helper.render("posts/index.html", { posts: posts, page: page }, response, 200);
+  Post.numPages(perPage, function (totalPages) {
+    if ((currentPage > 0) && (currentPage <= totalPages)) {
+      Post.getAllConfirmed(perPage * (currentPage - 1), perPage, function(posts) {
+        helper.render("posts/index.html", { posts: posts, currentPage: currentPage, totalPages: totalPages }, response, 200);
+      });
+    } else {
+      helper.renderError(404, response);
+    }
   });
 }
 

@@ -8,6 +8,28 @@
 			<p class="title"><%= post.title %></p>
 		</li></a>
 	<% }); %>
+
+	<nav class="pagination">
+		<p>
+			<% if (currentPage - 2 > 1) { %>
+				<a href="?page=1">1</a>
+			<% } %>
+			<% if (currentPage - 2 > 2) { %>
+				<span class="elipsis">...</span>
+			<% } %>
+
+			<% var page; for(page = Math.max(currentPage - 2, 1); page <= Math.min(currentPage + 2, totalPages); page++) { %>
+				<a href="?page=<%= page %>" class="<%= page == currentPage ? 'current' : '' %>"><%= page %></a>
+			<% } %>
+
+			<% if (page - 1 < totalPages - 1) { %>
+				<span class="elipsis">...</span>
+			<% } %>
+			<% if (page - 1 < totalPages) { %>
+				<a href="?page=<%= totalPages %>"><%= totalPages %></a>
+			<% } %>
+		</p>
+	</nav>
 </ol>
 
 <% include ../layouts/foot %>

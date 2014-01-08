@@ -82,6 +82,13 @@ Post.getAllConfirmed = function(offset, limit, handler) {
   });
 }
 
+Post.numPages = function(perPage, handler) {
+  db.perform_query('SELECT COUNT(id) AS count FROM posts WHERE confirmed = true',  function(data) {
+    var count = data.rows[0].count;
+    handler(Math.ceil(count/perPage));
+  });
+}
+
 Post.findById = function(id, handler) {
   db.perform_query('SELECT * FROM posts WHERE (confirmed = true AND id = $1) LIMIT 1', [id], function(data) {
     var post;

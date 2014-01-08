@@ -40,7 +40,7 @@ a {
 }
 
 #main {
-	padding-top: 20px;
+	padding: 20px 0;
 }
 
 #main h1 {
@@ -189,6 +189,26 @@ a:visited li.post time {
 
 article.post p {
 	margin-bottom: 14px;
+}
+
+nav.pagination a {
+	background: #004b90;
+	padding: 4px 6px;
+	margin-right: 2px;
+	color: #fff;
+	font-size: .875em;
+}
+nav.pagination .current {
+	background: #fff;
+	border: 3px solid #004b90;
+	color: #004b90;
+	font-weight: bold;
+}
+nav.pagination {
+	text-align: center;
+}
+nav.pagination span.elipsis {
+	font-size: 1.2em;
 }
 
 /* ---------------------------------------------------------------------------------------
