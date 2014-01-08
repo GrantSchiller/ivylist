@@ -18,7 +18,7 @@
 				<span class="elipsis">...</span>
 			<% } %>
 
-			<% var page; for(page = Math.max(currentPage - 2, 1); page <= Math.min(currentPage + 2, totalPages); page++) { %>
+			<% var page; for(page = Math.max(currentPage - 2, 1); page <= Math.min(currentPage + 4, totalPages); page++) { %>
 				<a href="?page=<%= page %>" class="<%= page == currentPage ? 'current' : '' %>"><%= page %></a>
 			<% } %>
 
