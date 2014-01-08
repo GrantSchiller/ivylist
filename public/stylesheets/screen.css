@@ -39,6 +39,13 @@ a {
 	text-decoration: none;
 }
 
+.link-button {
+	display: inline-block;
+	font-weight: bold;
+	color: #fff;
+	padding: 8px;
+}
+
 #main {
 	padding: 20px 0;
 }
@@ -47,6 +54,7 @@ a {
 	font-weight: bold;
 	font-size: 1.5em;
 	margin-bottom: 10px;
+	line-height: 1.3em;
 }
 #main p {
 	line-height: 1.5em;
@@ -145,11 +153,7 @@ header h1 {
 }
 header p {
 	float: right;
-	margin-top: 13px;
-}
-header p a {
-	font-weight: bold;
-	color: #fff;
+	margin-top: 5px;
 }
 
 .middle {
@@ -172,12 +176,15 @@ ol a:first-child li.post {
 	padding-top: 0;
 }
 
+time {
+	color: #696969;
+}
+
 li.post time {
 	float: left;
 	display: block;
 	width: 50px;
 	height: 100%;
-	color: #696969;
 }
 li.post p.title {
 	font-weight: bold;
@@ -202,6 +209,10 @@ a:visited li.post time {
 
 article.post p {
 	margin-bottom: 14px;
+}
+article.post p.post-time {
+	float: right;
+	/*width: 50%;*/
 }
 
 nav.pagination a {
@@ -243,6 +254,9 @@ nav.pagination span.elipsis {
 body.penn {
 	background: #f9fbff;
 }
+.penn .link-button {
+	background: #95001a;
+}
 
 /* 
 	BROWN:
@@ -259,6 +273,9 @@ body.penn {
 }
 body.brown {
 	background: #fffaf5;
+}
+.brown .link-button {
+	background: #CC0000;
 }
 
 /* ---------------------------------------------------------------------------------------

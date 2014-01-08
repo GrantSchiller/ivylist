@@ -4,7 +4,7 @@
 <ol>
 	<% posts.forEach(function(post) { %>
 		<a href="/posts/<%= post.id %>"><li class="post group">
-			<time><%= post.prettyDate() %></time>
+			<time><%= post.prettyDate("mmm d") %></time>
 			<p class="title"><%= post.title %></p>
 		</li></a>
 	<% }); %>

@@ -2,11 +2,11 @@
 <% include ../layouts/head %>
 
 <article class="post">
+	<p class="post-time"><time><%= post.prettyDate("h:MM mmm d, yyyy") %></time></p>
 	<h1><%= post.title %></h1>
-
 	<%- post.text_formatted %>
 </article>
 
-<p class="contact_link"><a href="mailto:<%= post.email %>">Contact this poster</a></p>
+<p class="contact_link"><a href="mailto:<%= post.email %>" class="link-button">Contact this poster</a></p>
 
 <% include ../layouts/foot %>

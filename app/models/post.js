@@ -65,8 +65,8 @@ var Post = function(data) {
     });
   };
 
-  this.prettyDate = function() {
-    return dateformat(this.date, "mmm d");
+  this.prettyDate = function(format) {
+    return dateformat(this.date, format);
   };
 }
 
