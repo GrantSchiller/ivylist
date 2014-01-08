@@ -14,7 +14,6 @@ renderer.heading = function(text, level) {
 renderer.hr = function() {
   return '';
 }
-
 marked.setOptions({
   sanitize: true,
   renderer: renderer
