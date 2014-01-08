@@ -39,11 +39,11 @@ a {
 	text-decoration: none;
 }
 
-.link-button {
+html body a.link-button {
 	display: inline-block;
 	font-weight: bold;
 	color: #fff;
-	padding: 8px;
+	padding: 10px;
 }
 
 #main {
@@ -153,7 +153,7 @@ header h1 {
 }
 header p {
 	float: right;
-	margin-top: 5px;
+	margin-top: 4px;
 }
 
 .middle {
@@ -206,13 +206,17 @@ a:visited li.post time {
 	float: right;
 	margin-bottom: 10px;
 }
+.side_text p {
+	margin-bottom: 10px;
+}
 
 article.post p {
 	margin-bottom: 14px;
 }
 article.post p.post-time {
 	float: right;
-	/*width: 50%;*/
+	margin-top: 3px;
+	margin-bottom: 2px;
 }
 
 nav.pagination a {
@@ -256,6 +260,9 @@ body.penn {
 }
 .penn .link-button {
 	background: #95001a;
+}
+.penn p a {
+	color: #95001a;
 }
 
 /* 

@@ -4,8 +4,13 @@
 <h1 class="new-post-title">Create a new post:</h1>
 
 <div class="group">
-<p class="side_text">Posts are formatted with Markdown. TODO: add more to this explanation.</p>
-<% include _post_form %>
+	<div class="side_text">
+		<p>Posts are formatted with <a href="http://support.mashery.com/docs/customizing_your_portal/Markdown_Cheat_Sheet">Markdown</a>:</p>
+		<p>Separate paragraphs with two or more returns.</p>
+		<p><strong>**bold**</strong> or <em>_italic_</em></p>
+		<p>Links in the form:<br /> [link text]<em>(http://yoururl.com/)</em>
+	</div>
+	<% include _post_form %>
 </div>
 
 <% include ../layouts/foot %>
