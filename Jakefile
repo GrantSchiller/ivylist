@@ -1,7 +1,7 @@
 var db = require("./lib/db.js"),
     Post = require("./app/models/post");
 
-process.env.DATABASE_URL = process.env.DATABASE_URL || "mongodb://localhost/ivylist_development";
+process.env.MONGOLAB_URI = process.env.MONGOLAB_URI || "mongodb://localhost/ivylist_development";
 
 desc('Create seed posts');
 task('seed', {async: true}, function(username, password) {
