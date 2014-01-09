@@ -2,7 +2,7 @@
 <form action="/posts/<%= post.id %>/send_email" method="post" class="contactForm group ajax">
 	<p class="group email">
 		<label for="email">Email:</label>
-		<input type="email" name="email" placeholder="yourname@something.upenn.edu" />
+		<input type="email" name="email" placeholder="yourname@something.upenn.edu" value="<%= email ? email : '' %>" />
 	</p>
 	<p class="group text">
 		<!-- <label for="text">Text:</label> -->

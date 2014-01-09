@@ -20,7 +20,7 @@ function index(response, request, params, postData) {
 
 function add(response, request, params, postData) {
   var post = new Post();
-  helper.render("posts/add.html", { post: post }, response, 200);
+  helper.render("posts/add.html", { post: post, email: request.session.email }, response, 200);
 }
 
 function create(response, request, params, postData) {
@@ -43,6 +43,8 @@ function create(response, request, params, postData) {
         text: confirmLink,
         html: '<a href="' + confirmLink + '">Confirm your post!</a>'
       });
+
+      request.session.email = post.email;
 
       helper.render("posts/create.html", { post: post }, response, 200);
     });
@@ -73,7 +75,7 @@ function show(response, request, params, postData) {
 
 function contact(response, request, params, postData) {
   _findPost(params.id, response, function(post) {
-    helper.render("posts/contact.js", { post: post }, response, 200);
+    helper.render("posts/contact.js", { post: post, email: request.session.email }, response, 200);
   });
 }
 
@@ -82,13 +84,15 @@ function sendEmail(response, request, params, postData) {
   var target = "friendscentral.org";
   if (re.test(postData.email) && (postData.email.substr(postData.email.length - target.length) == target) && (postData.email_text.trim().length != 0)) {
     _findPost(params.id, response, function(post) {
-        mail({
-          from: postData.email,
-          to: post.email,
-          subject: "Re: " + post.title,
-          text: postData.email_text,
-          html: postData.email_text
-        });
+      mail({
+        from: postData.email,
+        to: post.email,
+        subject: "Re: " + post.title,
+        text: postData.email_text,
+        html: postData.email_text
+      });
+
+      request.session.email = postData.email;
 
       helper.render("posts/send_email.js", { post: post }, response, 200);
     });
