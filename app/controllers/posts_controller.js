@@ -17,7 +17,7 @@ function index(response, request, params, postData) {
 
   Post.numPages(perPage, function (totalPages) {
     if ((currentPage > 0) && (currentPage <= totalPages)) {
-      Post.getAllConfirmed(perPage * (currentPage - 1), perPage, function(posts) {
+      Post.findPostsOnPage(currentPage, totalPages, perPage, function(posts) {
         helper.render("posts/index.html", { posts: posts, currentPage: currentPage, totalPages: totalPages }, response, 200);
       });
     } else {
@@ -77,13 +77,17 @@ function create(response, request, params, postData) {
 }
 
 function show(response, request, params, postData) {
-  Post.findById(parseInt(params.id), function(post) {
-    if (post) {
-      helper.render("posts/show.html", { post: post }, response, 200);
-    } else {
-      helper.renderError(404, response);
-    }
-  });
+  if (params.id && params.id.length == 24) {
+    Post.findByIdString(params.id).exec(function(err, post) {
+      if (post) {
+        helper.render("posts/show.html", { post: post }, response, 200);
+      } else {
+        helper.renderError(404, response);
+      }
+    });
+  } else {
+    helper.renderError(404, response);
+  }
 }
 
 function confirm(response, request, params, postData) {
