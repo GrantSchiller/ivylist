@@ -20,7 +20,16 @@ module.exports = {
     },
     ':id': {
       action: posts_controller.show,
-      accept: ["GET"]
+      accept: ["GET"],
+
+      'contact': {
+        action: posts_controller.contact,
+        accept: ["GET"]
+      },
+      'send_email': {
+        action: posts_controller.sendEmail,
+        accept: ["POST"]
+      }
     }
   },
 

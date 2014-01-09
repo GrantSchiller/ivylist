@@ -7,6 +7,8 @@
 	<%- post.text_formatted %>
 </article>
 
-<p class="contact_link"><a href="mailto:<%= post.email %>" class="link-button">Contact this poster</a></p>
+<div id="additional-post-ui">
+	<p class="contact_link"><a href="/posts/<%= post.id %>/contact" class="link-button ajax">Contact this poster</a></p>
+</div>
 
 <% include ../layouts/foot %>

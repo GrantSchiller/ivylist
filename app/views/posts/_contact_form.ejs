@@ -1,0 +1,12 @@
+<p class="contact-form-explanation">We'll deliver your email to the poster, and if they choose, they'll respond to the email you provide below.</p>
+<form action="/posts/<%= post.id %>/send_email" method="post" class="contactForm group ajax">
+	<p class="group email">
+		<label for="email">Email:</label>
+		<input type="email" name="email" placeholder="yourname@penn.edu" />
+	</p>
+	<p class="group text">
+		<!-- <label for="text">Text:</label> -->
+		<textarea name="email_text"></textarea>
+	</p>
+	<input type="submit" value="Send email" />
+</form>

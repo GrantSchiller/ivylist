@@ -129,7 +129,7 @@ form p.error:before {
 }
 
 form p.error.email:before {
-	content: "Please enter a valid @penn.edu address.";
+	content: "Please enter a valid University email.";
 }
 form p.error.title:before {
 	content: "Please enter a title.";
@@ -217,6 +217,25 @@ article.post p.post-time {
 	float: right;
 	margin-top: 3px;
 	margin-bottom: 2px;
+}
+
+.contact-form-explanation {
+	padding-top: 15px;
+	border-top: 1px solid #b9b9b9;
+	margin-bottom: 10px;
+}
+.successful-email {
+	color: #009f0f;
+}
+
+#additional-post-ui form.contactForm textarea {
+	width: 97%;
+}
+#additional-post-ui form.contactForm label {
+	width: 10.5%;
+}
+#additional-post-ui form.contactForm input[type=email] {
+	width: 85.5%;
 }
 
 nav.pagination a {
@@ -328,6 +347,13 @@ img, object, embed {
 		width: 77%;
 		padding: 2.5%;
 	}
+	#additional-post-ui form.contactForm textarea {
+		width: 95%;
+	}
+	#additional-post-ui form.contactForm input[type=email] {
+		width: 78%;
+	}
+
 	label {
 		margin-top: 2.5%;
 		width: 15%;
