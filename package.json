@@ -5,9 +5,7 @@
   "dependencies": {
     "connect": "*",
     "ejs": "*",
-    "pg": "*",
     "mongoose": "*",
-    "db-migrate": "*",
     "mocha": "*",
     "jake": "*",
     "dateformat": "*",
