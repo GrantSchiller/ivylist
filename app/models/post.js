@@ -55,7 +55,6 @@ post.pre('save', function(next) {
   this.formatText(next);
 });
 
-// Post.numPages(perPage, function (totalPages) {
 post.statics.numPages = function(perPage, callback) {
   this.count({ confirmed: true }, function(err, count) {
     callback(Math.ceil(count/perPage));
@@ -63,9 +62,7 @@ post.statics.numPages = function(perPage, callback) {
 }
 
 post.statics.findPostsOnPage = function(currentPage, totalPages, perPage, callback) {
-  this.find({ confirmed: true }).skip(perPage * (currentPage - 1)).limit(perPage).exec(function(err, posts) {
-    callback(posts, totalPages);
-  });
+  return this.find({ confirmed: true }).sort({date: -1}).skip(perPage * (currentPage - 1)).limit(perPage);
 };
 
 post.statics.findByIdString = function(id) {

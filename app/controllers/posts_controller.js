@@ -3,21 +3,13 @@ var helper = require("../../lib/helper"),
     nodemailer = require("nodemailer"),
     Post = require('../models/post');
 
-// var smtpTransport = nodemailer.createTransport("SMTP", {
-//   service: "Gmail",
-//   auth: {
-//     user: "max@luzuriaga.com",
-//     pass: ""
-//   }
-// });
-
 function index(response, request, params, postData) {
   var perPage = 20;
   var currentPage = params.page ? parseInt(params.page) : 1;
 
   Post.numPages(perPage, function (totalPages) {
     if ((currentPage > 0) && (currentPage <= totalPages)) {
-      Post.findPostsOnPage(currentPage, totalPages, perPage, function(posts) {
+      Post.findPostsOnPage(currentPage, totalPages, perPage).exec(function(err, posts) {
         helper.render("posts/index.html", { posts: posts, currentPage: currentPage, totalPages: totalPages }, response, 200);
       });
     } else {
@@ -41,7 +33,7 @@ function create(response, request, params, postData) {
       text_markdown: postData.text
     });
 
-    post.save(function() {
+    post.save(function(err, post) {
       var confirmLink ='http://' + request.headers.host + "/confirm/" + post.confirmation_code;
       var mail = nodemailer.mail;
 
@@ -52,22 +44,6 @@ function create(response, request, params, postData) {
         text: confirmLink,
         html: '<a href="' + confirmLink + '">Confirm your post!</a>'
       });
-
-      // var mailOptions = {
-      //   from: "Max Luzuriaga <max@luzuriaga.com>",
-      //   to: post.email,
-      //   subject: "Confirm your Ivylist post",
-      //   text: confirmLink,
-      //   html: '<a href="' + confirmLink + '">Confirm your post!</a>'
-      // }
-
-      // smtpTransport.sendMail(mailOptions, function(error, response){
-      //   if(error){
-      //     console.log(error);
-      //   }else{
-      //     console.log("Message sent: " + response.message);
-      //   }
-      // });
 
       helper.render("posts/create.html", { post: post }, response, 200);
     });
@@ -91,12 +67,12 @@ function show(response, request, params, postData) {
 }
 
 function confirm(response, request, params, postData) {
-  Post.findByConfirmationCode(params.confirmation_code, function(post) {
+  Post.findOne({ confirmation_code: params.confirmation_code }, function(err, post) {
     if (post) {
       if (post.confirmed) {
         helper.redirectTo("/posts/" + post.id, request, response);
       } else {
-        post.confirm(function() {
+        post.update({ confirmed: true }, function(err) {
           helper.redirectTo("/posts/" + post.id, request, response);
         });
       }
