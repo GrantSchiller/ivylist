@@ -70,21 +70,31 @@ html body a.link-button {
 	padding-left: 16.74%;
 }
 
-input[type=text], input[type=email], textarea {
+.static-form-box {
+	float: right;
+	width: 70%;
+	padding: 1.5%;
+	height: 16px;
+	background: #f6f6f6;
+}
+
+input[type=text], input[type=email], input[type=password], textarea {
 	border: 0;
 	float: right;
 	width: 70%;
+	height: 16px;
 	padding: 1.5%;
 	background: #e7e7e7;
 	color: #1b1b1b;
 	-webkit-appearance: none;
 	border-radius: 0;
 }
-input[type=text]:focus, input[type=email]:focus, textarea:focus {
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus, textarea:focus {
 	background: #f6f6f6;
 }
 label {
-	margin-top: 1.5%;
+	padding-top: 1.5%;
+	margin-top: 3px;
 	text-align: right;
 	float: left;
 	width: 25%;
@@ -193,14 +203,14 @@ li.post p.title {
 	font-weight: bold;
 	color: #1b1b1b;
 }
-a:visited li.post p.title, label {
+a:visited li.post p.title, label, .static-form-box {
 	color: #696969;
 }
 a:visited li.post time {
 	color: #8f8f8f;
 }
 
-.group > form.postForm {
+.group > form.leftForm {
 	float: left;
 	width: 62%;
 }
@@ -259,6 +269,10 @@ nav.pagination {
 }
 nav.pagination span.elipsis {
 	font-size: 1.2em;
+}
+
+.confirm-signup-text {
+	margin-bottom: 15px;
 }
 
 /* ---------------------------------------------------------------------------------------
@@ -337,7 +351,7 @@ img, object, embed {
 }
 
 @media screen and (max-width: 500px) {
-	.group > form.postForm {
+	.group > form.leftForm {
 		float: none;
 		width: 100%;
 	}
@@ -346,20 +360,23 @@ img, object, embed {
 		float: none;
 	}
 
-	input[type=text], input[type=email], textarea {
-		width: 77%;
-		padding: 2.5%;
-	}
-	#additional-post-ui form.contactForm textarea {
-		width: 95%;
-	}
-	#additional-post-ui form.contactForm input[type=email] {
-		width: 78%;
+	form label {
+		float: none;
+		text-align: left;
+		margin-bottom: 6px;
+		margin-top: 0;
+		display: block;
 	}
 
-	label {
-		margin-top: 2.5%;
-		width: 15%;
+	input[type=text], input[type=email], #additional-post-ui form.contactForm input[type=email], input[type=password], .static-form-box, textarea {
+		width: 95%;
+		padding: 2.5%;
+		float: none;
+		clear: both;
+	}
+
+	form {
+		margin-bottom: 20px;
 	}
 
 	.new-post-title {

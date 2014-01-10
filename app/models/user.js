@@ -14,13 +14,13 @@ user.pre('save', function(next) {
 });
 
 user.post('save', function(doc) {
-  Post.update({ email: doc.email }, { _user: doc._id }, function(err) {
+  Post.update({ email: doc.email }, { _user: doc._id }, { multi: true }, function(err) {
     if (err) console.log(err);
   });
 });
 
 user.pre('remove', function(next) {
-  Post.update({ _user: this._id }, { _user: undefined }, function(err) {
+  Post.update({ _user: this._id }, { _user: undefined }, { multi: true }, function(err) {
     if (err) console.log(err);
     next();
   });

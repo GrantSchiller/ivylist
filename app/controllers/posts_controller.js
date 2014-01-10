@@ -69,7 +69,9 @@ function _findPost(id, response, callback) {
 
 function show(response, request, params, postData) {
   _findPost(params.id, response, function(post) {
-    helper.render("posts/show.html", { post: post }, response, 200);
+    request.session.confirmedEmail = request.session.email;
+    helper.render("posts/confirm.html", { email: request.session.confirmedEmail, post: post }, response, 200);
+    // helper.render("posts/show.html", { post: post }, response, 200);
   });
 }
 
@@ -108,7 +110,13 @@ function confirm(response, request, params, postData) {
         helper.redirectTo("/posts/" + post.id, request, response);
       } else {
         post.update({ confirmed: true }, function(err) {
-          helper.redirectTo("/posts/" + post.id, request, response);
+          if (request.session.email && request.session.email == post.email) { // TODO: Check that user isn't already signed in
+            request.session.confirmedEmail = request.session.email;
+            helper.render("posts/confirm.html", { email: request.session.confirmedEmail, post: post }, response, 200);
+          } else {
+            // Confirming from different device
+            helper.redirectTo("/posts/" + post.id, request, response);
+          }
         });
       }
     } else {

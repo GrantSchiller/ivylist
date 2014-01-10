@@ -1,4 +1,5 @@
-var posts_controller = require("../app/controllers/posts_controller");
+var posts_controller = require("../app/controllers/posts_controller"),
+    users_controller = require("../app/controllers/users_controller");
 
 module.exports = {
   '': {
@@ -30,6 +31,14 @@ module.exports = {
         action: posts_controller.sendEmail,
         accept: ["POST"]
       }
+    }
+  },
+
+  'users': {
+    'create': {
+      action: users_controller.create,
+      accept: ["POST"],
+      secure: true
     }
   },
 
