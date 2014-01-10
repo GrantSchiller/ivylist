@@ -1,4 +1,4 @@
-var helper = require("../../lib/helper"),
+var helper = require('../../lib/helper'),
     User = require('../models/user');
 
 function create(response, request, params, postData) {
@@ -10,11 +10,12 @@ function create(response, request, params, postData) {
 
   user.save(function(err, user) {
     if (err) console.log(err);
+
     request.session.confirmedEmail = undefined;
-    console.log(user.hashed_password);
+
+    helper.signIn(user, request);
     helper.redirectTo("/", request, response);
   });
-  //request.session.confirmedEmail SET TO UNDEFINED
 }
 
 exports.create = create;

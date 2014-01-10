@@ -1,5 +1,6 @@
-var posts_controller = require("../app/controllers/posts_controller"),
-    users_controller = require("../app/controllers/users_controller");
+var posts_controller = require('../app/controllers/posts_controller'),
+    users_controller = require('../app/controllers/users_controller'),
+    sessions_controller = require('../app/controllers/sessions_controller');
 
 module.exports = {
   '': {
@@ -40,6 +41,17 @@ module.exports = {
       accept: ["POST"],
       secure: true
     }
+  },
+
+  'login': {
+    action: sessions_controller.login,
+    accept: ["GET"]
+  },
+
+  'logout': {
+    action: sessions_controller.logout,
+    accept: ["GET"],
+    loggedInOnly: true
   },
 
   'confirm': {
