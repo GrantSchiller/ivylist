@@ -24,6 +24,7 @@ var post = new mongoose.Schema({
   text_markdown: String,
   text_formatted: String,
   email: String,
+  _user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
   confirmation_code: String,
   confirmed: { type: Boolean, default: false },
   date: { type: Date, default: Date.now }
