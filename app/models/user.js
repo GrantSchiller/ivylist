@@ -30,7 +30,7 @@ user.methods = {
 
 };
 
-users.statics = {
+user.statics = {
   hashPassword: function(password) {
     var text = "--IVYSALT--" + password;
 
@@ -44,4 +44,4 @@ users.statics = {
   }
 };
 
-module.exports = mongoose.model('User', users);
+module.exports = mongoose.model('User', user);

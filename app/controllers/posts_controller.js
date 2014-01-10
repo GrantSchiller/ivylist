@@ -1,6 +1,7 @@
-var helper = require("../../lib/helper"),
-    mail = require("nodemailer").mail,
-    Post = require('../models/post');
+var helper = require('../../lib/helper'),
+    mail = require('nodemailer').mail,
+    Post = require('../models/post'),
+    User = require('../models/user');
 
 function index(response, request, params, postData) {
   var perPage = 20;
@@ -8,7 +9,7 @@ function index(response, request, params, postData) {
 
   Post.numPages(perPage, function (totalPages) {
     if ((currentPage > 0) && (currentPage <= totalPages)) {
-      Post.findPostsOnPage(currentPage, totalPages, perPage).exec(function(err, posts) {
+      Post.findPostsOnPage(currentPage, totalPages, perPage).populate('_user').exec(function(err, posts) {
         helper.render("posts/index.html", { posts: posts, currentPage: currentPage, totalPages: totalPages }, response, 200);
       });
     } else {
