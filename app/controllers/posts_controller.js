@@ -1,5 +1,4 @@
 var helper = require("../../lib/helper"),
-    db = require("../../lib/db"),
     mail = require("nodemailer").mail,
     Post = require('../models/post');
 
