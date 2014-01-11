@@ -24,7 +24,7 @@ function createSession(response, request, params, postData) {
       helper.signIn(user, request);
       helper.redirectTo("/", request, response); // TODO: redirect to the page the user was on
     } else {
-      helper.redirect("/login", request, response);
+      helper.redirectTo("/login", request, response);
     }
   });
 }
