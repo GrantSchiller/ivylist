@@ -20,14 +20,29 @@ marked.setOptions({
 });
 
 var post = new mongoose.Schema({
-  title: String,
-  text_markdown: String,
+  title: { type: String, required: true },
+  text_markdown: { type: String, required: true },
   text_formatted: String,
   email: String,
   _user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   confirmation_code: String,
   confirmed: { type: Boolean, default: false },
   date: { type: Date, default: Date.now }
+});
+
+var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+var target = "friendscentral.org";
+
+post.path('email').validate(function(email) {
+  return (re.test(email) && (email.substr(email.length - target.length) == target));
+});
+
+post.path('title').validate(function(title) {
+  return title.trim().length > 0;
+});
+
+post.path('text_markdown').validate(function(text) {
+  return text.trim().length > 0;
 });
 
 post.pre('save', function(next) {

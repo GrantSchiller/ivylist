@@ -24,29 +24,29 @@ function add(response, request, params, postData) {
 }
 
 function create(response, request, params, postData) {
-  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  var target = "friendscentral.org";
+  var post = new Post({
+    title: postData.title,
+    text_markdown: postData.text
+  });;
 
-  var formValid = ((postData.title.trim().length != 0) && (postData.text.trim().length != 0));
-  var emailValid = request.user ? true : (re.test(postData.email) && (postData.email.substr(postData.email.length - target.length) == target));
+  if (request.user) {
+    post._user = request.user._id;
+    post.confirmed = true;
 
-  if (formValid && emailValid) {
-    var post = new Post({
-      title: postData.title,
-      text_markdown: postData.text
-    });;
-
-    if (request.user) {
-      post._user = request.user._id;
-      post.confirmed = true;
-
-      post.save(function(err, post) {
+    post.save(function(err, post) {
+      if (err) {
+        helper.redirectTo("/new", request, response); // TODO: display feedback to user for why post was invalid
+      } else {
         helper.redirectTo("/posts/" + post.id, request, response);
-      });
-    } else {
-      post.email = postData.email,
+      }
+    });
+  } else {
+    post.email = postData.email,
 
-      post.save(function(err, post) {
+    post.save(function(err, post) {
+      if (err) {
+        helper.redirectTo("/new", request, response); // TODO: display feedback to user for why post was invalid
+      } else {
         var confirmLink ='http://' + request.headers.host + "/confirm/" + post.confirmation_code;
 
         mail({
@@ -60,10 +60,8 @@ function create(response, request, params, postData) {
         request.session.email = post.email;
 
         helper.render("posts/create.html", { post: post }, request, response, 200);
-      });
-    }
-  } else {
-    helper.redirectTo("/new", request, response);
+      }
+    });
   }
 }
 
