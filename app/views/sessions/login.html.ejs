@@ -1,0 +1,23 @@
+<% var title = "Login" %> 
+<% include ../layouts/head %>
+
+<h1>Login</h1>
+
+<!-- <div class="group"> -->
+	<form action="/sessions/create" method="post" class="group">
+		<p class="group email">
+			<label for="email">Email:</label>
+			<input type="email" name="email" placeholder="yourname@something.upenn.edu" value="<%= email ? email : '' %>" />
+		</p>
+		<p class="group password">
+			<label for="password" class="password">Password:</label>
+			<input type="password" name="password" class="password" />
+		</p>
+		<input type="submit" value="Login" />
+	</form>
+<!-- 	<div class="side_text">
+		<p><a class="link-button" href="/posts/4332">No thanks, take me to my post</a></p>
+	</div> -->
+<!-- </div> -->
+
+<% include ../layouts/foot %>

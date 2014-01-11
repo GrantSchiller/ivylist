@@ -2,13 +2,11 @@ var helper = require('../../lib/helper'),
     User = require('../models/user');
 
 function login(response, request, params, postData) {
-  helper.currentUser(request, function(user) {
-    if (user) {
-      helper.redirectTo("/", request, response); // TODO: redirect to the page the user was on
-    } else {
-      helper.render("sessions/login.html", { email: request.session.email }, response, 200);
-    }
-  }); 
+  if (request.user) {
+    helper.redirectTo("/", request, response); // TODO: redirect to the page the user was on
+  } else {
+    helper.render("sessions/login.html", { email: request.session.email }, request, response, 200);
+  }
 }
 
 function logout(response, request, params, postData) {
@@ -22,7 +20,7 @@ function createSession(response, request, params, postData) {
 
   User.authenticate(email, password).exec(function(err, user) {
     if (user) {
-      signIn(user, request);
+      helper.signIn(user, request);
       helper.redirectTo("/", request, response); // TODO: redirect to the page the user was on
     } else {
       helper.redirect("/login", request, response);

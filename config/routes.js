@@ -47,6 +47,14 @@ module.exports = {
     action: sessions_controller.login,
     accept: ["GET"]
   },
+  
+  'sessions': {
+    'create': {
+      action: sessions_controller.createSession,
+      accept: ["POST"],
+      secure: true
+    }
+  },
 
   'logout': {
     action: sessions_controller.logout,

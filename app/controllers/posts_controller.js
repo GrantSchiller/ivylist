@@ -10,17 +10,17 @@ function index(response, request, params, postData) {
   Post.numPages(perPage, function (totalPages) {
     if ((currentPage > 0) && (currentPage <= totalPages)) {
       Post.findPostsOnPage(currentPage, totalPages, perPage).populate('_user').exec(function(err, posts) {
-        helper.render("posts/index.html", { posts: posts, currentPage: currentPage, totalPages: totalPages }, response, 200);
+        helper.render("posts/index.html", { posts: posts, currentPage: currentPage, totalPages: totalPages }, request, response, 200);
       });
     } else {
-      helper.renderError(404, response);
+      helper.renderError(404, request, response);
     }
   });
 }
 
 function add(response, request, params, postData) {
   var post = new Post();
-  helper.render("posts/add.html", { post: post, email: request.session.email }, response, 200);
+  helper.render("posts/add.html", { post: post, email: request.session.email }, request, response, 200);
 }
 
 function create(response, request, params, postData) {
@@ -46,7 +46,7 @@ function create(response, request, params, postData) {
 
       request.session.email = post.email;
 
-      helper.render("posts/create.html", { post: post }, response, 200);
+      helper.render("posts/create.html", { post: post }, request, response, 200);
     });
   } else {
     helper.redirectTo("/new", request, response);
@@ -59,25 +59,25 @@ function _findPost(id, response, callback) {
       if (post) {
         callback(post);
       } else {
-        helper.renderError(404, response);
+        helper.renderError(404, request, response);
       }
     });
   } else {
-    helper.renderError(404, response);
+    helper.renderError(404, request, response);
   }
 }
 
 function show(response, request, params, postData) {
   _findPost(params.id, response, function(post) {
     request.session.confirmedEmail = request.session.email;
-    helper.render("posts/confirm.html", { email: request.session.confirmedEmail, post: post }, response, 200);
-    // helper.render("posts/show.html", { post: post }, response, 200);
+    helper.render("posts/confirm.html", { email: request.session.confirmedEmail, post: post }, request, response, 200);
+    // helper.render("posts/show.html", { post: post }, request, response, 200);
   });
 }
 
 function contact(response, request, params, postData) {
   _findPost(params.id, response, function(post) {
-    helper.render("posts/contact.js", { post: post, email: request.session.email }, response, 200);
+    helper.render("posts/contact.js", { post: post, email: request.session.email }, request, response, 200);
   });
 }
 
@@ -96,10 +96,10 @@ function sendEmail(response, request, params, postData) {
 
       request.session.email = postData.email;
 
-      helper.render("posts/send_email.js", { post: post }, response, 200);
+      helper.render("posts/send_email.js", { post: post }, request, response, 200);
     });
   } else {
-    helper.renderError(403, response);
+    helper.renderError(403, request, response);
   }
 }
 
@@ -112,7 +112,7 @@ function confirm(response, request, params, postData) {
         post.update({ confirmed: true }, function(err) {
           if (request.session.email && request.session.email == post.email) { // TODO: Check that user isn't already signed in
             request.session.confirmedEmail = request.session.email;
-            helper.render("posts/confirm.html", { email: request.session.confirmedEmail, post: post }, response, 200);
+            helper.render("posts/confirm.html", { email: request.session.confirmedEmail, post: post }, request, response, 200);
           } else {
             // Confirming from different device
             helper.redirectTo("/posts/" + post.id, request, response);
@@ -120,7 +120,7 @@ function confirm(response, request, params, postData) {
         });
       }
     } else {
-      helper.renderError(404, response);
+      helper.renderError(404, request, response);
     }
   });
 }

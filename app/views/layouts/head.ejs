@@ -16,7 +16,14 @@
 <header>
 	<div class="middle group">
 		<h1><a href="/">Penn</a></h1>
-		<p><a href="/new" class="link-button">New post</a></p>
+		<p>
+			<% if (currentUser) { %>
+				<%= currentUser.email.split("@")[0] %> (<a href="/logout">Logout</a>)
+			<% } else { %>
+				<a href="/login">Login</a>
+			<% } %>
+			<a href="/new" class="link-button">New post</a>
+		</p>
 	</div>
 </header>
 
