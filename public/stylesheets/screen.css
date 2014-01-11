@@ -167,6 +167,13 @@ header h1 {
 header p {
 	float: right;
 	margin-top: 4px;
+	font-weight: bold;
+}
+header p a {
+	font-weight: normal;
+}
+header p .link-button {
+	margin-left: 10px;
 }
 
 .middle {
@@ -189,10 +196,6 @@ ol a:first-child li.post {
 	padding-top: 0;
 }
 
-time {
-	color: #696969;
-}
-
 li.post time {
 	float: left;
 	display: block;
@@ -203,7 +206,7 @@ li.post p.title {
 	font-weight: bold;
 	color: #1b1b1b;
 }
-a:visited li.post p.title, label, .static-form-box {
+time, a:visited li.post p.title, label, .static-form-box {
 	color: #696969;
 }
 a:visited li.post time {
@@ -299,6 +302,12 @@ body.penn {
 }
 .penn p a {
 	color: #95001a;
+}
+.penn header p {
+	color: #f1f1f1;
+}
+.penn header p a.login-out {
+	color: #e5f8ff;
 }
 
 /* 
