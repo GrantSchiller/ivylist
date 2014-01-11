@@ -26,28 +26,42 @@ function add(response, request, params, postData) {
 function create(response, request, params, postData) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   var target = "friendscentral.org";
-  if (re.test(postData.email) && (postData.email.substr(postData.email.length - target.length) == target) && (postData.title.trim().length != 0) && (postData.text.trim().length != 0)) {
+
+  var formValid = ((postData.title.trim().length != 0) && (postData.text.trim().length != 0));
+  var emailValid = request.user ? true : (re.test(postData.email) && (postData.email.substr(postData.email.length - target.length) == target));
+
+  if (formValid && emailValid) {
     var post = new Post({
       title: postData.title,
-      email: postData.email,
       text_markdown: postData.text
-    });
+    });;
 
-    post.save(function(err, post) {
-      var confirmLink ='http://' + request.headers.host + "/confirm/" + post.confirmation_code;
+    if (request.user) {
+      post._user = request.user._id;
+      post.confirmed = true;
 
-      mail({
-        from: "Max Luzuriaga <max@luzuriaga.com>",
-        to: post.email,
-        subject: "Confirm your Ivylist post",
-        text: confirmLink,
-        html: '<a href="' + confirmLink + '">Confirm your post!</a>'
+      post.save(function(err, post) {
+        helper.redirectTo("/posts/" + post.id, request, response);
       });
+    } else {
+      post.email = postData.email,
 
-      request.session.email = post.email;
+      post.save(function(err, post) {
+        var confirmLink ='http://' + request.headers.host + "/confirm/" + post.confirmation_code;
 
-      helper.render("posts/create.html", { post: post }, request, response, 200);
-    });
+        mail({
+          from: "Max Luzuriaga <max@luzuriaga.com>",
+          to: post.email,
+          subject: "Confirm your Ivylist post",
+          text: confirmLink,
+          html: '<a href="' + confirmLink + '">Confirm your post!</a>'
+        });
+
+        request.session.email = post.email;
+
+        helper.render("posts/create.html", { post: post }, request, response, 200);
+      });
+    }
   } else {
     helper.redirectTo("/new", request, response);
   }

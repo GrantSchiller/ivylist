@@ -89,10 +89,12 @@ $(function() {
 	$('textarea').css({ resize: 'none' });
 
 	$('.postForm').submit(function(e) {
-		var email = $("p.email input").val();
-		if (!(re.test(email) && (email.substr(email.length - target.length) == target))) {
-			$('.postForm p.email').addClass("error");
-			e.preventDefault();
+		if ($("p.email input").length > 0) {
+			var email = $("p.email input").val();
+			if (!(re.test(email) && (email.substr(email.length - target.length) == target))) {
+				$('.postForm p.email').addClass("error");
+				e.preventDefault();
+			}
 		}
 
 		var title = $("p.title input").val();
