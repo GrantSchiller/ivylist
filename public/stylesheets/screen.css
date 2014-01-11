@@ -151,8 +151,15 @@ form p.error.text:before {
 	content: "Please enter some text";
 }
 
+h1.full-form-title {
+	padding-left: 27%;
+}
+
+#main form {
+	margin-bottom: 20px;
+}
+
 #main form p {
-	/*margin-bottom: 10px;*/
 	padding: 5px;
 	line-height: 1em;
 }
@@ -333,7 +340,11 @@ body.brown {
 /* ---------------------------------------------------------------------------------------
    Etc.
    --------------------------------------------------------------------------------------- */
-   
+
+.text-right {
+	text-align: right;
+}
+
 .group:before, .group:after {
 	content: "\0020";
 	display: block;
@@ -344,13 +355,6 @@ body.brown {
 .group { zoom: 1; }
 img, object, embed {
 	max-width: 100%;
-}
-
-@media screen and (max-width: 1000px) {
-	.middle {
-		/*width: 65%;*/
-		/*background: green;*/
-	}
 }
 
 @media screen and (max-width: 875px) {
@@ -377,6 +381,10 @@ img, object, embed {
 		display: block;
 	}
 
+	h1.full-form-title {
+		padding-left: 5px;
+	}
+
 	input[type=text], input[type=email], #additional-post-ui form.contactForm input[type=email], input[type=password], .static-form-box, textarea {
 		width: 95%;
 		padding: 2.5%;
@@ -384,9 +392,9 @@ img, object, embed {
 		clear: both;
 	}
 
-	form {
+/*	form {
 		margin-bottom: 20px;
-	}
+	}*/
 
 	.new-post-title {
 		padding-left: 0%;
