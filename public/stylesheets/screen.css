@@ -264,7 +264,7 @@ article.post p.post-time {
 #additional-post-ui form.contactForm label {
 	width: 10.5%;
 }
-#additional-post-ui form.contactForm input[type=email] {
+#additional-post-ui form.contactForm input[type=email], #additional-post-ui form.contactForm .static-form-box {
 	width: 85.5%;
 }
 
@@ -371,6 +371,15 @@ img, object, embed {
 }
 
 @media screen and (max-width: 500px) {
+	header h1 {
+		float: none;
+	}
+	header p {
+		float: none;
+		clear: both;
+		margin-top: 10px;
+	}
+
 	.group > form.leftForm {
 		float: none;
 		width: 100%;
@@ -392,7 +401,7 @@ img, object, embed {
 		padding-left: 5px;
 	}
 
-	input[type=text], input[type=email], #additional-post-ui form.contactForm input[type=email], input[type=password], .static-form-box, textarea {
+	input[type=text], input[type=email], #additional-post-ui form.contactForm input[type=email], #additional-post-ui .static-form-box, input[type=password], .static-form-box, textarea {
 		width: 95%;
 		padding: 2.5%;
 		float: none;

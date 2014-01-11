@@ -58,11 +58,13 @@ function prepareContactForm() {
 	$('form.contactForm').submit(function(e) {
 		shouldSubmitForm = true;
 
-		var email = $(".contactForm p.email input").val();
-		if (!(re.test(email) && (email.substr(email.length - target.length) == target))) {
-			$('.contactForm p.email').addClass("error");
-			shouldSubmitForm = false;
-			e.preventDefault();
+		if ($("p.email input").length > 0) {
+			var email = $(".contactForm p.email input").val();
+			if (!(re.test(email) && (email.substr(email.length - target.length) == target))) {
+				$('.contactForm p.email').addClass("error");
+				shouldSubmitForm = false;
+				e.preventDefault();
+			}
 		}
 		
 		var text = $(".contactForm textarea").val();

@@ -69,7 +69,7 @@ function create(response, request, params, postData) {
 
 function _findPost(id, response, callback) {
   if (id && id.length == 24) {
-    Post.findByIdString(id).exec(function(err, post) {
+    Post.findByIdString(id).populate('_user').exec(function(err, post) {
       if (post) {
         callback(post);
       } else {
@@ -83,9 +83,7 @@ function _findPost(id, response, callback) {
 
 function show(response, request, params, postData) {
   _findPost(params.id, response, function(post) {
-    request.session.confirmedEmail = request.session.email;
-    helper.render("posts/confirm.html", { email: request.session.confirmedEmail, post: post }, request, response, 200);
-    // helper.render("posts/show.html", { post: post }, request, response, 200);
+    helper.render("posts/show.html", { post: post }, request, response, 200);
   });
 }
 
@@ -100,9 +98,11 @@ function sendEmail(response, request, params, postData) {
   var target = "friendscentral.org";
   if (re.test(postData.email) && (postData.email.substr(postData.email.length - target.length) == target) && (postData.email_text.trim().length != 0)) {
     _findPost(params.id, response, function(post) {
+      var toEmail = post._user ? post._user.email : post.email;
+      
       mail({
         from: postData.email,
-        to: post.email,
+        to: toEmail,
         subject: "Re: " + post.title,
         text: postData.email_text,
         html: postData.email_text
