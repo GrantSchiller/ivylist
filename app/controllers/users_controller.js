@@ -11,6 +11,7 @@ function create(response, request, params, postData) {
   user.save(function(err, user) {
     if (err) console.log(err);
 
+    request.session.email = undefined;
     request.session.confirmedEmail = undefined;
 
     helper.signIn(user, request);

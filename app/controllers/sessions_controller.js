@@ -5,6 +5,7 @@ function login(response, request, params, postData) {
   if (request.user) {
     helper.redirectTo("/", request, response); // TODO: redirect to the page the user was on
   } else {
+    request.session.email = undefined;
     helper.render("sessions/login.html", { email: request.session.email }, request, response, 200);
   }
 }
