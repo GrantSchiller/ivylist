@@ -4,6 +4,8 @@ var helper = require('../../lib/helper'),
     User = require('../models/user');
 
 function index(response, request, params, postData) {
+  request.session.confirmedEmail = undefined;
+  
   var perPage = 20;
   var currentPage = params.page ? parseInt(params.page) : 1;
 
@@ -19,6 +21,8 @@ function index(response, request, params, postData) {
 }
 
 function add(response, request, params, postData) {
+  request.session.confirmedEmail = undefined;
+
   var post = new Post();
   helper.render("posts/add.html", { post: post, email: request.session.email }, request, response, 200);
 }
@@ -80,6 +84,8 @@ function _findPost(id, response, callback) {
 }
 
 function show(response, request, params, postData) {
+  request.session.confirmedEmail = undefined;
+
   _findPost(params.id, response, function(post) {
     helper.render("posts/show.html", { post: post }, request, response, 200);
   });

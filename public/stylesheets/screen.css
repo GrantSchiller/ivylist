@@ -158,7 +158,7 @@ form p.error.text:before {
 	content: "Please enter some text";
 }
 
-h1.full-form-title {
+.full-form-title {
 	padding-left: 27%;
 }
 
@@ -397,7 +397,7 @@ img, object, embed {
 		display: block;
 	}
 
-	h1.full-form-title {
+	.full-form-title {
 		padding-left: 5px;
 	}
 

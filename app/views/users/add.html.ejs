@@ -1,0 +1,24 @@
+<% var title = "Signup" %> 
+<% include ../layouts/head %>
+
+<h1 class="full-form-title">Register for an account</h1>
+<p class="full-form-title">This way, you won't have to confirm each post!</p>
+
+
+<form action="/sessions/create" method="post" class="group">
+	<p class="group email">
+		<label for="email">Email:</label>
+		<input type="email" name="email" placeholder="yourname@something.upenn.edu" value="<%= email ? email : '' %>" />
+	</p>
+	<p class="group password">
+		<label for="password" class="password">Password:</label>
+		<input type="password" name="password" class="password" />
+	</p>
+	<p class="group password_confirmation">
+		<label for="password_confirmation" class="password">Confirm Password:</label>
+		<input type="password" name="password_confirmation" class="password_confirmation" />
+	</p>
+	<input type="submit" value="Register" />
+</form>
+
+<% include ../layouts/foot %>

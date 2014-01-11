@@ -16,7 +16,7 @@ user.path('email').validate(function(email) {
 });
 
 user.pre('save', function(next) {
-  if (this.password && this.password..length > 4) {
+  if (this.password && this.password.length > 4) {
     this.hashed_password = this.model('User').hashPassword(this.password);
     next();
   } else {

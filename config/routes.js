@@ -43,6 +43,11 @@ module.exports = {
     }
   },
 
+  'register': {
+    action: users_controller.add,
+    accept: ["GET"]
+  },
+
   'login': {
     action: sessions_controller.login,
     accept: ["GET"]
