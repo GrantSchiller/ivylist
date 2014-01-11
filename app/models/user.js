@@ -3,14 +3,25 @@ var mongoose = require('mongoose'),
     Post = require('./post');
 
 var user = new mongoose.Schema({
-  email: String,
+  email: { type: String, required: true },
   hashed_password: String,
   joined: { type: Date, default: Date.now }
 });
 
+var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+var target = "friendscentral.org";
+
+user.path('email').validate(function(email) {
+  return (re.test(email) && (email.substr(email.length - target.length) == target));
+});
+
 user.pre('save', function(next) {
-  this.hashed_password = this.model('User').hashPassword(this.password);
-  next();
+  if (this.password && this.password..length > 4) {
+    this.hashed_password = this.model('User').hashPassword(this.password);
+    next();
+  } else {
+    next(new Error("Password must be >5 chars"));
+  }
 });
 
 user.post('save', function(doc) {

@@ -122,7 +122,7 @@ function confirm(response, request, params, postData) {
         helper.redirectTo("/posts/" + post.id, request, response);
       } else {
         post.update({ confirmed: true }, function(err) {
-          if (request.session.email && request.session.email == post.email) { // TODO: Check that user isn't already signed in
+          if (!request.user && request.session.email && request.session.email == post.email) {
             request.session.confirmedEmail = request.session.email;
             helper.render("posts/confirm.html", { email: request.session.confirmedEmail, post: post }, request, response, 200);
           } else {
