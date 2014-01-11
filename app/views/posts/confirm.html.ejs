@@ -1,15 +1,16 @@
 <% var title = "Confirmed post!" %> 
 <% include ../layouts/head %>
 
-<h1>Post confirmed! Want to make an account?</h1>
-
-<p class="confirm-signup-text">If you make an account now, you won't have to confirm future posts.</p>
+<div class="new-post-title">
+	<h1>Post confirmed! Want to make an account?</h1>
+	<p class="confirm-signup-text">If you make an account now, you won't have to confirm future posts.</p>
+</div>
 
 <div class="group">
 	<form action="/users/create" method="post" class="leftForm group">
-		<p class="group email">
+		<p class="group email confirmed-field">
 			<label for="email">Email:</label>
-			<strong class="static-form-box"><%= email %></strong>
+			<span class="static-form-box"><%= email %></span>
 		</p>
 		<p class="group password">
 			<label for="password" class="password">Password:</label>

@@ -70,12 +70,19 @@ html body a.link-button {
 	padding-left: 16.74%;
 }
 
+.confirmed-field {
+	/*background: #f6f6f6;*/
+	opacity: 0.4;
+}
+
 .static-form-box {
+	display: block;
+	font-size: .875em;
 	float: right;
 	width: 70%;
 	padding: 1.5%;
 	height: 16px;
-	background: #f6f6f6;
+	background: #d0f3d5;
 }
 
 input[type=text], input[type=email], input[type=password], textarea {
@@ -213,7 +220,7 @@ li.post p.title {
 	font-weight: bold;
 	color: #1b1b1b;
 }
-time, a:visited li.post p.title, label, .static-form-box {
+time, a:visited li.post p.title, label {
 	color: #696969;
 }
 a:visited li.post time {
