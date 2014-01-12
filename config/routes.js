@@ -16,6 +16,12 @@ module.exports = {
     action: posts_controller.index,
     accept: ["GET"],
 
+    'confirm': {
+      ':confirmation_code': {
+        action: posts_controller.confirm,
+        accept: ["GET"]
+      }
+    },
     'create': {
       action: posts_controller.create,
       accept: ["POST"]
@@ -40,6 +46,13 @@ module.exports = {
       action: users_controller.create,
       accept: ["POST"],
       secure: true
+    },
+
+    'confirm': {
+      ':confirmation_code': {
+        action: users_controller.confirm,
+        accept: ["GET"]
+      }
     }
   },
 
@@ -65,12 +78,5 @@ module.exports = {
     action: sessions_controller.logout,
     accept: ["GET"],
     loggedInOnly: true
-  },
-
-  'confirm': {
-    ':confirmation_code': {
-      action: posts_controller.confirm,
-      accept: ["GET"]
-    }
   }
 }

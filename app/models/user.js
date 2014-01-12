@@ -5,7 +5,9 @@ var mongoose = require('mongoose'),
 var user = new mongoose.Schema({
   email: { type: String, required: true },
   hashed_password: String,
-  joined: { type: Date, default: Date.now }
+  joined: { type: Date, default: Date.now },
+  confirmation_code: String,
+  confirmed: { type: Boolean, default: false }
 });
 
 var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -16,8 +18,9 @@ user.path('email').validate(function(email) {
 });
 
 user.pre('save', function(next) {
-  if (this.password && this.password.length > 4) {
+  if (this.password && this.password.length > 4 && this.password == this.password_confirmation) {
     this.hashed_password = this.model('User').hashPassword(this.password);
+    this.generateConfirmationCode();
     next();
   } else {
     next(new Error("Password must be >5 chars"));
@@ -38,7 +41,13 @@ user.pre('remove', function(next) {
 });
 
 user.methods = {
+  generateConfirmationCode: function() {
+    var text = (new Date()) + "--" + this.email + "--" + this.hashed_password;
 
+    var shasum = crypto.createHash('sha1');
+    shasum.update(text);
+    this.confirmation_code = shasum.digest('hex');
+  },
 };
 
 user.statics = {

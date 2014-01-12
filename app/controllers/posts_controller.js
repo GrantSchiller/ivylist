@@ -51,7 +51,7 @@ function create(response, request, params, postData) {
       if (err) {
         helper.redirectTo("/new", request, response); // TODO: display feedback to user for why post was invalid
       } else {
-        var confirmLink ='http://' + request.headers.host + "/confirm/" + post.confirmation_code;
+        var confirmLink ='http://' + request.headers.host + "/posts/confirm/" + post.confirmation_code;
 
         mail({
           from: "Max Luzuriaga <max@luzuriaga.com>",
