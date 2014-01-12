@@ -18,12 +18,22 @@ user.path('email').validate(function(email) {
 });
 
 user.pre('save', function(next) {
+  this.model('User').count({ email: this.email }, function(err, count) {
+    if (count > 0) {
+      next(new Error("Email must be unique."))
+    } else {
+      next();
+    }
+  });
+});
+
+user.pre('save', function(next) {
   if (this.password && this.password.length > 4 && (this.confirmed || this.password == this.password_confirmation)) {
     this.hashed_password = this.model('User').hashPassword(this.password);
     this.generateConfirmationCode();
     next();
   } else {
-    next(new Error("Password must be >5 chars"));
+    next(new Error("Password must be >5 chars."));
   }
 });
 
