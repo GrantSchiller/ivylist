@@ -81,6 +81,25 @@ function prepareTextareas() {
 	$('textarea').css({ resize: 'none' });
 }
 
+function scrollHandler() {
+	if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+		if (loading) return;
+
+		loading = true;
+		var id = $("#main ol a").last().prop('id');
+		$.ajax({
+			url: "/scroll?id=" + id,
+			type: "GET",
+			error: function(xhr, textStatus, error) {
+				console.log(error);
+			},
+			success: function() {
+				loading = false;
+			}
+		});
+	}
+}
+
 $(function() {
 	sizeTitles();
 	prepareForms();
@@ -110,10 +129,6 @@ $(function() {
 			}
 		};
 
-		$(window).scroll(handler);
-		// $(document).on("scrollstop", handler);
-		// window.onscroll = handler;
-		// $('body').on({'touchmove': handler});
 		document.addEventListener("scroll", handler);
 	}
 
