@@ -8,6 +8,12 @@ module.exports = {
     accept: ["GET"]
   },
 
+  'scroll': {
+    action: posts_controller.scroll,
+    accept: ["GET"],
+    ajaxOnly: true
+  },
+
   'new': {
     action: posts_controller.add,
     accept: ["GET"]

@@ -3,10 +3,25 @@ var helper = require('../../lib/helper'),
     Post = require('../models/post'),
     User = require('../models/user');
 
+var perPage = 5;
+
+function _findPost(id, response, callback) {
+  if (id && id.length == 24) {
+    Post.findByIdString(id).exec(function(err, post) {
+      if (post) {
+        callback(post);
+      } else {
+        helper.renderError(404, request, response);
+      }
+    });
+  } else {
+    helper.renderError(404, request, response);
+  }
+}
+
 function index(response, request, params, postData) {
   request.session.confirmedEmail = undefined;
   
-  var perPage = 20;
   var currentPage = params.page ? parseInt(params.page) : 1;
 
   Post.numPages(perPage, function (totalPages) {
@@ -17,6 +32,18 @@ function index(response, request, params, postData) {
     } else {
       helper.renderError(404, request, response);
     }
+  });
+}
+
+function scroll(response, request, params, postData) {
+  _findPost(params.id, response, function(post) {
+    Post.find({ confirmed: true, date: { $lt: post.date }}).sort({date: -1}).limit(perPage).exec(function(err, posts) {
+      var last = false;
+      if (posts.length < perPage) {
+        last = true;
+      }
+      helper.render("/posts/scroll.js", { posts: posts, last: last }, request, response, 200);
+    });
   });
 }
 
@@ -66,20 +93,6 @@ function create(response, request, params, postData) {
         helper.render("posts/create.html", { post: post }, request, response, 200);
       }
     });
-  }
-}
-
-function _findPost(id, response, callback) {
-  if (id && id.length == 24) {
-    Post.findByIdString(id).populate('_user').exec(function(err, post) {
-      if (post) {
-        callback(post);
-      } else {
-        helper.renderError(404, request, response);
-      }
-    });
-  } else {
-    helper.renderError(404, request, response);
   }
 }
 
@@ -144,6 +157,7 @@ function confirm(response, request, params, postData) {
 }
 
 exports.index = index;
+exports.scroll = scroll;
 exports.add = add;
 exports.create = create;
 exports.show = show;

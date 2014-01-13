@@ -1,0 +1,11 @@
+<% posts.forEach(function(post) { %>
+	$("#main ol").append((function(){ /*
+	<% include _post %>
+	*/}).toString().split('\n').slice(1, -1).join('\n'));
+<% }); %>
+
+<% if (last) { %>
+	$(window).unbind("scroll");
+<% } %>
+
+sizeTitles();
