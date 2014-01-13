@@ -42,7 +42,7 @@ function scroll(response, request, params, postData) {
       if (posts.length < perPage) {
         last = true;
       }
-      helper.render("/posts/scroll.js", { posts: posts, last: last }, request, response, 200);
+      helper.render("posts/scroll.js", { posts: posts, last: last }, request, response, 200);
     });
   });
 }

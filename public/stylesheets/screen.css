@@ -227,6 +227,11 @@ a:visited li.post time {
 	color: #8f8f8f;
 }
 
+#more_posts_marker {
+	text-align: center;
+	font-style: italic;
+}
+
 .group > form.leftForm {
 	float: left;
 	width: 62%;
