@@ -3,7 +3,7 @@ var helper = require('../../lib/helper'),
     Post = require('../models/post'),
     User = require('../models/user');
 
-var perPage = 5;
+var perPage = 20;
 
 function _findPost(id, response, callback) {
   if (id && id.length == 24) {
