@@ -81,6 +81,25 @@ function prepareTextareas() {
 	$('textarea').css({ resize: 'none' });
 }
 
+function scrollHandler() {
+	if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+		if (loading) return;
+
+		loading = true;
+		var id = $("#main ol a").last().prop('id');
+		$.ajax({
+			url: "/scroll?id=" + id,
+			type: "GET",
+			error: function(xhr, textStatus, error) {
+				console.log(error);
+			},
+			success: function() {
+				loading = false;
+			}
+		});
+	}
+}
+
 $(function() {
 	sizeTitles();
 	prepareForms();
@@ -92,24 +111,8 @@ $(function() {
 
 		var loading = false;
 
-		$(window).scroll(function() {
-			if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-				if (loading) return;
-
-				loading = true;
-				var id = $("#main ol a").last().prop('id');
-				$.ajax({
-					url: "/scroll?id=" + id,
-					type: "GET",
-					error: function(xhr, textStatus, error) {
-						console.log(error);
-					},
-					success: function() {
-						loading = false;
-					}
-				});
-			}
-		});
+		$(window).scroll(scrollHandler);
+		$('body').on({'touchmove': scrollHandler}); // For mobile
 	}
 
 	$('textarea').elastic();

@@ -6,6 +6,7 @@
 
 <% if (last) { %>
 	$(window).unbind("scroll");
+	$('body').on({'touchmove': function() { return undefined; }};
 <% } %>
 
 sizeTitles();
