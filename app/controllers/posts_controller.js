@@ -27,7 +27,7 @@ function index(response, request, params, postData) {
   Post.numPages(perPage, function (totalPages) {
     if ((currentPage > 0) && (currentPage <= totalPages)) {
       Post.findPostsOnPage(currentPage, totalPages, perPage).populate('_user').exec(function(err, posts) {
-        helper.render("posts/index.html", { posts: posts, currentPage: currentPage, totalPages: totalPages }, request, response, 200);
+        helper.render("posts/index.html", { posts: posts, currentPage: currentPage, totalPages: totalPages, morePosts: (posts.length == perPage) }, request, response, 200);
       });
     } else {
       helper.renderError(404, request, response);
@@ -54,7 +54,7 @@ function add(response, request, params, postData) {
   helper.render("posts/add.html", { post: post, email: request.session.email }, request, response, 200);
 }
 
-function create(response, request, params, postData) {
+function create(response, request, params, postData, sockets) {
   var post = new Post({
     title: postData.title,
     text_markdown: postData.text
@@ -69,6 +69,10 @@ function create(response, request, params, postData) {
         helper.redirectTo("/new", request, response); // TODO: display feedback to user for why post was invalid
       } else {
         helper.redirectTo("/posts/" + post.id, request, response);
+
+        helper.renderPartial("posts/_post", { post: post }, function(content) {
+          sockets.emit('new post', { post: content });
+        });
       }
     });
   } else {
@@ -134,7 +138,7 @@ function sendEmail(response, request, params, postData) {
   }
 }
 
-function confirm(response, request, params, postData) {
+function confirm(response, request, params, postData, sockets) {
   Post.findOne({ confirmation_code: params.confirmation_code }, function(err, post) {
     if (post) {
       if (post.confirmed) {
@@ -148,6 +152,10 @@ function confirm(response, request, params, postData) {
             // Confirming from different device
             helper.redirectTo("/posts/" + post.id, request, response);
           }
+
+          helper.renderPartial("posts/_post", { post: post }, function(content) {
+            sockets.emit('new post', { post: content });
+          });
         });
       }
     } else {
