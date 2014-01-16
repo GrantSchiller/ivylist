@@ -131,7 +131,7 @@ $(function() {
 
 		document.addEventListener("scroll", handler);
 
-		var socket = io.connect('http://localhost');
+		var socket = io.connect('/');
 		socket.on('new post', function(data) {
 			$(data.post).prependTo("#main ol");
 			sizeTitles();
