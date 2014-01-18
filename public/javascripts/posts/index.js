@@ -52,6 +52,7 @@ $(function() {
 	});
 
 	var socket = io.connect('/');
+	socket.emit('listening', { category: category });
 	socket.on('new post', function(data) {
 		$(data.post).prependTo("#main ol");
 		sizeTitles();

@@ -86,10 +86,19 @@ function create(response, request, params, postData, sockets) {
           if (err) {
             helper.redirectTo("/new", request, response); // TODO: display feedback to user for why post was invalid
           } else {
-            helper.redirectTo(post.url(), request, response);
+            post.populate('_category', function(err, post) {
+              helper.redirectTo(post.url(), request, response);
 
-            helper.renderPartial("posts/_post", { post: post }, function(content) {
-              sockets.emit('new post', { post: content });
+              helper.renderPartial("posts/_post", { post: post }, function(content) {
+                var listeners = sockets[post._category.slug];
+                listeners = listeners.concat(sockets[''])
+
+                if (listeners) {
+                  listeners.forEach(function(socket) {
+                    socket.emit('new post', { post: content });
+                  });
+                }
+              });
             });
           }
         });
@@ -185,8 +194,19 @@ function confirm(response, request, params, postData, sockets) {
             helper.redirectTo(post.url(), request, response);
           }
 
-          helper.renderPartial("posts/_post", { post: post }, function(content) {
-            sockets.emit('new post', { post: content });
+          post.populate('_category', function(err, post) {
+            helper.redirectTo(post.url(), request, response);
+
+            helper.renderPartial("posts/_post", { post: post }, function(content) {
+              var listeners = sockets[post._category.slug];
+              listeners = listeners.concat(sockets[''])
+
+              if (listeners) {
+                listeners.forEach(function(socket) {
+                  socket.emit('new post', { post: content });
+                });
+              }
+            });
           });
         });
       }
