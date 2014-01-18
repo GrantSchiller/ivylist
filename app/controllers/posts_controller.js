@@ -27,7 +27,7 @@ function index(response, request, params, postData) {
   Post.numPages(perPage, function (totalPages) {
     if ((currentPage > 0) && (currentPage <= totalPages)) {
       Post.findPostsOnPage(currentPage, totalPages, perPage).populate('_user').exec(function(err, posts) {
-        helper.render("posts/index.html", { js: true, posts: posts, currentPage: currentPage, totalPages: totalPages, morePosts: (posts.length == perPage) }, request, response, 200);
+        helper.render("posts/index.html", { customJS: true, posts: posts, currentPage: currentPage, totalPages: totalPages, morePosts: (posts.length == perPage) }, request, response, 200);
       });
     } else {
       helper.renderError(404, request, response);
@@ -51,13 +51,14 @@ function add(response, request, params, postData) {
   request.session.confirmedEmail = undefined;
 
   var post = new Post();
-  helper.render("posts/add.html", { post: post, email: request.session.email }, request, response, 200);
+  helper.render("posts/add.html", { customJS: true, post: post, email: request.session.email }, request, response, 200);
 }
 
 function create(response, request, params, postData, sockets) {
   var post = new Post({
     title: postData.title,
-    text_markdown: postData.text
+    text_markdown: postData.text,
+    category: "misc"
   });;
 
   if (request.user) {
@@ -104,7 +105,7 @@ function show(response, request, params, postData) {
   request.session.confirmedEmail = undefined;
 
   _findPost(params.id, request, response, function(post) {
-    helper.render("posts/show.html", { post: post }, request, response, 200);
+    helper.render("posts/show.html", { js: true, post: post }, request, response, 200);
   });
 }
 
