@@ -4,6 +4,8 @@ var shouldSubmitForm = true;
 var sidebarTop;
 
 function sizeTitles() {
+	positionSidebar();
+
 	$("li.post time").height(function(index) {
 		return $(this).next().height();
 	});
@@ -16,7 +18,7 @@ function positionSidebar() {
 	if ($(window).width() < 875) {
 		$(".categories-list").css('position', 'static');
 		$(".categories-list").css('width', '90%');
-		$(".categories-list").css('padding', '3%');
+		$(".categories-list").css('padding', '5%');
 		return;
 	}
 
@@ -106,25 +108,6 @@ function prepareTextareas() {
 	$('textarea').css({ resize: 'none' });
 }
 
-function scrollHandler() {
-	if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-		if (loading) return;
-
-		loading = true;
-		var id = $("#main ol a").last().prop('id');
-		$.ajax({
-			url: "/scroll?id=" + id,
-			type: "GET",
-			error: function(xhr, textStatus, error) {
-				console.log(error);
-			},
-			success: function() {
-				loading = false;
-			}
-		});
-	}
-}
-
 $(function() {
 	sizeTitles();
 	prepareForms();
@@ -139,6 +122,8 @@ $(function() {
 		var loading = false;
 
 		var handler = function() {
+			positionSidebar();
+
 			if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
 				if (loading) return;
 				loading = true;
@@ -193,5 +178,4 @@ $(function() {
 	prepareContactForm();
 });
 
-$(window).scroll(positionSidebar);
 $(window).resize(sizeTitles);
