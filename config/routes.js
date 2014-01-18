@@ -3,9 +3,23 @@ var posts_controller = require('../app/controllers/posts_controller'),
     sessions_controller = require('../app/controllers/sessions_controller');
 
 module.exports = {
-  '': {
+  ':category': {
     action: posts_controller.index,
-    accept: ["GET"]
+    accept: ["GET"],
+
+    ':id': {
+      action: posts_controller.show,
+      accept: ["GET"],
+
+      'contact': {
+        action: posts_controller.contact,
+        accept: ["GET"]
+      },
+      'send_email': {
+        action: posts_controller.sendEmail,
+        accept: ["POST"]
+      }
+    },
   },
 
   'scroll': {
@@ -32,19 +46,6 @@ module.exports = {
       action: posts_controller.create,
       accept: ["POST"]
     },
-    ':id': {
-      action: posts_controller.show,
-      accept: ["GET"],
-
-      'contact': {
-        action: posts_controller.contact,
-        accept: ["GET"]
-      },
-      'send_email': {
-        action: posts_controller.sendEmail,
-        accept: ["POST"]
-      }
-    }
   },
 
   'users': {
