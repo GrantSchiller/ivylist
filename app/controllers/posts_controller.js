@@ -23,18 +23,29 @@ function _findPost(id, request, response, callback) {
 function index(response, request, params, postData) {
   request.session.confirmedEmail = undefined;
 
-  Post.find({ confirmed: true }).limit(perPage).exec(function(err, posts) {
-    helper.render("posts/index.html", { customJS: true, posts: posts, morePosts: (posts.length == perPage) }, request, response, 200);
+  Category.find().sort({ name: 1 }).exec(function(err, categories) {
+    if (params.category == '') {
+      Post.find({ confirmed: true }).sort({date: -1}).populate('_category').limit(perPage).exec(function(err, posts) {
+        helper.render("posts/index.html", { customJS: true, categories: categories, category: params.category, posts: posts, morePosts: (posts.length == perPage) }, request, response, 200);
+      });
+    } else {
+      Category.findOne({ slug: params.category }).exec(function(err, cat) {
+        if (cat) {
+          cat.findPosts().sort({date: -1}).populate('_category').exec(function(err, posts) {
+            helper.render("posts/index.html", { customJS: true, categories: categories, category: params.category, posts: posts, morePosts: (posts.length == perPage) }, request, response, 200);
+          });
+        } else {
+          helper.renderError(404, request, response);
+        }
+      });
+    }
   });
 }
 
 function scroll(response, request, params, postData) {
   _findPost(params.id, request, response, function(post) {
-    Post.find({ confirmed: true, date: { $lt: post.date }}).sort({date: -1}).limit(perPage).exec(function(err, posts) {
-      var last = false;
-      if (posts.length < perPage) {
-        last = true;
-      }
+    Post.find({ confirmed: true, date: { $lt: post.date }}).sort({date: -1}).limit(perPage).populate('_category').exec(function(err, posts) {
+      var last = (posts.length < perPage);
       helper.render("posts/scroll.js", { posts: posts, last: last }, request, response, 200);
     });
   });

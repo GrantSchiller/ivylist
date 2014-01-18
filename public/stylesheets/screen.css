@@ -252,7 +252,7 @@ li.post p.title {
 time, li.post a:visited p.title, label {
 	color: #696969;
 }
-a:visited li.post time {
+li.post a:visited  time {
 	color: #8f8f8f;
 }
 

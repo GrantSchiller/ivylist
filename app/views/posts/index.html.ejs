@@ -3,10 +3,21 @@
 
 <div class="categories-list">
 	<ul>
-		<li class="current">All posts</li>
-		<li><a href="#">Textbooks</a></li>
-		<li><a href="#">Sex</a></li>
-		<li><a href="#">Category</a></li>
+		<% categories = categories.map(function(cat) {
+			return cat.slug == "misc" ? null : [cat.name, cat.slug];
+		});
+		categories.splice(0, 0, ["All posts", ""]);
+		categories.push(["Misc.", "misc"]); %>
+		
+		<% categories.forEach(function(cat) { %>
+			<% if (cat) { %>
+				<% if (cat[1] == category) { %>
+					<li class="current"><%= cat[0] %></li>
+				<% } else { %>
+					<li><a href="/<%= cat[1] %>"><%= cat[0] %></a></li>
+				<% } %>
+			<% } %>
+		<%}) %>
 	</ul>
 </div>
 
