@@ -29,7 +29,7 @@ function infiniteScroll() {
 		loading = true;
 		var id = $("#main ol li").last().prop('id');
 		$.ajax({
-			url: "/scroll?id=" + id,
+			url: "/scroll?id=" + id + "&category=" + category,
 			type: "GET",
 			error: function(xhr, textStatus, error) {
 				console.log(error);

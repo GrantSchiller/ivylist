@@ -31,7 +31,7 @@ function index(response, request, params, postData) {
     } else {
       Category.findOne({ slug: params.category }).exec(function(err, cat) {
         if (cat) {
-          cat.findPosts().sort({date: -1}).populate('_category').exec(function(err, posts) {
+          cat.findPosts().sort({date: -1}).limit(perPage).populate('_category').exec(function(err, posts) {
             helper.render("posts/index.html", { customJS: true, categories: categories, category: params.category, posts: posts, morePosts: (posts.length == perPage) }, request, response, 200);
           });
         } else {
@@ -44,10 +44,19 @@ function index(response, request, params, postData) {
 
 function scroll(response, request, params, postData) {
   _findPost(params.id, request, response, function(post) {
-    Post.find({ confirmed: true, date: { $lt: post.date }}).sort({date: -1}).limit(perPage).populate('_category').exec(function(err, posts) {
-      var last = (posts.length < perPage);
-      helper.render("posts/scroll.js", { posts: posts, last: last }, request, response, 200);
-    });
+    if (params.category == "") {
+      Post.find({ confirmed: true, date: { $lt: post.date }}).sort({date: -1}).limit(perPage).populate('_category').exec(function(err, posts) {
+        var last = (posts.length < perPage);
+        helper.render("posts/scroll.js", { posts: posts, last: last }, request, response, 200);
+      });
+    } else {
+      Category.findOne({ slug: params.category }).exec(function(err, category) {
+        Post.find({ _category: category._id, confirmed: true, date: { $lt: post.date }}).sort({date: -1}).limit(perPage).populate('_category').exec(function(err, posts) {
+          var last = (posts.length < perPage);
+          helper.render("posts/scroll.js", { posts: posts, last: last }, request, response, 200);
+        });
+      });
+    }
   });
 }
 
