@@ -1,5 +1,6 @@
 var helper = require('../../lib/helper'),
     mail = require('nodemailer').mail,
+    Category = require('../models/category')
     Post = require('../models/post'),
     User = require('../models/user');
 
@@ -21,17 +22,9 @@ function _findPost(id, request, response, callback) {
 
 function index(response, request, params, postData) {
   request.session.confirmedEmail = undefined;
-  
-  var currentPage = params.page ? parseInt(params.page) : 1;
 
-  Post.numPages(perPage, function (totalPages) {
-    if ((currentPage > 0) && (currentPage <= totalPages)) {
-      Post.findPostsOnPage(currentPage, totalPages, perPage).populate('_user').exec(function(err, posts) {
-        helper.render("posts/index.html", { customJS: true, posts: posts, currentPage: currentPage, totalPages: totalPages, morePosts: (posts.length == perPage) }, request, response, 200);
-      });
-    } else {
-      helper.renderError(404, request, response);
-    }
+  Post.find({ confirmed: true }).limit(perPage).exec(function(err, posts) {
+    helper.render("posts/index.html", { customJS: true, posts: posts, morePosts: (posts.length == perPage) }, request, response, 200);
   });
 }
 

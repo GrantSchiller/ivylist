@@ -75,16 +75,6 @@ post.methods = {
 };
 
 post.statics = {
-  numPages: function(perPage, callback) {
-    this.count({ confirmed: true }, function(err, count) {
-      callback(Math.ceil(count/perPage));
-    });
-  },
-
-  findPostsOnPage: function(currentPage, totalPages, perPage, callback) {
-    return this.find({ confirmed: true }).sort({date: -1}).skip(perPage * (currentPage - 1)).limit(perPage);
-  },
-
   findByIdString: function(id) {
     var newID = mongoose.Types.ObjectId(id);
     return this.findById(newID);

@@ -46,8 +46,6 @@ $(function() {
 
 	sidebarTop = $(".categories-list").offset().top;
 
-	$("nav.pagination").remove();
-
 	document.addEventListener("scroll", function() {
 		positionSidebar();
 		infiniteScroll();
