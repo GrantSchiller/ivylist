@@ -1,5 +1,5 @@
 <li class="post group" id="<%= post.id %>">
-	<a href="/<%= post.category %>" class="category-link"><%= post.category %></a>
+	<a href="/<%= post._category.slug %>" class="category-link"><%= post._category.name %></a>
 	<a href="/posts/<%= post.id %>">
 		<time><%= post.prettyDate("mmm d") %></time>
 		<p class="title"><%= post.title %></p>

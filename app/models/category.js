@@ -8,7 +8,7 @@ var category = new mongoose.Schema({
 
 category.methods = {
   findPosts: function() {
-    return Post.find({ confirmed: true, category: this.slug });
+    return Post.find({ confirmed: true, _category: this._id });
   }
 };
 

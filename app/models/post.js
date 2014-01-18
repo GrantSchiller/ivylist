@@ -25,7 +25,7 @@ var post = new mongoose.Schema({
   text_formatted:     String,
   email:              String,
   _user:              { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  category:           { type: String, required: true },
+  _category:          { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Category' },
   confirmation_code:  String,
   confirmed:          { type: Boolean, default: false },
   date:               { type: Date, default: Date.now }
