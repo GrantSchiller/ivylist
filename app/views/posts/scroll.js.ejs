@@ -5,7 +5,7 @@
 <% }); %>
 
 <% if (last) { %>
-	$(window).unbind("scroll");
+	finishedScrolling = true;
 	$("#more_posts_marker").remove();
 <% } %>
 
