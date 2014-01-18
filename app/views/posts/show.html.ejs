@@ -2,6 +2,7 @@
 <% include ../layouts/head %>
 
 <article class="post">
+	<p class="post-category"><a href="/<%= post._category.slug %>"><%= post._category.name %></a></p>
 	<p class="post-time"><time><%= post.prettyDate("h:MM mmm d, yyyy") %></time></p>
 	<h1><%= post.title %></h1>
 	<%- post.text_formatted %>

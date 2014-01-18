@@ -292,6 +292,19 @@ li.post a.category-link {
 	margin-bottom: 10px;
 }
 
+article.post p.post-category {
+	/*float: right;*/
+	/*margin-left: -150px;*/
+	margin-bottom: 10px;
+}
+
+article.post p.post-category a {
+	margin: 0;
+	color: #01256e;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #01256e;
+}
+
 article.post p {
 	margin-bottom: 14px;
 }
