@@ -5,7 +5,7 @@ var helper = require('../../lib/helper'),
 
 var perPage = 20;
 
-function _findPost(id, response, callback) {
+function _findPost(id, request, response, callback) {
   if (id && id.length == 24) {
     Post.findByIdString(id).exec(function(err, post) {
       if (post) {
@@ -27,7 +27,7 @@ function index(response, request, params, postData) {
   Post.numPages(perPage, function (totalPages) {
     if ((currentPage > 0) && (currentPage <= totalPages)) {
       Post.findPostsOnPage(currentPage, totalPages, perPage).populate('_user').exec(function(err, posts) {
-        helper.render("posts/index.html", { posts: posts, currentPage: currentPage, totalPages: totalPages, morePosts: (posts.length == perPage) }, request, response, 200);
+        helper.render("posts/index.html", { js: true, posts: posts, currentPage: currentPage, totalPages: totalPages, morePosts: (posts.length == perPage) }, request, response, 200);
       });
     } else {
       helper.renderError(404, request, response);
@@ -36,7 +36,7 @@ function index(response, request, params, postData) {
 }
 
 function scroll(response, request, params, postData) {
-  _findPost(params.id, response, function(post) {
+  _findPost(params.id, request, response, function(post) {
     Post.find({ confirmed: true, date: { $lt: post.date }}).sort({date: -1}).limit(perPage).exec(function(err, posts) {
       var last = false;
       if (posts.length < perPage) {
@@ -103,13 +103,13 @@ function create(response, request, params, postData, sockets) {
 function show(response, request, params, postData) {
   request.session.confirmedEmail = undefined;
 
-  _findPost(params.id, response, function(post) {
+  _findPost(params.id, request, response, function(post) {
     helper.render("posts/show.html", { post: post }, request, response, 200);
   });
 }
 
 function contact(response, request, params, postData) {
-  _findPost(params.id, response, function(post) {
+  _findPost(params.id, request, response, function(post) {
     helper.render("posts/contact.js", { post: post, email: request.session.email }, request, response, 200);
   });
 }
@@ -118,7 +118,7 @@ function sendEmail(response, request, params, postData) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   var target = "friendscentral.org";
   if (re.test(postData.email) && (postData.email.substr(postData.email.length - target.length) == target) && (postData.email_text.trim().length != 0)) {
-    _findPost(params.id, response, function(post) {
+    _findPost(params.id, request, response, function(post) {
       var toEmail = post._user ? post._user.email : post.email;
       
       mail({
