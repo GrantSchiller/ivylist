@@ -1,4 +1,7 @@
-<a href="/posts/<%= post.id %>" id="<%= post.id %>"><li class="post group">
-	<time><%= post.prettyDate("mmm d") %></time>
-	<p class="title"><%= post.title %></p>
-</li></a>
+<li class="post group" id="<%= post.id %>">
+	<a href="/<%= post.category %>" class="category-link"><%= post.category %></a>
+	<a href="/posts/<%= post.id %>">
+		<time><%= post.prettyDate("mmm d") %></time>
+		<p class="title"><%= post.title %></p>
+	</a>
+</li>

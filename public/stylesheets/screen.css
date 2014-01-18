@@ -194,18 +194,46 @@ header p .link-button {
 	width: 700px;
 	margin: 0 auto;
 }
-
-#main ol {
+#main ol, .categories-list ul {
 	list-style-type: none;
 }
 
-a li.post {
+.categories-list {
+	float: left;
+	width: 13%;
+	/*background: #eee;*/
+	border: 1px solid #ddd;
+	padding: 3%;
+}
+
+.categories-list ul li {
+	margin-bottom: 18px;
+}
+.categories-list ul li:last-child {
+	margin-bottom: 0;
+}
+.categories-list li.current {
+	color: #1b1b1b;
+	font-weight: bold;
+}
+.categories-list ul li a {
+	color: #95001a;
+}
+
+.posts-list {
+	width: 77%;
+	/*padding-left: 3%;*/
+	float: right;
+	/*border-left: 1px solid #ddd;*/
+}
+
+li.post {
 	margin-bottom: 13px;
 	padding-top: 13px;
 	border-top: 1px solid #b9b9b9;
 	line-height: 1.7em;
 }
-ol a:first-child li.post {
+ol li.post:first-child {
 	border-top: none;
 	padding-top: 0;
 }
@@ -219,12 +247,19 @@ li.post time {
 li.post p.title {
 	font-weight: bold;
 	color: #1b1b1b;
+	width: 75%;
 }
-time, a:visited li.post p.title, label {
+time, li.post a:visited p.title, label {
 	color: #696969;
 }
 a:visited li.post time {
 	color: #8f8f8f;
+}
+
+li.post a.category-link {
+	display: block;
+	float: right;
+	color: #01256e;
 }
 
 #more_posts_marker {
@@ -372,6 +407,17 @@ img, object, embed {
 @media screen and (max-width: 875px) {
 	.middle {
 		width: 80%;
+	}
+
+	.categories-list {
+		width: 90%;
+		padding: 5%;
+		float: none;
+		margin-bottom: 20px;
+	}
+	.posts-list {
+		width: 100%;
+		float: none;
 	}
 }
 

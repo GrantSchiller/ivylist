@@ -1,36 +1,47 @@
 <% var title = "QuadShare" %> 
 <% include ../layouts/head %>
 
-<ol>
-	<% posts.forEach(function(post) { %>
-		<% include _post %>
-	<% }); %>
-</ol>
+<div class="categories-list">
+	<ul>
+		<li class="current">All posts</li>
+		<li><a href="#">Textbooks</a></li>
+		<li><a href="#">Sex</a></li>
+		<li><a href="#">Category</a></li>
+	</ul>
+</div>
 
-<nav class="pagination">
-	<p>
-		<% if (currentPage - 2 > 1) { %>
-			<a href="?page=1">1</a>
-		<% } %>
-		<% if (currentPage - 2 > 2) { %>
-			<span class="elipsis">...</span>
-		<% } %>
+<div class="posts-list">
+	<ol>
+		<% posts.forEach(function(post) { %>
+			<% include _post %>
+		<% }); %>
+	</ol>
 
-		<% var page; for(page = Math.max(currentPage - 2, 1); page <= Math.min(currentPage + 4, totalPages); page++) { %>
-			<a href="?page=<%= page %>" class="<%= page == currentPage ? 'current' : '' %>"><%= page %></a>
-		<% } %>
+	<nav class="pagination">
+		<p>
+			<% if (currentPage - 2 > 1) { %>
+				<a href="?page=1">1</a>
+			<% } %>
+			<% if (currentPage - 2 > 2) { %>
+				<span class="elipsis">...</span>
+			<% } %>
 
-		<% if (page - 1 < totalPages - 1) { %>
-			<span class="elipsis">...</span>
-		<% } %>
-		<% if (page - 1 < totalPages) { %>
-			<a href="?page=<%= totalPages %>"><%= totalPages %></a>
-		<% } %>
-	</p>
-</nav>
+			<% var page; for(page = Math.max(currentPage - 2, 1); page <= Math.min(currentPage + 4, totalPages); page++) { %>
+				<a href="?page=<%= page %>" class="<%= page == currentPage ? 'current' : '' %>"><%= page %></a>
+			<% } %>
 
-<% if (morePosts) { %>
-	<div id="more_posts_marker"><p>More posts...</p></div>
-<% } %>
+			<% if (page - 1 < totalPages - 1) { %>
+				<span class="elipsis">...</span>
+			<% } %>
+			<% if (page - 1 < totalPages) { %>
+				<a href="?page=<%= totalPages %>"><%= totalPages %></a>
+			<% } %>
+		</p>
+	</nav>
+
+	<% if (morePosts) { %>
+		<div id="more_posts_marker"><p>More posts...</p></div>
+	<% } %>
+</div>
 
 <% include ../layouts/foot %>

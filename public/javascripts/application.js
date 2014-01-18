@@ -1,11 +1,36 @@
 var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 var target = "friendscentral.org";
 var shouldSubmitForm = true;
+var sidebarTop;
 
 function sizeTitles() {
-	$("li.post time").height(function(index ) {
+	$("li.post time").height(function(index) {
 		return $(this).next().height();
 	});
+	$("li.post p.title").width(function(index) {
+		return $(this).parent().parent().width() - $(this).parent().prev().width() - 5;
+	});
+}
+
+function positionSidebar() {
+	if ($(window).width() < 875) {
+		$(".categories-list").css('position', 'static');
+		$(".categories-list").css('width', '90%');
+		$(".categories-list").css('padding', '3%');
+		return;
+	}
+
+	var windowTop = $(window).scrollTop();
+
+	if (sidebarTop < windowTop + 20) {
+		$(".categories-list").css({ position: 'fixed', top: 20 });
+		$(".categories-list").css('width', 700 * .13);
+		$(".categories-list").css('padding', 700 * .03);
+	} else {
+		$(".categories-list").css('position', 'static');
+		$(".categories-list").css('width', '13%');
+		$(".categories-list").css('padding', '3%');
+	}
 }
 
 function prepareForms() {
@@ -107,6 +132,8 @@ $(function() {
 	prepareTextareas();
 
 	if ($("#main ol").length == 1) {
+		sidebarTop = $(".categories-list").offset().top;
+
 		$("nav.pagination").remove();
 
 		var loading = false;
@@ -115,7 +142,7 @@ $(function() {
 			if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
 				if (loading) return;
 				loading = true;
-				var id = $("#main ol a").last().prop('id');
+				var id = $("#main ol li").last().prop('id');
 				$.ajax({
 					url: "/scroll?id=" + id,
 					type: "GET",
@@ -166,4 +193,5 @@ $(function() {
 	prepareContactForm();
 });
 
+$(window).scroll(positionSidebar);
 $(window).resize(sizeTitles);
