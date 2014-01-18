@@ -3,11 +3,11 @@ var mongoose = require('mongoose'),
     Post = require('./post');
 
 var user = new mongoose.Schema({
-  email: { type: String, required: true },
-  hashed_password: String,
-  joined: { type: Date, default: Date.now },
-  confirmation_code: String,
-  confirmed: { type: Boolean, default: false }
+  email:              { type: String, required: true },
+  hashed_password:    String,
+  joined:             { type: Date, default: Date.now },
+  confirmation_code:  String,
+  confirmed:          { type: Boolean, default: false }
 });
 
 var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

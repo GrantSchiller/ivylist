@@ -20,15 +20,15 @@ marked.setOptions({
 });
 
 var post = new mongoose.Schema({
-  title: { type: String, required: true },
-  text_markdown: { type: String, required: true },
-  text_formatted: String,
-  email: String,
-  _user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  category: { type: String, required: true },
-  confirmation_code: String,
-  confirmed: { type: Boolean, default: false },
-  date: { type: Date, default: Date.now }
+  title:              { type: String, required: true },
+  text_markdown:      { type: String, required: true },
+  text_formatted:     String,
+  email:              String,
+  _user:              { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  category:           { type: String, required: true },
+  confirmation_code:  String,
+  confirmed:          { type: Boolean, default: false },
+  date:               { type: Date, default: Date.now }
 });
 
 var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
