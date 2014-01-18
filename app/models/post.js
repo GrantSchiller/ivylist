@@ -71,6 +71,10 @@ post.methods = {
       
       callback();
     }.bind(this));
+  },
+
+  url: function() {
+    return "/" + this._category.slug + "/" + this.id;
   }
 };
 
