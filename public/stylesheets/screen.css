@@ -85,6 +85,18 @@ html body a.link-button {
 	background: #d0f3d5;
 }
 
+label.category {
+	margin-top: 0;
+}
+select {
+	width: 73%;
+	float: right;
+	padding: 5px;
+	height: 28px;
+	border-radius: 0;
+	border: 1px solid #bbb;
+	background: #fff;
+}
 input[type=text], input[type=email], input[type=password], textarea {
 	border: 0;
 	float: right;
@@ -456,12 +468,12 @@ img, object, embed {
 		width: 95%;
 		padding: 2.5%;
 		float: none;
-		clear: both;
 	}
 
-/*	form {
-		margin-bottom: 20px;
-	}*/
+	select {
+		width: 100%;
+		float: none;
+	}
 
 	.new-post-title {
 		padding-left: 0%;

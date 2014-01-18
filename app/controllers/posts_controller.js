@@ -63,55 +63,63 @@ function scroll(response, request, params, postData) {
 function add(response, request, params, postData) {
   request.session.confirmedEmail = undefined;
 
-  var post = new Post();
-  helper.render("posts/add.html", { customJS: true, post: post, email: request.session.email }, request, response, 200);
+  Category.find().sort({ name: 1 }).exec(function(err, categories) {
+    var post = new Post();
+    helper.render("posts/add.html", { customJS: true, post: post, categories: categories, email: request.session.email }, request, response, 200);
+  });
 }
 
 function create(response, request, params, postData, sockets) {
-  var post = new Post({
-    title: postData.title,
-    text_markdown: postData.text,
-    category: "misc"
-  });;
+  Category.findOne({ slug: postData.category }).exec(function(err, category) {
+    if (category) {
+      var post = new Post({
+        title: postData.title,
+        text_markdown: postData.text,
+        _category: category._id
+      });
 
-  if (request.user) {
-    post._user = request.user._id;
-    post.confirmed = true;
+      if (request.user) {
+        post._user = request.user._id;
+        post.confirmed = true;
 
-    post.save(function(err, post) {
-      if (err) {
-        helper.redirectTo("/new", request, response); // TODO: display feedback to user for why post was invalid
+        post.save(function(err, post) {
+          if (err) {
+            helper.redirectTo("/new", request, response); // TODO: display feedback to user for why post was invalid
+          } else {
+            helper.redirectTo("/posts/" + post.id, request, response);
+
+            helper.renderPartial("posts/_post", { post: post }, function(content) {
+              sockets.emit('new post', { post: content });
+            });
+          }
+        });
       } else {
-        helper.redirectTo("/posts/" + post.id, request, response);
+        post.email = postData.email,
 
-        helper.renderPartial("posts/_post", { post: post }, function(content) {
-          sockets.emit('new post', { post: content });
+        post.save(function(err, post) {
+          if (err) {
+            helper.redirectTo("/new", request, response); // TODO: display feedback to user for why post was invalid
+          } else {
+            var confirmLink ='http://' + request.headers.host + "/posts/confirm/" + post.confirmation_code;
+
+            mail({
+              from: "Max Luzuriaga <max@luzuriaga.com>",
+              to: post.email,
+              subject: "Confirm your Ivylist post",
+              text: confirmLink,
+              html: '<a href="' + confirmLink + '">Confirm your post!</a>'
+            });
+
+            request.session.email = post.email;
+
+            helper.render("posts/create.html", { post: post }, request, response, 200);
+          }
         });
       }
-    });
-  } else {
-    post.email = postData.email,
-
-    post.save(function(err, post) {
-      if (err) {
-        helper.redirectTo("/new", request, response); // TODO: display feedback to user for why post was invalid
-      } else {
-        var confirmLink ='http://' + request.headers.host + "/posts/confirm/" + post.confirmation_code;
-
-        mail({
-          from: "Max Luzuriaga <max@luzuriaga.com>",
-          to: post.email,
-          subject: "Confirm your Ivylist post",
-          text: confirmLink,
-          html: '<a href="' + confirmLink + '">Confirm your post!</a>'
-        });
-
-        request.session.email = post.email;
-
-        helper.render("posts/create.html", { post: post }, request, response, 200);
-      }
-    });
-  }
+    } else {
+      helper.redirectTo("/new", request, response);
+    }
+  });
 }
 
 function show(response, request, params, postData) {
