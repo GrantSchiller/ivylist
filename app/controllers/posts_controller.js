@@ -186,22 +186,20 @@ function confirm(response, request, params, postData, sockets) {
         helper.redirectTo(post.url(), request, response);
       } else {
         post.update({ confirmed: true }, function(err) {
-          if (!request.user && request.session.email && request.session.email == post.email) {
-            request.session.confirmedEmail = request.session.email;
-            helper.render("posts/confirm.html", { email: request.session.confirmedEmail, post: post }, request, response, 200);
-          } else {
-            // Confirming from different device
-            helper.redirectTo(post.url(), request, response);
-          }
-
           post.populate('_category', function(err, post) {
-            helper.redirectTo(post.url(), request, response);
+            if (!request.user && request.session.email && request.session.email == post.email) {
+              request.session.confirmedEmail = request.session.email;
+              helper.render("posts/confirm.html", { email: request.session.confirmedEmail, post: post }, request, response, 200);
+            } else {
+              // Confirming from different device
+              helper.redirectTo(post.url(), request, response);
+            }
 
             helper.renderPartial("posts/_post", { post: post }, function(content) {
-              var listeners = sockets[post._category.slug];
-              listeners = listeners.concat(sockets[''])
+            var listeners = sockets[post._category.slug];
 
               if (listeners) {
+                listeners = listeners.concat(sockets['']);
                 listeners.forEach(function(socket) {
                   socket.emit('new post', { post: content });
                 });
