@@ -91,9 +91,9 @@ function create(response, request, params, postData, sockets) {
 
               helper.renderPartial("posts/_post", { post: post }, function(content) {
                 var listeners = sockets[post._category.slug];
-                listeners = listeners.concat(sockets[''])
 
                 if (listeners) {
+                  listeners = listeners.concat(sockets['']);
                   listeners.forEach(function(socket) {
                     socket.emit('new post', { post: content });
                   });
