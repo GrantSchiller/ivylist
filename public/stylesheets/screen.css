@@ -140,7 +140,7 @@ input.title {
 }
 
 form p.error:before {
-	color: #ff9999;
+	color: #de0000;
 	height: 14px;
 	font-size: .875em;
 	margin-bottom: 5px;
@@ -149,7 +149,7 @@ form p.error:before {
 	text-align: center;
 }
 form p.error input, form p.error textarea {
-	border: 1px solid #ff9999;
+	border: 1px solid #de0000;
 }
 
 form.contactForm p.error:before {
