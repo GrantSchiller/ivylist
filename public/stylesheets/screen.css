@@ -34,7 +34,6 @@ body {
 	font-size: 0.875em;
 	background-color: #fcfcfc;
 	color: #1b1b1b;
-	padding-top: 83px;
 }
 a {
 	text-decoration: none;
@@ -295,18 +294,12 @@ li.post a.category-link {
 }
 
 article.post a.post-category {
-	/*margin: 0;*/
-	/*color: #01256e;*/
 	float: left;
 	display: block;
 	margin-right: 6px;
-	/*background: #ddd;*/
 	border: 1px solid #ddd;
 	color: #01256e;
 	padding: 5px;
-	/*font-size: .857142857em;*/
-	/*padding-bottom: 5px;*/
-	/*border-bottom: 1px solid #01256e;*/
 }
 
 article.post p {
@@ -384,7 +377,7 @@ body.penn {
 	background: #95001a;
 }
 .penn p a {
-	color: #95001a;
+	color: #01256e;
 }
 .penn header p {
 	color: #f1f1f1;
@@ -452,26 +445,21 @@ img, object, embed {
 }
 
 @media screen and (max-width: 500px) {
-	body {
-		padding-top: 119px;
-	}
-
 	header h1 {
-		font-size: 2.5em;
+		font-size: 1.8em;
 		text-align: center;
 		float: none;
 	}
 	header p {
 		text-align: center;
 		float: none;
-		/*clear: both;*/
 		margin-top: 10px;
 	}
-	header p a {
-		/*display: block;*/
-	}
-	header p a.login-out {
-		/*display: inline-block;*/
+
+	article.post a.post-category {
+		float: none;
+		display: inline-block;
+		margin-bottom: 10px;
 	}
 
 	.group > form.leftForm {

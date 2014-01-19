@@ -84,7 +84,14 @@ function prepareTextareas() {
 	$('textarea').css({ resize: 'none' });
 }
 
+function accountForHeader() {
+	$('body').css('padding-top', $('header').outerHeight());
+}
+
 $(function() {
+	accountForHeader();
 	prepareForms();
 	prepareLinks();
 });
+
+$(window).resize(accountForHeader);
