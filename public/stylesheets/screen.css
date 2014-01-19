@@ -67,12 +67,7 @@ html body a.link-button {
 }
 
 .new-post-title {
-	padding-left: 16.74%;
-}
-
-.confirmed-field {
-	/*background: #f6f6f6;*/
-	opacity: 0.4;
+	padding-left: 16.2%;
 }
 
 .static-form-box {
@@ -82,16 +77,17 @@ html body a.link-button {
 	width: 70%;
 	padding: 1.5%;
 	height: 16px;
-	background: #d0f3d5;
+	border: 1px solid #d0f3d5;
+	background: #eafbed;
 }
 
 label.category {
 	margin-top: 0;
 }
 select {
-	width: 73%;
+	width: 73.5%;
 	float: right;
-	padding: 5px;
+	padding: 1.5%;
 	height: 28px;
 	border-radius: 0;
 	border: 1px solid #bbb;
@@ -103,17 +99,18 @@ input[type=text], input[type=email], input[type=password], textarea {
 	width: 70%;
 	height: 16px;
 	padding: 1.5%;
-	background: #e7e7e7;
+	background: #f3f3f3;
 	color: #1b1b1b;
+	border: 1px solid #ddd;
 	-webkit-appearance: none;
 	border-radius: 0;
 }
 input[type=text]:focus, input[type=email]:focus, input[type=password]:focus, textarea:focus {
-	background: #f6f6f6;
+	background: #fcfcfc;
 }
 label {
 	padding-top: 1.5%;
-	margin-top: 3px;
+	margin-top: 1px;
 	text-align: right;
 	float: left;
 	width: 25%;
@@ -135,7 +132,6 @@ input[type=submit] {
 	cursor: pointer;
 	margin-top: 5px;
 	-webkit-appearance: none;
-	margin-right: 5px;
 }
 
 input.title {
@@ -143,16 +139,17 @@ input.title {
 	font-size: 1em;
 }
 
-form p.error {
-	background: #ff9999;
-}
 form p.error:before {
+	color: #ff9999;
 	height: 14px;
 	font-size: .875em;
 	margin-bottom: 5px;
 	width: 72.8285714%;
 	float: right;
 	text-align: center;
+}
+form p.error input, form p.error textarea {
+	border: 1px solid #ff9999;
 }
 
 form.contactForm p.error:before {
@@ -179,7 +176,8 @@ form p.error.text:before {
 }
 
 #main form p {
-	padding: 5px;
+	/*padding: 5px;*/
+	margin-bottom: 10px;
 	line-height: 1em;
 }
 
