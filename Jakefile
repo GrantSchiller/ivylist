@@ -69,7 +69,6 @@ task('convert', {async: true}, function() {
     process.exit();
   });
 });
-});
 
 desc('Run the test suite');
 task('test', function() {
