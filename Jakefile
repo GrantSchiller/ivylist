@@ -57,6 +57,20 @@ task('setup', {async: true}, function(name, slug) {
   });
 });
 
+desc('Convert existing posts to misc.');
+task('convert', {async: true}, function() {
+  Category.findOne({slug: 'misc'}).exec(function(err, cat) {
+    Post.update({confirmed: true}, {_category: cat._id}, {multi: true}).exec(function(err) {
+      complete();  
+    });
+  });
+
+  jake.addListener('complete', function () {
+    process.exit();
+  });
+});
+});
+
 desc('Run the test suite');
 task('test', function() {
   jake.exec(["./node_modules/.bin/mocha --reporter list"], { printStdout: true });
