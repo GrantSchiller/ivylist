@@ -92,6 +92,7 @@ header p {
 }
 header p a {
 	font-weight: normal;
+	line-height: 1;
 }
 header p .link-button {
 	margin-left: 10px;
