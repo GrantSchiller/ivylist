@@ -19,7 +19,7 @@ function createSession(response, request, params, postData) {
   var email = postData.email;
   var password = postData.password;
 
-  User.authenticate(email, password).exec(function(err, user) {
+  User.authenticate(email, password, function(user) {
     if (user) {
       helper.signIn(user, request);
       helper.redirectTo("/", request, response); // TODO: redirect to the page the user was on
