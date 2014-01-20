@@ -14,7 +14,7 @@ nav ul { list-style: none; }
 ul { list-style-type: square; }
 table { border-collapse: separate; border-spacing: 0; }
 caption, th, td { text-align: left; font-weight: normal; }
-blockquote:before, q:before, { content: '"'; }
+blockquote:before, q:before { content: '"'; }
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary { display: block; }
 html { -webkit-font-smoothing: antialiased; }
 pre { white-space: pre; white-space: pre-wrap; white-space: pre-line; word-wrap: break-word; }
@@ -40,15 +40,17 @@ a {
 	text-decoration: none;
 }
 
-html body a.link-button {
-	display: inline-block;
-	font-weight: bold;
-	color: #fff;
-	padding: 10px;
+ol, ul {
+	list-style-type: none;
 }
 
 #main {
 	padding: 20px 0;
+}
+
+.middle {
+	width: 700px;
+	margin: 0 auto;
 }
 
 #main h1 {
@@ -57,129 +59,19 @@ html body a.link-button {
 	margin-bottom: 10px;
 	line-height: 1.3em;
 }
-#main p {
+body p {
 	line-height: 1.5em;
 }
-#main p em {
+body em {
 	font-style: italic;
 }
-#main p strong {
+body strong {
 	font-weight: bold;
 }
 
-.new-post-title {
-	padding-left: 16.2%;
-}
-
-.static-form-box {
-	display: block;
-	font-size: .875em;
-	float: right;
-	width: 70%;
-	padding: 1.5%;
-	height: 16px;
-	border: 1px solid #d0f3d5;
-	background: #eafbed;
-}
-
-label.category {
-	margin-top: 0;
-}
-select {
-	width: 73.5%;
-	float: right;
-	padding: 1.5%;
-	height: 28px;
-	border-radius: 0;
-	border: 1px solid #bbb;
-	background: #fff;
-}
-input[type=text], input[type=email], input[type=password], textarea {
-	border: 0;
-	float: right;
-	width: 70%;
-	height: 16px;
-	padding: 1.5%;
-	background: #f3f3f3;
-	color: #1b1b1b;
-	border: 1px solid #ddd;
-	-webkit-appearance: none;
-	border-radius: 0;
-}
-input[type=text]:focus, input[type=email]:focus, input[type=password]:focus, textarea:focus {
-	background: #fcfcfc;
-}
-label {
-	padding-top: 1.5%;
-	margin-top: 1px;
-	text-align: right;
-	float: left;
-	width: 25%;
-	clear: both;
-}
-textarea {
-	height: 150px;
-	resize: vertical;
-	line-height: 1.5em;
-}
-input[type=submit] {
-	float: right;
-	border: none;
-	color: #fff;
-	background: #01256e;
-	padding: 8px 12px;
-	font-size: 1em;
-	border-radius: 0;
-	cursor: pointer;
-	margin-top: 5px;
-	-webkit-appearance: none;
-}
-
-input.title {
-	font-weight: bold;
-	font-size: 1em;
-}
-
-form p.error:before {
-	color: #de0000;
-	height: 14px;
-	font-size: .875em;
-	margin-bottom: 5px;
-	width: 72.8285714%;
-	float: right;
-	text-align: center;
-}
-form p.error input, form p.error textarea {
-	border: 1px solid #de0000;
-}
-
-form.contactForm p.error:before {
-	width: 100%;
-	float: none;
-}
-
-form p.error.email:before {
-	content: "Please enter a valid University email.";
-}
-form p.error.title:before {
-	content: "Please enter a title.";
-}
-form p.error.text:before {
-	content: "Please enter some text";
-}
-
-.full-form-title {
-	padding-left: 27%;
-}
-
-#main form {
-	margin-bottom: 20px;
-}
-
-#main form p {
-	padding: 5px 0;
-	line-height: 1em;
-}
+/* ---------------------------------------------------------------------------------------
+   Header
+   --------------------------------------------------------------------------------------- */
 
 header {
 	position: fixed;
@@ -189,6 +81,7 @@ header {
 	padding: 20px 0;
 }
 header h1 {
+	font-weight: normal;
 	font-size: 3em;
 	float: left;
 }
@@ -204,23 +97,16 @@ header p .link-button {
 	margin-left: 10px;
 }
 
-.middle {
-	width: 700px;
-	margin: 0 auto;
-}
-#main ol, .categories-list ul {
-	list-style-type: none;
-}
+
+/* ---------------------------------------------------------------------------------------
+   Categories List
+   --------------------------------------------------------------------------------------- */
 
 .categories-list {
 	position: fixed;
 	float: left;
-	/*width: 91px;*/
 	width: 133px;
 	border: 1px solid #ddd;
-	/*border-bottom: 0;*/
-	/*padding: 21px;*/
-	/*background: green;*/
 }
 
 .categories-list ul {
@@ -246,6 +132,10 @@ header p .link-button {
 .categories-list ul a li {
 	color: #95001a;
 }
+
+/* ---------------------------------------------------------------------------------------
+   Posts List
+   --------------------------------------------------------------------------------------- */
 
 .posts-list {
 	width: 77%;
@@ -292,18 +182,9 @@ li.post a.category-link {
 	font-style: italic;
 }
 
-.group > form.leftForm {
-	float: left;
-	width: 62%;
-}
-.side_text {
-	width: 35%;
-	float: right;
-	margin-bottom: 10px;
-}
-.side_text p {
-	margin-bottom: 10px;
-}
+/* ---------------------------------------------------------------------------------------
+   Post View
+   --------------------------------------------------------------------------------------- */
 
 article.post a.post-category {
 	float: left;
@@ -324,6 +205,140 @@ article.post p.post-time {
 	margin-bottom: 2px;
 }
 
+
+/* ---------------------------------------------------------------------------------------
+   Forms
+   --------------------------------------------------------------------------------------- */
+
+form {
+	margin-bottom: 20px;
+}
+
+form p {
+	padding: 5px 0;
+	line-height: 1em;
+}
+
+.group > form.leftForm {
+	float: left;
+	width: 62%;
+}
+.side_text {
+	width: 35%;
+	float: right;
+	margin-bottom: 10px;
+}
+.side_text p, .confirm-signup-text {
+	margin-bottom: 10px;
+}
+
+.static-form-box {
+	display: block;
+	font-size: .875em;
+	float: right;
+	width: 70%;
+	padding: 1.5%;
+	height: 16px;
+	border: 1px solid #d0f3d5;
+	background: #eafbed;
+}
+
+label.category {
+	margin-top: 0;
+}
+select {
+	width: 73.5%;
+	float: right;
+	padding: 1.5%;
+	height: 28px;
+	border-radius: 0;
+	border: 1px solid #bbb;
+	background: #fff;
+}
+input[type=text], input[type=email], input[type=password], textarea {
+	border: 0;
+	float: right;
+	width: 70%;
+	height: 16px;
+	padding: 1.5%;
+	background: #f3f3f3;
+	color: #1b1b1b;
+	border: 1px solid #ddd;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	border-radius: 0;
+}
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus, textarea:focus {
+	background: #fcfcfc;
+}
+label {
+	padding-top: 1.5%;
+	margin-top: 1px;
+	text-align: right;
+	float: left;
+	width: 25%;
+	clear: both;
+}
+textarea {
+	height: 150px;
+	resize: vertical;
+	line-height: 1.5em;
+}
+input[type=submit] {
+	float: right;
+	border: none;
+	color: #fff;
+	background: #01256e;
+	padding: 8px 12px;
+	font-size: 1em;
+	border-radius: 0;
+	cursor: pointer;
+	margin-top: 5px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+input.title {
+	font-weight: bold;
+	font-size: 1em;
+}
+
+form p.error:before {
+	color: #de0000;
+	height: 14px;
+	font-size: .875em;
+	margin-bottom: 5px;
+	width: 72.8285714%;
+	float: right;
+	text-align: center;
+}
+form p.error input, form p.error textarea {
+	border: 1px solid #de0000;
+}
+
+form.contactForm p.error:before {
+	width: 100%;
+	float: none;
+}
+
+/* ---------------------------------------------------------------------------------------
+   Form Errors
+   --------------------------------------------------------------------------------------- */
+
+form p.error.email:before {
+	content: "Please enter a valid University email.";
+}
+form p.error.title:before {
+	content: "Please enter a title.";
+}
+form p.error.text:before {
+	content: "Please enter some text.";
+}
+
+/* ---------------------------------------------------------------------------------------
+   Contact Form
+   --------------------------------------------------------------------------------------- */
+
 .contact-form-explanation {
 	padding-top: 15px;
 	border-top: 1px solid #b9b9b9;
@@ -341,30 +356,6 @@ article.post p.post-time {
 }
 #additional-post-ui form.contactForm input[type=email], #additional-post-ui form.contactForm .static-form-box {
 	width: 85.5%;
-}
-
-nav.pagination a {
-	background: #01256e;
-	padding: 4px 6px;
-	margin-right: 2px;
-	color: #fff;
-	font-size: .875em;
-}
-nav.pagination .current {
-	background: #fff;
-	border: 3px solid #01256e;
-	color: #01256e;
-	font-weight: bold;
-}
-nav.pagination {
-	text-align: center;
-}
-nav.pagination span.elipsis {
-	font-size: 1.2em;
-}
-
-.confirm-signup-text {
-	margin-bottom: 15px;
 }
 
 /* ---------------------------------------------------------------------------------------
@@ -420,12 +411,32 @@ body.brown {
 }
 
 /* ---------------------------------------------------------------------------------------
-   Etc.
+   Reusable
    --------------------------------------------------------------------------------------- */
+
+.half-form-title {
+	padding-left: 16.2%;
+}
+
+.full-form-title {
+	padding-left: 27%;
+}
+
+
+html body a.link-button {
+	display: inline-block;
+	font-weight: bold;
+	color: #fff;
+	padding: 10px;
+}
 
 .text-right {
 	text-align: right;
 }
+
+/* ---------------------------------------------------------------------------------------
+   Etc.
+   --------------------------------------------------------------------------------------- */
 
 .group:before, .group:after {
 	content: "\0020";
@@ -511,7 +522,7 @@ img, object, embed {
 		float: none;
 	}
 
-	.new-post-title {
+	.half-form-title {
 		padding-left: 0%;
 	}
 	form p.error:before {
