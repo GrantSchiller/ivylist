@@ -247,39 +247,52 @@ form p {
 label.category {
 	margin-top: 0;
 }
-select {
-	width: 73.5%;
-	float: right;
-	padding: 1.5%;
-	height: 28px;
-	border-radius: 0;
-	border: 1px solid #bbb;
-	background: #fff;
-}
+
 input[type=text], input[type=email], input[type=password], textarea {
-	border: 0;
-	float: right;
 	width: 70%;
 	height: 16px;
 	padding: 1.5%;
-	background: #f3f3f3;
-	color: #1b1b1b;
+}
+
+input[type=text], input[type=email], input[type=password], textarea, select {
+	float: right;
 	border: 1px solid #ddd;
+	background-color: #f3f3f3;
+	color: #1b1b1b;
+	border-radius: 0;
 	-webkit-appearance: none;
 	-moz-appearance: none;
-	border-radius: 0;
 }
-input[type=text]:focus, input[type=email]:focus, input[type=password]:focus, textarea:focus {
-	background: #fcfcfc;
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus, textarea:focus, select:focus {
+	background-color: #fcfcfc;
 }
-label {
-	padding-top: 1.5%;
-	margin-top: 1px;
-	text-align: right;
-	float: left;
-	width: 25%;
-	clear: both;
+
+select {
+	width: 73.5%;
+	padding: 1.2% 1.5% 1.8% 1.5%;
+	height: 29px;
+	cursor: pointer;
+	background: #f3f3f3 none no-repeat;
+
+	background-image: url("data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAaCAYAAACkVDyJAAAAlElEQVRIx+2VwQ3AIAhFwTiFi7KC7uYGHo1z0Et7MWkjaEiaQOJBDzy/wgdqrXwHWKyAiGAZDnSgHBhC+IfCUgqbKXxgGqhY4QyRQkUK35KLoK01iZd+xZKXRuEfbvdQPPGkAABEhMeLhohE5yfaAufk93791r13zQDmnLNqcOMYg1NKmoJgTRHtmDeaWZvPQweaAi8PXSmZJU3QRAAAAABJRU5ErkJggg==");
+    background-position: -50px -50px;
 }
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  /* for Webkit */
+  select {
+    background-position: right center;
+    padding: 3px 32px 3px 5px;
+  }
+}
+@-moz-document url-prefix() {
+  /* for Firefox */
+  select {
+    text-indent: 0.01px;
+    text-overflow: "";
+    background-position: right center;
+  }
+}
+
 textarea {
 	height: 150px;
 	resize: vertical;
@@ -302,6 +315,15 @@ input[type=submit] {
 input.title {
 	font-weight: bold;
 	font-size: 1em;
+}
+
+label {
+	padding-top: 1.5%;
+	margin-top: 1px;
+	text-align: right;
+	float: left;
+	width: 25%;
+	clear: both;
 }
 
 form p.error:before {

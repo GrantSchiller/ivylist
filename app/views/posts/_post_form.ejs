@@ -1,6 +1,6 @@
 <form action="/posts/create" method="post" class="postForm leftForm group">
 	<p class="group email <%= currentUser ? 'confirmed-field' : '' %>">
-		<label for="email">Email:</label>
+		<label for="email">Your Email:</label>
 		<% if (currentUser) { %>
 			<span class="static-form-box"><%= currentUser.email %></span>
 		<% } else { %>
