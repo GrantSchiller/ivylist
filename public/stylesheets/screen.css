@@ -215,30 +215,41 @@ header p .link-button {
 .categories-list {
 	position: fixed;
 	float: left;
-	width: 91px;
+	/*width: 91px;*/
+	width: 133px;
 	border: 1px solid #ddd;
-	padding: 21px;
+	/*border-bottom: 0;*/
+	/*padding: 21px;*/
+	/*background: green;*/
+}
+
+.categories-list ul {
+	width: 100%;
 }
 
 .categories-list ul li {
-	margin-bottom: 18px;
+	width: 72.1%;
+	padding: 9% 14%;
+	border-bottom: 1px solid #ddd;
 }
-.categories-list ul li:last-child {
-	margin-bottom: 0;
+.categories-list ul a:last-child li, .categories-list ul > li:last-child {
+	border-bottom: 0;
 }
 .categories-list li.current {
 	color: #1b1b1b;
+	background: #f1f1f1;
 	font-weight: bold;
 }
-.categories-list ul li a {
+.categories-list ul a:hover li {
+	background: #f1f1f1;
+}
+.categories-list ul a li {
 	color: #95001a;
 }
 
 .posts-list {
 	width: 77%;
-	/*padding-left: 3%;*/
 	float: right;
-	/*border-left: 1px solid #ddd;*/
 }
 
 li.post {
@@ -273,7 +284,7 @@ li.post a:visited  time {
 li.post a.category-link {
 	display: block;
 	float: right;
-	color: #01256e;
+	color: #95001a;
 }
 
 #more_posts_marker {
@@ -299,8 +310,9 @@ article.post a.post-category {
 	display: block;
 	margin-right: 6px;
 	border: 1px solid #ddd;
-	color: #01256e;
-	padding: 5px;
+	background: #f1f1f1;
+	color: #95001a;
+	padding: 6px;
 }
 
 article.post p {
@@ -434,10 +446,14 @@ img, object, embed {
 
 	.categories-list {
 		position: static;
-		width: 90%;
-		padding: 5%;
+		width: 100%;
+		/*padding: 5%;*/
 		float: none;
 		margin-bottom: 20px;
+	}
+	.categories-list ul li {
+		width: 90%;
+		padding: 5%;
 	}
 	.posts-list {
 		width: 100%;
