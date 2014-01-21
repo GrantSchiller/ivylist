@@ -2,88 +2,28 @@ var posts_controller = require('../app/controllers/posts_controller'),
     users_controller = require('../app/controllers/users_controller'),
     sessions_controller = require('../app/controllers/sessions_controller');
 
-module.exports = {
-  ':category': {
-    action: posts_controller.index,
-    accept: ["GET"],
+module.exports = function(app) {
+  app.get('/', posts_controller.index);
 
-    ':id': {
-      action: posts_controller.show,
-      accept: ["GET"],
+  app.get('/scroll', posts_controller.scroll);
+  app.get('/new', posts_controller.add);
 
-      'contact': {
-        action: posts_controller.contact,
-        accept: ["GET"]
-      },
-      'send_email': {
-        action: posts_controller.sendEmail,
-        accept: ["POST"]
-      }
-    },
-  },
+  app.get('/posts', posts_controller.index);
+  app.post('/posts/create', posts_controller.create);
+  app.get('/posts/confirm/:confirmation_code', posts_controller.confirm);
 
-  'scroll': {
-    action: posts_controller.scroll,
-    accept: ["GET"],
-    ajaxOnly: true
-  },
+  app.post('/users/create', users_controller.create);
+  app.get('/users/confirm/:confirmation_code', users_controller.confirm);
 
-  'new': {
-    action: posts_controller.add,
-    accept: ["GET"]
-  },
-  'posts': {
-    action: posts_controller.index,
-    accept: ["GET"],
+  app.get('/register', users_controller.add);
 
-    'confirm': {
-      ':confirmation_code': {
-        action: posts_controller.confirm,
-        accept: ["GET"]
-      }
-    },
-    'create': {
-      action: posts_controller.create,
-      accept: ["POST"]
-    },
-  },
+  app.get('/login', sessions_controller.login);
+  app.get('/logout', sessions_controller.logout);
 
-  'users': {
-    'create': {
-      action: users_controller.create,
-      accept: ["POST"],
-      secure: true
-    },
+  app.post('/sessions/create', sessions_controller.create);
 
-    'confirm': {
-      ':confirmation_code': {
-        action: users_controller.confirm,
-        accept: ["GET"]
-      }
-    }
-  },
-
-  'register': {
-    action: users_controller.add,
-    accept: ["GET"]
-  },
-
-  'login': {
-    action: sessions_controller.login,
-    accept: ["GET"]
-  },
-  
-  'sessions': {
-    'create': {
-      action: sessions_controller.createSession,
-      accept: ["POST"],
-      secure: true
-    }
-  },
-
-  'logout': {
-    action: sessions_controller.logout,
-    accept: ["GET"],
-    loggedInOnly: true
-  }
+  app.post('/:category/:id/send_email', posts_controller.sendEmail);
+  app.get('/:category/:id/contact', posts_controller.contact);
+  app.get('/:category/:id', posts_controller.show);
+  app.get('/:category', posts_controller.index);
 }
