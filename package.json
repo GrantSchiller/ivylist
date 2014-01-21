@@ -1,8 +1,9 @@
 {
-  "name": "App_Idea_Creator",
+  "name": "QuadShare",
   "version": "0.0.1",
   "author": "Max Luzuriaga",
   "dependencies": {
+    "express": "*",
     "connect": "*",
     "ejs": "*",
     "mongoose": "*",

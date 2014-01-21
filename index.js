@@ -4,5 +4,5 @@ var server = require ("./lib/server"),
     routes = require("./config/routes");
 
 db.connect(function() {
-  server.start(router.route, routes, __dirname + '/public');
+  server.start(router.route, routes, __dirname);
 });
