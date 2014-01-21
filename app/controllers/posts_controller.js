@@ -135,13 +135,21 @@ function show(response, request, params, postData) {
   request.session.confirmedEmail = undefined;
 
   _findPost(params.id, request, response, function(post) {
-    helper.render("posts/show.html", { js: true, post: post }, request, response, 200);
+    if (post._category.slug == params.category) {
+      helper.render("posts/show.html", { js: true, post: post }, request, response, 200);
+    } else {
+      helper.renderError(404, request, response);
+    }
   });
 }
 
 function contact(response, request, params, postData) {
   _findPost(params.id, request, response, function(post) {
-    helper.render("posts/contact.js", { post: post, email: request.session.email }, request, response, 200);
+    if (post._category.slug == params.category) {
+      helper.render("posts/contact.js", { post: post, email: request.session.email }, request, response, 200);
+    } else {
+      helper.renderError(404, request, response);
+    }
   });
 }
 
@@ -150,29 +158,33 @@ function sendEmail(response, request, params, postData) {
   var target = "friendscentral.org";
   if (postData.email_text.trim().length != 0) {
     _findPost(params.id, request, response, function(post) {
-      var toEmail = post._user ? post._user.email : post.email;
-      var fromEmail;
+      if (post._category.slug == params.category) {
+        var toEmail = post._user ? post._user.email : post.email;
+        var fromEmail;
 
-      if (request.user) {
-        fromEmail = request.user.email;
-      } else if (re.test(postData.email) && (postData.email.substr(postData.email.length - target.length) == target)) {
-        fromEmail = postData.email;
+        if (request.user) {
+          fromEmail = request.user.email;
+        } else if (re.test(postData.email) && (postData.email.substr(postData.email.length - target.length) == target)) {
+          fromEmail = postData.email;
+        } else {
+          helper.renderError(403, request, response);
+          return;
+        }
+
+        mail({
+          from: fromEmail,
+          to: toEmail,
+          subject: "Re: " + post.title,
+          text: postData.email_text,
+          html: postData.email_text
+        });
+
+        request.session.email = postData.email;
+
+        helper.render("posts/send_email.js", { post: post }, request, response, 200);
       } else {
-        helper.renderError(403, request, response);
-        return;
+        helper.renderError(404, request, response);
       }
-
-      mail({
-        from: fromEmail,
-        to: toEmail,
-        subject: "Re: " + post.title,
-        text: postData.email_text,
-        html: postData.email_text
-      });
-
-      request.session.email = postData.email;
-
-      helper.render("posts/send_email.js", { post: post }, request, response, 200);
     });
   } else {
     helper.renderError(403, request, response);
