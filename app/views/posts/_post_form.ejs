@@ -1,4 +1,5 @@
 <form action="/posts/create" method="post" class="postForm leftForm group">
+	<input type="hidden" name="_csrf" value="<%= token %>" />
 	<p class="group email <%= currentUser ? 'confirmed-field' : '' %>">
 		<label for="email">Your Email:</label>
 		<% if (currentUser) { %>

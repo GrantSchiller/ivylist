@@ -4,6 +4,7 @@
 <h1 class="full-form-title">Login</h1>
 
 <form action="/sessions/create" method="post" class="group">
+	<input type="hidden" name="_csrf" value="<%= token %>" />
 	<p class="group email">
 		<label for="email">Email:</label>
 		<input type="email" name="email" placeholder="yourname@something.upenn.edu" value="<%= email ? email : '' %>" />
