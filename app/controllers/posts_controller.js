@@ -6,20 +6,6 @@ var helper = require('../../lib/helper'),
 
 var perPage = 20;
 
-function _findPost(id, request, response, callback) {
-  if (id && id.length == 24) {
-    Post.findByIdString(id).populate('_category').exec(function(err, post) {
-      if (post) {
-        callback(post);
-      } else {
-        helper.renderError(404, request, response);
-      }
-    });
-  } else {
-    helper.renderError(404, request, response);
-  }
-}
-
 function index(request, response) {
   request.session.confirmedEmail = undefined;
 
@@ -36,22 +22,30 @@ function index(request, response) {
   });
 }
 
-function scroll(response, request, params, postData) {
-  _findPost(params.id, request, response, function(post) {
-    if (params.category == "") {
-      Post.find({ confirmed: true, date: { $lt: post.date }}).sort({date: -1}).limit(perPage).populate('_category').exec(function(err, posts) {
-        var last = (posts.length < perPage);
-        helper.render("posts/scroll.js", { posts: posts, last: last }, request, response, 200);
-      });
-    } else {
-      Category.findOne({ slug: params.category }).exec(function(err, category) {
-        Post.find({ _category: category._id, confirmed: true, date: { $lt: post.date }}).sort({date: -1}).limit(perPage).populate('_category').exec(function(err, posts) {
+function scroll(request, response) {
+  var id = request.query.id;
+
+  if (id && id.length == 24) {
+    Post.findByIdString(request.query.id).exec(function(err, post) {;
+      if (request.query.category == '') {
+        Post.find({ confirmed: true, date: { $lt: post.date }}).sort({date: -1}).limit(perPage).populate('_category').exec(function(err, posts) {
           var last = (posts.length < perPage);
-          helper.render("posts/scroll.js", { posts: posts, last: last }, request, response, 200);
+          response.render('posts/scroll', { posts: posts, last: last, js: true });
         });
-      });
-    }
-  });
+      } else {
+        Category.findOne({ slug: request.query.category }).exec(function(err, category) {
+          if (category) {
+            Post.find({ _category: category._id, confirmed: true, date: { $lt: post.date }}).sort({date: -1}).limit(perPage).populate('_category').exec(function(err, posts) {
+              var last = (posts.length < perPage);
+              response.render('posts/scroll', { posts: posts, last: last, js: true });
+            });
+          }
+        });
+      }
+    });
+  } else {
+    helper.renderError(404, response);
+  }
 }
 
 function add(response, request, params, postData) {
@@ -132,51 +126,38 @@ function show(request, response) {
 }
 
 function contact(request, response) {
-  // _findPost(params.id, request, response, function(post) {
-    // if (post._category.slug == params.category) {
-      // response.setHeader('Content-Type', 'application/javascript');
-      response.render('posts/contact', { post: request.post, email: request.session.email, js: true });
-  //   } else {
-  //     helper.renderError(404, request, response);
-  //   }
-  // });
+  response.render('posts/contact', { post: request.post, email: request.session.email, js: true });
 }
 
-function sendEmail(response, request, params, postData) {
+function sendEmail(request, response) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   var target = "friendscentral.org";
-  if (postData.email_text.trim().length != 0) {
-    _findPost(params.id, request, response, function(post) {
-      if (post._category.slug == params.category) {
-        var toEmail = post._user ? post._user.email : post.email;
-        var fromEmail;
+  if (request.body.email_text.trim().length != 0) {
+    var toEmail = request.post._user ? request.post._user.email : request.post.email;
+    var fromEmail;
 
-        if (request.user) {
-          fromEmail = request.user.email;
-        } else if (re.test(postData.email) && (postData.email.substr(postData.email.length - target.length) == target)) {
-          fromEmail = postData.email;
-        } else {
-          helper.renderError(403, request, response);
-          return;
-        }
+    if (request.user) {
+      fromEmail = request.user.email;
+    } else if (re.test(request.body.email) && (request.body.email.substr(request.body.email.length - target.length) == target)) {
+      fromEmail = request.body.email;
+    } else {
+      helper.renderError(403, response);
+      return;
+    }
 
-        mail({
-          from: fromEmail,
-          to: toEmail,
-          subject: "Re: " + post.title,
-          text: postData.email_text,
-          html: postData.email_text
-        });
-
-        request.session.email = postData.email;
-
-        helper.render("posts/send_email.js", { post: post }, request, response, 200);
-      } else {
-        helper.renderError(404, request, response);
-      }
+    mail({
+      from: fromEmail,
+      to: toEmail,
+      subject: "Re: " + request.post.title,
+      text: request.body.email_text,
+      html: request.body.email_text
     });
+
+    request.session.email = request.body.email;
+
+    response.render('posts/send_email', { post: request.post, js: true });
   } else {
-    helper.renderError(403, request, response);
+    helper.renderError(403, response);
   }
 }
 

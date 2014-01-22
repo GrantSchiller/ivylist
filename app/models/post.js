@@ -82,6 +82,11 @@ post.statics = {
   findWithCategory: function(id, category) {
     var newID = mongoose.Types.ObjectId(id);
     return this.findOne({_id: newID, _category: category._id});
+  },
+
+  findByIdString: function(id) {
+    var newID = mongoose.Types.ObjectId(id);
+    return this.findById(newID);
   }
 };
 
