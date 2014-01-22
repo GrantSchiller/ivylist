@@ -7,7 +7,6 @@ function login(request, response) {
   } else {
     request.session.email = undefined;
     response.render('sessions/login', { email: request.session.email });
-    // helper.render("sessions/login.html", { email: request.session.email }, request, response, 200);
   }
 }
 
