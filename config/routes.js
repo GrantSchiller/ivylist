@@ -2,6 +2,10 @@ var posts_controller = require('../app/controllers/posts_controller'),
     users_controller = require('../app/controllers/users_controller'),
     sessions_controller = require('../app/controllers/sessions_controller');
 
+var helper = require('../lib/helper');
+
+var Category = require('../app/models/category');
+
 module.exports = function(app) {
   app.get('/', posts_controller.index);
 
@@ -21,6 +25,17 @@ module.exports = function(app) {
   app.get('/logout', sessions_controller.logout);
 
   app.post('/sessions/create', sessions_controller.create);
+
+  app.param('category', function(request, response, next, slug) {
+    Category.findOne({ slug: slug }).exec(function(err, cat) {
+      if (cat) {
+        request.category = cat;
+        next();
+      } else {
+        helper.renderError(404, response);
+      }
+    });
+  });
 
   app.post('/:category/:id/send_email', posts_controller.sendEmail);
   app.get('/:category/:id/contact', posts_controller.contact);
