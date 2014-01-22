@@ -122,28 +122,24 @@ function create(request, response) {
   });
 }
 
-function confirm(response, request, params, postData, sockets) {
-  Post.findOne({ confirmation_code: params.confirmation_code }).populate('_category').exec(function(err, post) {
+function confirm(request, response) {
+  Post.findOne({ confirmed: false, confirmation_code: request.params.confirmation_code }).populate('_category').exec(function(err, post) {
     if (post) {
-      if (post.confirmed) {
-        helper.redirectTo(post.url(), request, response);
-      } else {
-        post.update({ confirmed: true }, function(err) {
-          post.populate('_category', function(err, post) {
-            if (!request.user && request.session.email && request.session.email == post.email) {
-              request.session.confirmedEmail = request.session.email;
-              helper.render("posts/confirm.html", { email: request.session.confirmedEmail, post: post }, request, response, 200);
-            } else {
-              // Confirming from different device
-              helper.redirectTo(post.url(), request, response);
-            }
-            
-            _notifyNewPost(post, request.sockets);
-          });
+      post.update({ confirmed: true }, function(err) {
+        post.populate('_category', function(err, post) {
+          if (!request.user && request.session.email && request.session.email == post.email) {
+            request.session.confirmedEmail = request.session.email;
+            response.render('posts/confirm', { email: request.session.confirmedEmail, post: post });
+          } else {
+            // Confirming from different device
+            response.redirect(post.url());
+          }
+          
+          _notifyNewPost(post, request.sockets);
         });
-      }
+      });
     } else {
-      helper.renderError(404, request, response);
+      helper.renderError(404, response);
     }
   });
 }
