@@ -48,21 +48,34 @@ function scroll(request, response) {
   }
 }
 
-function add(response, request, params, postData) {
+function add(request, response) {
   request.session.confirmedEmail = undefined;
 
   Category.find().sort({ name: 1 }).exec(function(err, categories) {
     var post = new Post();
-    helper.render("posts/add.html", { customJS: true, post: post, categories: categories, email: request.session.email }, request, response, 200);
+    response.render('posts/add', { customJS: true, post: post, categories: categories, email: request.session.email });
   });
 }
 
-function create(response, request, params, postData, sockets) {
-  Category.findOne({ slug: postData.category }).exec(function(err, category) {
+function _notifyNewPost(post, sockets) {
+  helper.renderPartial('posts/_post', { post: post }, function(content) {
+    var listeners = sockets[post._category.slug] || [];
+    var allPostsListeners = sockets[''] || [];
+
+    listeners = listeners.concat(allPostsListeners);
+
+    listeners.forEach(function(socket) {
+      socket.emit('new post', { post: content });
+    });
+  });
+}
+
+function create(request, response) {
+  Category.findOne({ slug: request.body.category }).exec(function(err, category) {
     if (category) {
       var post = new Post({
-        title: postData.title,
-        text_markdown: postData.text,
+        title: request.body.title,
+        text_markdown: request.body.text,
         _category: category._id
       });
 
@@ -72,31 +85,25 @@ function create(response, request, params, postData, sockets) {
 
         post.save(function(err, post) {
           if (err) {
-            helper.redirectTo("/new", request, response); // TODO: display feedback to user for why post was invalid
+            response.redirect('/new'); // TODO: display feedback to user for why post was invalid
           } else {
             post.populate('_category', function(err, post) {
-              helper.redirectTo(post.url(), request, response);
+              response.redirect(post.url());
 
-              helper.renderPartial("posts/_post", { post: post }, function(content) {
-                var listeners = sockets[post._category.slug];
-
-                if (listeners) {
-                  listeners = listeners.concat(sockets['']);
-                  listeners.forEach(function(socket) {
-                    socket.emit('new post', { post: content });
-                  });
-                }
-              });
+              _notifyNewPost(post, request.sockets);
             });
           }
         });
       } else {
-        post.email = postData.email,
+        post.email = request.body.email,
 
         post.save(function(err, post) {
           if (err) {
-            helper.redirectTo("/new", request, response); // TODO: display feedback to user for why post was invalid
+            response.redirec('/new'); // TODO: display feedback to user for why post was invalid
           } else {
+            request.session.email = post.email;
+            response.render('posts/create', { post: post });
+
             var confirmLink ='http://' + request.headers.host + "/posts/confirm/" + post.confirmation_code;
 
             mail({
@@ -106,15 +113,37 @@ function create(response, request, params, postData, sockets) {
               text: confirmLink,
               html: '<a href="' + confirmLink + '">Confirm your post!</a>'
             });
-
-            request.session.email = post.email;
-
-            helper.render("posts/create.html", { post: post }, request, response, 200);
           }
         });
       }
     } else {
-      helper.redirectTo("/new", request, response);
+      response.redirect('/new');
+    }
+  });
+}
+
+function confirm(response, request, params, postData, sockets) {
+  Post.findOne({ confirmation_code: params.confirmation_code }).populate('_category').exec(function(err, post) {
+    if (post) {
+      if (post.confirmed) {
+        helper.redirectTo(post.url(), request, response);
+      } else {
+        post.update({ confirmed: true }, function(err) {
+          post.populate('_category', function(err, post) {
+            if (!request.user && request.session.email && request.session.email == post.email) {
+              request.session.confirmedEmail = request.session.email;
+              helper.render("posts/confirm.html", { email: request.session.confirmedEmail, post: post }, request, response, 200);
+            } else {
+              // Confirming from different device
+              helper.redirectTo(post.url(), request, response);
+            }
+            
+            _notifyNewPost(post, request.sockets);
+          });
+        });
+      }
+    } else {
+      helper.renderError(404, request, response);
     }
   });
 }
@@ -159,41 +188,6 @@ function sendEmail(request, response) {
   } else {
     helper.renderError(403, response);
   }
-}
-
-function confirm(response, request, params, postData, sockets) {
-  Post.findOne({ confirmation_code: params.confirmation_code }).populate('_category').exec(function(err, post) {
-    if (post) {
-      if (post.confirmed) {
-        helper.redirectTo(post.url(), request, response);
-      } else {
-        post.update({ confirmed: true }, function(err) {
-          post.populate('_category', function(err, post) {
-            if (!request.user && request.session.email && request.session.email == post.email) {
-              request.session.confirmedEmail = request.session.email;
-              helper.render("posts/confirm.html", { email: request.session.confirmedEmail, post: post }, request, response, 200);
-            } else {
-              // Confirming from different device
-              helper.redirectTo(post.url(), request, response);
-            }
-
-            helper.renderPartial("posts/_post", { post: post }, function(content) {
-            var listeners = sockets[post._category.slug];
-
-              if (listeners) {
-                listeners = listeners.concat(sockets['']);
-                listeners.forEach(function(socket) {
-                  socket.emit('new post', { post: content });
-                });
-              }
-            });
-          });
-        });
-      }
-    } else {
-      helper.renderError(404, request, response);
-    }
-  });
 }
 
 exports.index = index;
