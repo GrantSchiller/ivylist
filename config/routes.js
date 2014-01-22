@@ -57,4 +57,8 @@ module.exports = function(app) {
   app.get('/:category/:post_id/contact', posts_controller.contact);
   app.get('/:category/:post_id', posts_controller.show);
   app.get('/:category', posts_controller.index);
+
+  app.get('*', function(request, response) {
+    helper.renderError(404, response);
+  })
 }

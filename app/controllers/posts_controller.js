@@ -127,18 +127,19 @@ function create(response, request, params, postData, sockets) {
 
 function show(request, response) {
   request.session.confirmedEmail = undefined;
-  
+
   response.render('posts/show', { post: request.post });
 }
 
-function contact(response, request, params, postData) {
-  _findPost(params.id, request, response, function(post) {
-    if (post._category.slug == params.category) {
-      helper.render("posts/contact.js", { post: post, email: request.session.email }, request, response, 200);
-    } else {
-      helper.renderError(404, request, response);
-    }
-  });
+function contact(request, response) {
+  // _findPost(params.id, request, response, function(post) {
+    // if (post._category.slug == params.category) {
+      // response.setHeader('Content-Type', 'application/javascript');
+      response.render('posts/contact', { post: request.post, email: request.session.email, js: true });
+  //   } else {
+  //     helper.renderError(404, request, response);
+  //   }
+  // });
 }
 
 function sendEmail(response, request, params, postData) {
