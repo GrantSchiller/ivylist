@@ -2,38 +2,39 @@ var helper = require('../../lib/helper'),
     mail = require('nodemailer').mail,
     User = require('../models/user');
 
-function add(response, request, params, postData) {
+function add(request, response) {
   if (request.user) {
-    helper.redirectTo("/", request, response);
+    response.redirect('/');
   } else {
-    helper.render("users/add.html", { email: request.session.email }, request, response, 200);
+    response.render('users/add', { email: request.session.email });
   }
 }
 
-function create(response, request, params, postData) {
+function create(request, response) {
   var user = new User();
-  user.password = postData.password;
-  user.password_confirmation = postData.password_confirmation;
+  user.password = request.body.password;
+  user.password_confirmation = request.body.password_confirmation;
 
   var email;
   if (request.session.confirmedEmail) {
     user.email = request.session.confirmedEmail;
     user.confirmed = true;
   } else {
-    user.email = postData.email;
+    user.email = request.body.email;
   }
 
   user.save(function(err, user) {
+    request.session.email = request.session.confirmedEmail;
     request.session.confirmedEmail = undefined;
 
     if (err) {
-      helper.redirectTo("/register", request, response);
+      response.redirect('/register');
     } else {
       request.session.email = undefined;
 
       if (user.confirmed) {
         helper.signIn(user, request);
-        helper.redirectTo("/", request, response);
+        response.redirect('/');
       } else {
         var confirmLink ='http://' + request.headers.host + "/users/confirm/" + user.confirmation_code;
 
@@ -45,26 +46,22 @@ function create(response, request, params, postData) {
           html: '<a href="' + confirmLink + '">Confirm your account.</a>'
         });
 
-        helper.render("users/create.html", { user: user }, request, response, 200);
+        response.render('users/create', { user: user });
       }
     }
   });
 }
 
-function confirm(response, request, params, postData) {
-  User.findOne({ confirmation_code: params.confirmation_code }, function(err, user) {
+function confirm(request, response) {
+  User.findOne({ confirmed: false, confirmation_code: request.params.confirmation_code }, function(err, user) {
     if (user) {
-      if (!user.confirmed) {
-        user.update({ confirmed: true }, function(err) {
-          helper.signIn(user, request);
+      user.update({ confirmed: true }, function(err) {
+        helper.signIn(user, request);
 
-          helper.redirectTo("/", request, response);
-        });
-      } else {
-        helper.redirectTo("/", request, response);
-      }
+        response.redirect('/');
+      });
     } else {
-      helper.renderError(404, request, response);
+      helper.renderError(404, response);
     }
   });
 }
