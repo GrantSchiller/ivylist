@@ -80,6 +80,7 @@ header {
 	z-index: 1024;
 	box-shadow: 0 9px 25px #fff;
 	padding: 20px 0;
+	opacity: 0.95;
 }
 header h1 {
 	font-weight: normal;
