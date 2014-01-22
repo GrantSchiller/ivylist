@@ -4,7 +4,8 @@ var posts_controller = require('../app/controllers/posts_controller'),
 
 var helper = require('../lib/helper');
 
-var Category = require('../app/models/category');
+var Post = require('../app/models/post'),
+    Category = require('../app/models/category');
 
 module.exports = function(app) {
   app.get('/', posts_controller.index);
@@ -37,8 +38,23 @@ module.exports = function(app) {
     });
   });
 
-  app.post('/:category/:id/send_email', posts_controller.sendEmail);
-  app.get('/:category/:id/contact', posts_controller.contact);
-  app.get('/:category/:id', posts_controller.show);
+  app.param('post_id', function(request, response, next, id) {
+    if (id && id.length == 24) {
+      Post.findWithCategory(id, request.category).populate('_category').exec(function(err, post) {
+        if (post) {
+          request.post = post;
+          next();
+        } else {
+          helper.renderError(404, response);
+        }
+      });
+    } else {
+      helper.renderError(404, response);
+    }
+  });
+
+  app.post('/:category/:post_id/send_email', posts_controller.sendEmail);
+  app.get('/:category/:post_id/contact', posts_controller.contact);
+  app.get('/:category/:post_id', posts_controller.show);
   app.get('/:category', posts_controller.index);
 }

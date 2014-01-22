@@ -125,16 +125,10 @@ function create(response, request, params, postData, sockets) {
   });
 }
 
-function show(response, request, params, postData) {
+function show(request, response) {
   request.session.confirmedEmail = undefined;
-
-  _findPost(params.id, request, response, function(post) {
-    if (post._category.slug == params.category) {
-      helper.render("posts/show.html", { js: true, post: post }, request, response, 200);
-    } else {
-      helper.renderError(404, request, response);
-    }
-  });
+  
+  response.render('posts/show', { post: request.post });
 }
 
 function contact(response, request, params, postData) {
