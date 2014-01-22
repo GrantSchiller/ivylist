@@ -40,7 +40,7 @@ module.exports = function(app) {
 
   app.param('post_id', function(request, response, next, id) {
     if (id && id.length == 24) {
-      Post.findWithCategory(id, request.category).populate('_category').exec(function(err, post) {
+      Post.findWithCategory(id, request.category).populate('_category').populate('_user').exec(function(err, post) {
         if (post) {
           request.post = post;
           next();

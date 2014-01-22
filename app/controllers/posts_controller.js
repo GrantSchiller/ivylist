@@ -106,10 +106,10 @@ function create(request, response) {
 
             var confirmLink ='http://' + request.headers.host + "/posts/confirm/" + post.confirmation_code;
 
-            mail({
-              from: "Max Luzuriaga <max@luzuriaga.com>",
+            helper.sendEmail({
+              from: "QuadShare <quadsharemax@gmail.com>",
               to: post.email,
-              subject: "Confirm your Ivylist post",
+              subject: 'Confirm your QuadShare post: "' + post.title + '"',
               text: confirmLink,
               html: '<a href="' + confirmLink + '">Confirm your post!</a>'
             });
@@ -170,12 +170,14 @@ function sendEmail(request, response) {
       return;
     }
 
-    mail({
-      from: fromEmail,
-      to: toEmail,
-      subject: "Re: " + request.post.title,
-      text: request.body.email_text,
-      html: request.body.email_text
+    helper.renderPartial('emails/contact', { fromEmail: fromEmail, emailText: request.body.email_text, post: request.post}, function(body) {
+      helper.sendEmail({
+        from: "QuadShare <quadsharemax@gmail.com>",
+        to: toEmail,
+        replyTo: fromEmail,
+        subject: "Response Re: " + request.post.title,
+        text: body
+      });
     });
 
     request.session.email = request.body.email;
