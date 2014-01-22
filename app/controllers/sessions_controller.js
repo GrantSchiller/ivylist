@@ -1,34 +1,35 @@
 var helper = require('../../lib/helper'),
     User = require('../models/user');
 
-function login(response, request, params, postData) {
+function login(request, response) {
   if (request.user) {
     helper.redirectTo("/", request, response); // TODO: redirect to the page the user was on
   } else {
     request.session.email = undefined;
-    helper.render("sessions/login.html", { email: request.session.email }, request, response, 200);
+    response.render('sessions/login', { email: request.session.email });
+    // helper.render("sessions/login.html", { email: request.session.email }, request, response, 200);
   }
 }
 
-function logout(response, request, params, postData) {
+function logout(request, response) {
   helper.signOut(request);
-  helper.redirectTo("/", request, response); // TODO: redirect to the page the user was on
+  response.redirect('/'); // TODO: redirect to the page the user was on
 }
 
-function createSession(response, request, params, postData) {
-  var email = postData.email;
-  var password = postData.password;
+function create(request, response) {
+  var email = request.body.email;
+  var password = request.body.password;
 
   User.authenticate(email, password, function(user) {
     if (user) {
       helper.signIn(user, request);
-      helper.redirectTo("/", request, response); // TODO: redirect to the page the user was on
+      response.redirect('/'); // TODO: redirect to the page the user was on
     } else {
-      helper.redirectTo("/login", request, response);
+      response.redirect('/login');
     }
   });
 }
 
 exports.login = login;
 exports.logout = logout;
-exports.createSession = createSession;
+exports.create = create;
