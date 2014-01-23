@@ -38,12 +38,13 @@ function create(request, response) {
       } else {
         var confirmLink ='http://' + request.headers.host + "/users/confirm/" + user.confirmation_code;
 
-        mail({
-          from: "Max Luzuriaga <max@luzuriaga.com>",
-          to: user.email,
-          subject: "Confirm your Ivylist account",
-          text: confirmLink,
-          html: '<a href="' + confirmLink + '">Confirm your account.</a>'
+        helper.renderPartial('emails/confirm_user', { user: user, confirmLink: confirmLink }, function(body) {
+          helper.sendEmail({
+            from: "QuadShare <quadsharemax@gmail.com>",
+            to: user.email,
+            subject: "Confirm your QuadShare account",
+            text: body
+          });
         });
 
         response.render('users/create', { user: user });
