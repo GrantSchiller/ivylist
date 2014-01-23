@@ -55,7 +55,7 @@ ol, ul {
 
 #main h1 {
 	font-weight: bold;
-	font-size: 1.5em;
+	font-size: 1.7em;
 	margin-bottom: 10px;
 	line-height: 1.3em;
 }
@@ -67,6 +67,22 @@ body em {
 }
 body strong {
 	font-weight: bold;
+}
+
+article h2 {
+	font-size: 1.2em;
+	line-height: 1.5;
+	margin-bottom: 5px;
+	font-weight: bold;
+	color: #333;
+}
+
+article ul {
+	list-style-type: disc;
+	padding-left: 16px;
+}
+article ul li {
+	line-height: 1.5em;
 }
 
 /* ---------------------------------------------------------------------------------------
@@ -196,6 +212,17 @@ li.post a.category-link {
 }
 
 /* ---------------------------------------------------------------------------------------
+   Footer
+   --------------------------------------------------------------------------------------- */
+
+#main hr {
+	clear: both;
+	margin-top: 20px;
+	border: 0;
+	border-top: 1px solid #ddd;
+}
+
+/* ---------------------------------------------------------------------------------------
    Post View
    --------------------------------------------------------------------------------------- */
 
@@ -206,10 +233,10 @@ article.post a.post-category {
 	border: 1px solid #ddd;
 	background: #f1f1f1;
 	color: #95001a;
-	padding: 6px;
+	padding: 7px;
 }
 
-article.post p {
+article p, article ul {
 	margin-bottom: 14px;
 }
 article.post p.post-time {
@@ -409,8 +436,11 @@ form p.error.text:before {
 	color: #f1f1f1;
 	font-family: Georgia, "Times New Roman", Times, serif;
 }
-.penn header h2 {
+.penn header h2 a {
 	color: #f1f1f1;
+}
+.penn header a:hover h1, .penn header h2 a:hover {
+	color: #fff;
 }
 body.penn {
 	background: #f9fbff;
@@ -418,8 +448,11 @@ body.penn {
 .penn .link-button {
 	background: #95001a;
 }
-.penn p a {
+.penn p a, .penn article a {
 	color: #01256e;
+}
+.penn p a:hover, .penn article a:hover {
+	color: #3e74e2;
 }
 .penn header p {
 	color: #f1f1f1;
@@ -466,6 +499,9 @@ html body a.link-button {
 	font-weight: bold;
 	color: #fff;
 	padding: 10px;
+}
+html body a.link-button:hover {
+	color: #ddd;
 }
 
 .text-right {
@@ -528,6 +564,13 @@ img, object, embed {
 		margin-top: 10px;
 	}
 
+	.full-form-title {
+		padding-left: 0;
+	}
+	.half-form-title {
+		padding-left: 0;
+	}
+
 	article.post a.post-category {
 		float: none;
 		display: inline-block;
@@ -551,10 +594,6 @@ img, object, embed {
 		display: block;
 	}
 
-	.full-form-title {
-		padding-left: 5px;
-	}
-
 	input[type=text], input[type=email], #additional-post-ui form.contactForm input[type=email], #additional-post-ui .static-form-box, input[type=password], .static-form-box, textarea {
 		width: 95%;
 		padding: 2.5%;
@@ -566,9 +605,6 @@ img, object, embed {
 		float: none;
 	}
 
-	.half-form-title {
-		padding-left: 0%;
-	}
 	form p.error:before {
 		width: 100%;
 		float: none;

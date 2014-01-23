@@ -1,4 +1,5 @@
-var posts_controller = require('../app/controllers/posts_controller'),
+var pages_controller = require('../app/controllers/pages_controller'),
+    posts_controller = require('../app/controllers/posts_controller'),
     users_controller = require('../app/controllers/users_controller'),
     sessions_controller = require('../app/controllers/sessions_controller');
 
@@ -9,6 +10,7 @@ var Post = require('../app/models/post'),
 
 module.exports = function(app) {
   app.get('/', posts_controller.index);
+  app.get('/about', pages_controller.about);
 
   app.get('/scroll', posts_controller.scroll);
   app.get('/new', posts_controller.add);
