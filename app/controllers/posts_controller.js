@@ -128,15 +128,22 @@ function confirm(request, response) {
     if (post) {
       post.update({ confirmed: true }, function(err) {
         post.populate('_category', function(err, post) {
-          if (!request.user && request.session.email && request.session.email == post.email) {
-            request.session.confirmedEmail = request.session.email;
-            response.render('posts/confirm', { email: request.session.confirmedEmail, post: post });
-          } else {
-            // Confirming from different device
-            response.redirect(post.url());
-          }
-          
-          _notifyNewPost(post, request.sockets);
+          User.findOne({ email: post.email }, function(err, user) {
+            if (user) {
+              post.update({ _user: user._id }, function(err) {
+                response.redirect(post.url());
+              });
+            } else {
+              if (!request.user && request.session.email && request.session.email == post.email) {
+                request.session.confirmedEmail = request.session.email;
+                response.render('posts/confirm', { email: request.session.confirmedEmail, post: post });
+              } else {
+                response.redirect(post.url());
+              }
+            }
+
+            _notifyNewPost(post, request.sockets);
+          });
         });
       });
     } else {
