@@ -16,7 +16,12 @@
 
 <header>
 	<div class="middle group">
-		<h1><a href="/">QuadShare</a></h1>
+		<div class="left">
+			<a href="/">
+				<h1>QuadShare</h1>
+				<h2>The best place for Penn students to buy, sell, trade, and share</h2>
+			</a>
+		</div>
 		<p>
 			<% if (currentUser) { %>
 				<%= currentUser.email.split("@")[0] %> <a href="/logout?x=<%= Math.floor((Math.random()*100)+1) %>" class="login-out">(Logout)</a>

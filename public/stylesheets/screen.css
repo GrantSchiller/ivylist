@@ -82,14 +82,24 @@ header {
 	padding: 20px 0;
 	opacity: 0.95;
 }
+header .left {
+	float: left;
+	width: 65%;
+}
 header h1 {
 	font-weight: normal;
-	font-size: 3em;
-	float: left;
+	font-size: 2.5em;
+}
+header h2 {
+	margin-top: 15px;
+	font-size: 1em;
+	line-height: 1.5em;
+	/*font-weight: bold;*/
+	/*font-family: */
 }
 header p {
 	float: right;
-	margin-top: 4px;
+	margin-top: 18px;
 	font-weight: bold;
 }
 header p a {
@@ -395,9 +405,12 @@ form p.error.text:before {
 .penn header {
 	background: #01256e;
 }
-.penn header h1 a {
+.penn header h1 {
 	color: #f1f1f1;
 	font-family: Georgia, "Times New Roman", Times, serif;
+}
+.penn header h2 {
+	color: #f1f1f1;
 }
 body.penn {
 	background: #f9fbff;
@@ -498,10 +511,16 @@ img, object, embed {
 }
 
 @media screen and (max-width: 500px) {
+	header .left {
+		float: none;
+		width: 100%;
+	}
 	header h1 {
 		font-size: 1.8em;
 		text-align: center;
-		float: none;
+	}
+	header h2 {
+		display: none;
 	}
 	header p {
 		text-align: center;
