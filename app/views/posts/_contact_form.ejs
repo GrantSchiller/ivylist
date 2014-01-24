@@ -1,8 +1,8 @@
-<p class="contact-form-explanation">We'll deliver your email to the poster, and if they choose, they'll respond to the email you provide below.</p>
+<p class="contact-form-explanation">Write your message in the form below, and we'll deliver it to the poster. If they choose, they'll reply directly to the email you provide.</p>
 <form action="<%= post.url() %>/send_email" method="post" class="contactForm group ajax">
 	<input type="hidden" name="_csrf" value="<%= token %>" />
 	<p class="group email <%= currentUser ? 'confirmed-field' : '' %>">
-		<label for="email">Email:</label>
+		<label for="email">Your email:</label>
 		<% if (currentUser) { %>
 			<span class="static-form-box"><%= currentUser.email %></span>
 		<% } else { %>
@@ -10,7 +10,6 @@
 		<% } %>
 	</p>
 	<p class="group text">
-		<!-- <label for="text">Text:</label> -->
 		<textarea name="email_text"></textarea>
 	</p>
 	<input type="submit" value="Send email" />

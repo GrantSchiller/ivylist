@@ -427,10 +427,10 @@ form p.error.text:before {
 	width: 97%;
 }
 #additional-post-ui form.contactForm label {
-	width: 10.5%;
+	width: 13.5%;
 }
 #additional-post-ui form.contactForm input[type=email], #additional-post-ui form.contactForm .static-form-box {
-	width: 85.5%;
+	width: 82.5%;
 }
 
 /* ---------------------------------------------------------------------------------------
@@ -616,11 +616,12 @@ img, object, embed {
 		float: none;
 	}
 
-	form label {
+	form label, #additional-post-ui form.contactForm label {
 		float: none;
 		text-align: left;
 		margin-bottom: 6px;
 		margin-top: 0;
+		width: 100%;
 		display: block;
 	}
 
