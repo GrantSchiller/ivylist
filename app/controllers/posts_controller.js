@@ -4,7 +4,7 @@ var helper = require('../../lib/helper'),
     Post = require('../models/post'),
     User = require('../models/user');
 
-var perPage = 20;
+var perPage = 30;
 
 function index(request, response) {
   request.session.confirmedEmail = undefined;
