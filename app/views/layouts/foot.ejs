@@ -4,7 +4,13 @@
 	<div class="middle">
 		<p class="about-us"><a href="/about">About us</a></p>
 		<p class="new-post"><a href="/new">New Post</a></p>
-		<p class="login"><a href="/login">Login</a></p>
+		<p class="login">
+			<% if (currentUser) { %>
+				<a href="/logout?x=<%= Math.floor((Math.random()*100)+1) %>" class="login-out">Logout</a>
+			<% } else { %>
+				<a href="/login?x=<%= Math.floor((Math.random()*100)+1) %>" class="login-out">Login</a>
+			<% } %>
+		</p>
 	</div>
 </footer>
 
