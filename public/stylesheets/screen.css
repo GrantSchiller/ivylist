@@ -140,6 +140,40 @@ footer {
 	padding: 12px 0;
 }
 
+footer .middle {
+	position: relative;
+	height: 20px;
+}
+
+footer p {
+	/*display: inline;*/
+}
+
+footer .about-us {
+	position: absolute;
+	left: 0px;
+	vertical-align: middle;
+}
+
+footer .new-post {
+	vertical-align: middle;
+	text-align: center;
+	width: 100%;
+	position: absolute;
+	/*display: inline-block;*/
+	/*float: right;*/
+}
+
+footer p.new-post a {
+	color: #95001a;
+}
+
+footer .login {
+	vertical-align: middle;
+	position: absolute;
+	right: 0px;
+}
+
 /* ---------------------------------------------------------------------------------------
    Categories List
    --------------------------------------------------------------------------------------- */
@@ -222,17 +256,6 @@ li.post a.category-link {
 #more_posts_marker {
 	text-align: center;
 	font-style: italic;
-}
-
-/* ---------------------------------------------------------------------------------------
-   Footer
-   --------------------------------------------------------------------------------------- */
-
-#main hr {
-	clear: both;
-	margin-top: 20px;
-	border: 0;
-	border-top: 1px solid #ddd;
 }
 
 /* ---------------------------------------------------------------------------------------
