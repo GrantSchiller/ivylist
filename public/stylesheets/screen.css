@@ -113,9 +113,8 @@ header h2 {
 }
 header p.right {
 	float: right;
-	/*margin-top: 18px;*/
+	margin-top: 17px;
 	font-weight: bold;
-	/*margin-bottom: 10px;*/
 	clear: right;
 }
 header p.right a {
@@ -126,23 +125,18 @@ header p .link-button {
 	margin-left: 10px;
 }
 
-header .about-link {
-	float: right;
-	font-weight: bold;
-	text-align: right;
-	display: block;
-	margin-top: 5px;
-	margin-bottom: 12px;
-	text-align: center;
-	/*margin-right: -80px;*/
-}
-header p.about-link a {
-	color: #f1f1f1;	
-}
-header p.about-link a:hover {
-	color: #fff;
-}
+/* ---------------------------------------------------------------------------------------
+   Footer
+   --------------------------------------------------------------------------------------- */
 
+footer {
+	box-shadow: 0 -9px 25px #fff;
+	margin-top: 20px;
+	width: 100%;
+	background: #fff;
+	border-top: 1px solid #ddd;
+	padding: 12px 0;
+}
 
 /* ---------------------------------------------------------------------------------------
    Categories List
@@ -567,18 +561,30 @@ img, object, embed {
 	}
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
+	header {
+		position: static;
+	}
+
+	body {
+		padding-top: 0;
+	}
+
+	header .left {
+		float: none;
+		text-align: center;
+		width: 100%;
+		margin-bottom: 0;
+	}
 	header h1 {
 		font-size: 2em;
-	}
-	header .about-link {
-		margin-bottom: 12px;
+		text-align: center;
 	}
 	header .left h2 {
 		display: none;
 	}
 	header p.right {
-		border-top: 1px solid #f1f1f1;
+		/*border-top: 1px solid #f1f1f1;*/
 		padding-top: 10px;
 		float: none;
 		clear: both;

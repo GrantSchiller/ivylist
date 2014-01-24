@@ -19,7 +19,17 @@ function infiniteScroll() {
 	}
 }
 
+function offsetFooter() {
+	$("body").css('padding-bottom', $("footer").outerHeight());
+}
+
 $(function() {
+	$("footer").css({
+		'position': 'fixed',
+		'bottom': 0
+	})
+
+	offsetFooter();
 	sizeTitles();
 
 	document.addEventListener("scroll", infiniteScroll);
@@ -32,4 +42,5 @@ $(function() {
 	});
 
 	$(window).resize(sizeTitles);
+	$(window).resize(offsetFooter)
 });

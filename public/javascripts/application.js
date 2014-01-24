@@ -85,7 +85,11 @@ function prepareTextareas() {
 }
 
 function accountForHeader() {
-	$('body').css('padding-top', $('header').outerHeight());
+	if ($(window).width() > 600) {
+		$('body').css('padding-top', $('header').outerHeight());
+	} else {
+		$('body').css('padding-top', 0);
+	}
 }
 
 $(function() {
