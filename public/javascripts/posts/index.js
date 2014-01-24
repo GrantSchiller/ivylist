@@ -1,5 +1,4 @@
 var loading = false;
-var sidebarTop;
 var finishedScrolling = false;
 
 function infiniteScroll() {
@@ -22,8 +21,6 @@ function infiniteScroll() {
 
 $(function() {
 	sizeTitles();
-
-	sidebarTop = $(".categories-list").offset().top;
 
 	document.addEventListener("scroll", infiniteScroll);
 
