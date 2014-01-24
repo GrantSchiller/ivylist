@@ -3,9 +3,6 @@ var target = "friendscentral.org";
 var shouldSubmitForm = true;
 
 function sizeTitles() {
-	$("li.post time").height(function(index) {
-		return $(this).next().height();
-	});
 	$("li.post p.title").width(function(index) {
 		return $(this).parent().parent().width() - $(this).parent().prev().width() - 5;
 	});

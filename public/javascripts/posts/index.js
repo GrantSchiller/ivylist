@@ -30,6 +30,4 @@ $(function() {
 		$(data.post).prependTo("#main ol");
 		sizeTitles();
 	});
-
-	$(window).resize(sizeTitles);
 });
