@@ -92,10 +92,16 @@ function accountForHeader() {
 	}
 }
 
+function offsetFooter() {
+	$("body").css('padding-bottom', $("footer").outerHeight());
+}
+
 $(function() {
 	accountForHeader();
+	offsetFooter();
 	prepareForms();
 	prepareLinks();
 });
 
 $(window).resize(accountForHeader);
+$(window).resize(offsetFooter);
