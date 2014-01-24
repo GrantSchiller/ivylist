@@ -140,13 +140,13 @@ footer {
 	padding: 12px 0;
 }
 
+footer .new-post, footer .login {
+	display: none;
+}
+
 footer .middle {
 	position: relative;
 	height: 20px;
-}
-
-footer p {
-	/*display: inline;*/
 }
 
 footer .about-us {
@@ -160,8 +160,6 @@ footer .new-post {
 	text-align: center;
 	width: 100%;
 	position: absolute;
-	/*display: inline-block;*/
-	/*float: right;*/
 }
 
 footer p.new-post a {
@@ -615,6 +613,10 @@ img, object, embed {
 		clear: both;
 		text-align: center;
 		margin-top: 10px;
+	}
+
+	footer .new-post, footer .login {
+		display: block;
 	}
 
 	.full-form-title {
