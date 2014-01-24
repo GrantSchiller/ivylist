@@ -110,20 +110,35 @@ header h2 {
 	margin-top: 15px;
 	font-size: 1em;
 	line-height: 1.5em;
-	/*font-weight: bold;*/
-	/*font-family: */
 }
-header p {
+header p.right {
 	float: right;
-	margin-top: 18px;
+	/*margin-top: 18px;*/
 	font-weight: bold;
+	clear: right;
 }
-header p a {
+header p.right a {
 	font-weight: normal;
 	line-height: 1;
 }
 header p .link-button {
 	margin-left: 10px;
+}
+
+header .about-link {
+	float: right;
+	/*border-bottom: 1px solid #ddd;*/
+	font-weight: bold;
+	text-align: right;
+	display: block;
+	margin-top: 5px;
+	margin-bottom: 11px;
+}
+header p.about-link a {
+	color: #f1f1f1;	
+}
+header p.about-link a:hover {
+	color: #fff;
 }
 
 
@@ -436,10 +451,10 @@ form p.error.text:before {
 	color: #f1f1f1;
 	font-family: Georgia, "Times New Roman", Times, serif;
 }
-.penn header h2 a {
+.penn header h2 {
 	color: #f1f1f1;
 }
-.penn header a:hover h1, .penn header h2 a:hover {
+.penn header a:hover h1, .penn header a:hover h2 {
 	color: #fff;
 }
 body.penn {
@@ -548,21 +563,35 @@ img, object, embed {
 
 @media screen and (max-width: 500px) {
 	header .left {
-		float: none;
-		width: 100%;
+		/*float: none;*/
+		/*width: 100%;*/
+		/*width: 40%;*/
 	}
 	header h1 {
-		font-size: 1.8em;
-		text-align: center;
+		/*float: left;*/
+		font-size: 2em;
+		/*margin-bottom: 10px;*/
+		/*text-align: center;*/
 	}
-	header h2 {
+	header .about-link {
+		margin-bottom: 12px;
+	}
+	header .left h2 {
 		display: none;
 	}
-	header p {
-		text-align: center;
+	header p.right {
+		border-top: 1px solid #a1a1a1;
+		padding-top: 10px;
 		float: none;
+		clear: both;
+		text-align: center;
 		margin-top: 10px;
 	}
+/*	header p {
+		text-align: center;
+		float: none;
+		/*margin-top: 10px;*/
+	/*}*/*/
 
 	.full-form-title {
 		padding-left: 0;
