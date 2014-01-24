@@ -24,11 +24,6 @@ function offsetFooter() {
 }
 
 $(function() {
-	$("footer").css({
-		'position': 'fixed',
-		'bottom': 0
-	})
-
 	offsetFooter();
 	sizeTitles();
 

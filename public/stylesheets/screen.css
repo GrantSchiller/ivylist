@@ -130,6 +130,8 @@ header p .link-button {
    --------------------------------------------------------------------------------------- */
 
 footer {
+	position: fixed;
+	bottom: 0;
 	box-shadow: 0 -9px 25px #fff;
 	margin-top: 20px;
 	width: 100%;
