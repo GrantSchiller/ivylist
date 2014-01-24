@@ -164,6 +164,7 @@ footer .new-post {
 
 footer p.new-post a {
 	color: #95001a;
+	font-weight: bold;
 }
 
 footer .login {
