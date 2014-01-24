@@ -604,15 +604,10 @@ img, object, embed {
 		text-align: center;
 	}
 	header .left h2 {
-		display: none;
+		padding: 0 10%;
 	}
 	header p.right {
-		/*border-top: 1px solid #f1f1f1;*/
-		padding-top: 10px;
-		float: none;
-		clear: both;
-		text-align: center;
-		margin-top: 10px;
+		display: none;
 	}
 
 	footer .new-post, footer .login {
