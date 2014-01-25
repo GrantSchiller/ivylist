@@ -98,6 +98,16 @@ $(function() {
 	offsetFooter();
 	prepareForms();
 	prepareLinks();
+
+	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+		$(document).on('focus', 'input', function() {
+			$('body').addClass('typing');
+		});
+
+		$(document).on('blur', 'input', function() {
+			$('body').removeClass('typing');
+		});
+	}
 });
 
 $(window).resize(accountForHeader);
