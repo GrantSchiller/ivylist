@@ -480,10 +480,13 @@ form p.error.text:before {
 	Off-white: #f1f1f1	*/
 .penn header {
 	background-color: #01256e;
-	background-image: url(../images/quadrangle.jpg);
+	background-image: url(../images/franklin.jpg);
 	background-position: center 25%;
 	background-repeat: no-repeat;
 }
+
+/* 	http://www.flickr.com/photos/tncowart/3211751732/sizes/l/
+	http://www.flickr.com/photos/reizzil/2860704206/ */
 
 .penn header h1 {
 	color: #f1f1f1;
