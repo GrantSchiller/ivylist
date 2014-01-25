@@ -2,7 +2,7 @@ var loading = false;
 var finishedScrolling = false;
 
 function infiniteScroll() {
-	if ($(window).scrollTop() + $(window).height() + 150 >= $(document).height()) {
+	if ($(window).scrollTop() + $(window).height() + 250 >= $(document).height()) {
 		if (loading || finishedScrolling) return;
 		loading = true;
 		var id = $("#main ol li").last().prop('id');
