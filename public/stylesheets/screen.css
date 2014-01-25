@@ -104,7 +104,7 @@ header {
 	z-index: 1024;
 	box-shadow: 0 9px 25px #fff;
 	padding: 20px 0;
-	opacity: 0.95;
+	background-size: 100%;
 }
 header .left {
 	float: left;
@@ -479,8 +479,12 @@ form p.error.text:before {
 	Blue: #01256e
 	Off-white: #f1f1f1	*/
 .penn header {
-	background: #01256e;
+	background-color: #01256e;
+	background-image: url(../images/quadrangle.jpg);
+	background-position: center 25%;
+	background-repeat: no-repeat;
 }
+
 .penn header h1 {
 	color: #f1f1f1;
 	font-family: Georgia, "Times New Roman", Times, serif;
