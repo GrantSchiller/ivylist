@@ -482,6 +482,7 @@ form p.error.text:before {
 	background-color: #01256e;
 	background-image: url(../images/franklin.jpg);
 	background-position: center 25%;
+	background-size: 90%;
 	background-repeat: no-repeat;
 }
 
@@ -588,6 +589,9 @@ img, object, embed {
 	header .left {
 		float: left;
 		width: 50%;
+	}
+	.penn header {
+		background-size: 115%;
 	}
 
 	.categories-list {
