@@ -60,13 +60,21 @@ ol, ul {
 	line-height: 1.3em;
 }
 body p {
-	line-height: 1.5em;
+	line-height: 1.6em;
 }
 body em {
 	font-style: italic;
 }
 body strong {
 	font-weight: bold;
+}
+body p code {
+	white-space: nowrap;
+	font-size: .928571429em;
+	/*border: 1px solid #ddd;*/
+	background: #f1f1f1;
+	padding: 2px;
+	font-family: Monaco, Courier, monospace;
 }
 
 article h2 {
@@ -233,7 +241,6 @@ li.post time {
 	float: left;
 	display: block;
 	width: 50px;
-	/*height: 100%;*/
 }
 li.post p.title {
 	padding-left: 50px;
@@ -244,7 +251,8 @@ li.post p.title {
 time, li.post a:visited p.title, label {
 	color: #696969;
 }
-li.post a:visited  time {
+
+li.post a:visited time {
 	color: #8f8f8f;
 }
 
