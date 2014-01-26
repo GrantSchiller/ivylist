@@ -164,6 +164,7 @@ footer .middle {
 footer .about-us {
 	position: absolute;
 	right: 0;
+	text-align: right;
 	vertical-align: middle;
 	z-index: 50;
 	width: 30%;
@@ -663,6 +664,7 @@ img, object, embed {
 
 	footer .about-us {
 		left: 0;
+		text-align: left;
 	}
 
 	footer .new-post, footer .login {
