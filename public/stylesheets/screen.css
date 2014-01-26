@@ -164,7 +164,7 @@ footer .middle {
 footer .about-us {
 	z-index: 50;
 	position: absolute;
-	left: 0;
+	right: 0;
 	vertical-align: middle;
 }
 
@@ -656,6 +656,10 @@ img, object, embed {
 	}
 	header p.right {
 		display: none;
+	}
+
+	footer .about-us {
+		left: 0;
 	}
 
 	footer .new-post, footer .login {
