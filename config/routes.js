@@ -55,6 +55,14 @@ module.exports = function(app) {
     }
   });
 
+  app.post('/:category/:post_id/delete', function(request, response, next) {
+    if (request.user && request.user.email == (request.post.email || request.post._user.email)) {
+      next();
+    } else {
+      helper.renderError(403, response);
+    }
+  }, posts_controller.destroy);
+
   app.post('/:category/:post_id/send_email', posts_controller.sendEmail);
   app.get('/:category/:post_id/contact', posts_controller.contact);
   app.get('/:category/:post_id', posts_controller.show);

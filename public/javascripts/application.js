@@ -31,6 +31,12 @@ function prepareForms() {
 		e.preventDefault();
 	});
 
+	$("form.delete-form").submit(function(e) {
+		if (!confirm("Are you sure you want to delete your post?")) {
+			e.preventDefault();
+		}
+	});
+
 	$('textarea').elastic();
 
 	$("input, textarea").keypress(function() {

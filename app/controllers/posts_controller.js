@@ -158,6 +158,12 @@ function show(request, response) {
   response.render('posts/show', { post: request.post });
 }
 
+function destroy(request, response) {
+  request.post.remove(function(err, post) {
+    response.redirect("/");
+  });
+}
+
 function contact(request, response) {
   response.render('posts/contact', { post: request.post, email: request.session.email, js: true });
 }
@@ -201,6 +207,7 @@ exports.scroll = scroll;
 exports.add = add;
 exports.create = create;
 exports.show = show;
+exports.destroy = destroy;
 exports.contact = contact;
 exports.sendEmail = sendEmail;
 exports.confirm = confirm;

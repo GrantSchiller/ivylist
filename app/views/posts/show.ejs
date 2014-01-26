@@ -10,7 +10,7 @@
 
 <div id="additional-post-ui">
 	<% if (currentUser && (currentUser.email == (post.email || post._user.email))) { %>
-		<form method="post" class="delete-form" action "<%= post.url() %>/delete">
+		<form method="post" class="delete-form" action="<%= post.url() %>/delete">
 			<input type="hidden" name="_csrf" value="<%= token %>" />
 			<button type="submit" class="destructive">Delete your post</button>
 		</form>
