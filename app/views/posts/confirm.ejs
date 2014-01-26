@@ -8,6 +8,7 @@
 
 <div class="group">
 	<form action="/users/create" method="post" class="leftForm group">
+		<input type="hidden" name="_csrf" value="<%= token %>" />
 		<p class="group email confirmed-field">
 			<label for="email">Email:</label>
 			<span class="static-form-box"><%= email %></span>
