@@ -162,10 +162,11 @@ footer .middle {
 }
 
 footer .about-us {
-	z-index: 50;
 	position: absolute;
 	right: 0;
 	vertical-align: middle;
+	z-index: 50;
+	width: 30%;
 }
 
 footer .new-post {
@@ -184,6 +185,8 @@ footer .login {
 	vertical-align: middle;
 	position: absolute;
 	right: 0;
+	width: 30%;
+	text-align: right;
 }
 
 /* ---------------------------------------------------------------------------------------
