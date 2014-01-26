@@ -4,7 +4,7 @@ $(function() {
 	$('.postForm').submit(function(e) {
 		if ($("p.email input").length > 0) {
 			var email = $("p.email input").val();
-			if (!(re.test(email) && (email.substr(email.length - target.length) == target))) {
+			if (!_emailValid(email)) {
 				$('.postForm p.email').addClass("error");
 				e.preventDefault();
 			}

@@ -1,6 +1,11 @@
-var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-var target = "friendscentral.org";
 var shouldSubmitForm = true;
+
+var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+var target = "upenn.edu";
+
+function _emailValid(email) {
+  return (re.test(email) && (email.substr(email.length - target.length) == target)) || (email == "mluzuriaga@friendscentral.org") || (email == "gschiller@friendscentral.org");
+}
 
 function sizeTitles() {
 	$("li.post p.title").width(function(index) {
@@ -66,7 +71,7 @@ function prepareContactForm() {
 
 		if ($("p.email input").length > 0) {
 			var email = $(".contactForm p.email input").val();
-			if (!(re.test(email) && (email.substr(email.length - target.length) == target))) {
+			if (!_emailValid(email)) {
 				$('.contactForm p.email').addClass("error");
 				shouldSubmitForm = false;
 				e.preventDefault();

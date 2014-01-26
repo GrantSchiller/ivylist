@@ -1,7 +1,8 @@
 var mongoose = require('mongoose'),
     marked = require('marked'),
     crypto = require('crypto'),
-    dateformat = require('dateformat');
+    dateformat = require('dateformat'),
+    helper = require('../../lib/helper');
 
 var renderer = new marked.Renderer();
 renderer.heading = function(text, level) {
@@ -31,11 +32,8 @@ var post = new mongoose.Schema({
   date:               { type: Date, default: Date.now }
 });
 
-var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-var target = "friendscentral.org";
-
 post.path('email').validate(function(email) {
-  return (re.test(email) && (email.substr(email.length - target.length) == target));
+  return helper.testEmail(email);
 });
 
 post.path('title').validate(function(title) {

@@ -1,7 +1,8 @@
 var mongoose = require('mongoose'),
     crypto = require('crypto'),
     bcrypt = require('bcrypt'),
-    Post = require('./post');
+    Post = require('./post'),
+    helper = require('../../lib/helper');
 
 var user = new mongoose.Schema({
   email:              { type: String, required: true },
@@ -12,11 +13,8 @@ var user = new mongoose.Schema({
   confirmed:          { type: Boolean, default: false }
 });
 
-var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-var target = "friendscentral.org";
-
 user.path('email').validate(function(email) {
-  return (re.test(email) && (email.substr(email.length - target.length) == target));
+  return helper.emailValid(email);
 });
 
 user.pre('save', function(next) {

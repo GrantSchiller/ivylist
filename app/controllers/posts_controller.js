@@ -169,15 +169,13 @@ function contact(request, response) {
 }
 
 function sendEmail(request, response) {
-  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  var target = "friendscentral.org";
   if (request.body.email_text.trim().length != 0) {
     var toEmail = request.post._user ? request.post._user.email : request.post.email;
     var fromEmail;
 
     if (request.user) {
       fromEmail = request.user.email;
-    } else if (re.test(request.body.email) && (request.body.email.substr(request.body.email.length - target.length) == target)) {
+    } else if (helper.testEmail(request.body.email)) {
       fromEmail = request.body.email;
     } else {
       helper.renderError(403, response);
