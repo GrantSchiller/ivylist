@@ -108,9 +108,9 @@ function create(request, response) {
 
             helper.renderPartial('emails/confirm_post', { post: post, confirmLink: confirmLink }, function(body) {
               helper.sendEmail({
-                from: "QuadShare <quadsharemax@gmail.com>",
+                from: "PennGems <penngems@gmail.com>",
                 to: post.email,
-                subject: 'Confirm your QuadShare post: "' + post.title + '"',
+                subject: 'Confirm your PennGems post: "' + post.title + '"',
                 text: body
               });
             });
@@ -186,7 +186,7 @@ function sendEmail(request, response) {
 
     helper.renderPartial('emails/contact', { fromEmail: fromEmail, emailText: request.body.email_text, post: request.post }, function(body) {
       helper.sendEmail({
-        from: "QuadShare <quadsharemax@gmail.com>",
+        from: "PennGems <penngems@gmail.com>",
         to: toEmail,
         replyTo: fromEmail,
         subject: "Response Re: " + request.post.title,

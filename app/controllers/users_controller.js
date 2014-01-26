@@ -40,9 +40,9 @@ function create(request, response) {
 
         helper.renderPartial('emails/confirm_user', { user: user, confirmLink: confirmLink }, function(body) {
           helper.sendEmail({
-            from: "QuadShare <quadsharemax@gmail.com>",
+            from: "PennGems <penngems@gmail.com>",
             to: user.email,
-            subject: "Confirm your QuadShare account",
+            subject: "Confirm your PennGems account",
             text: body
           });
         });
