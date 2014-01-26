@@ -9,7 +9,15 @@
 </article>
 
 <div id="additional-post-ui">
-	<p class="contact_link"><a href="<%= post.url() %>/contact" class="link-button ajax">Contact this poster</a></p>
+	<% if (currentUser && (currentUser.email == (post.email || post._user.email))) { %>
+		<form method="post" class="delete-form" action "<%= post.url() %>/delete">
+			<button type="submit" class="destructive">Delete your post</button>
+		</form>
+	<% } else { %>
+		<p>
+			<a href="<%= post.url() %>/contact" class="link-button ajax">Contact this poster</a>
+		</p>
+	<% } %>
 </div>
 
 <% include ../layouts/foot %>

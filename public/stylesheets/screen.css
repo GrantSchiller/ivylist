@@ -60,7 +60,7 @@ ol, ul {
 	line-height: 1.3em;
 }
 body p {
-	line-height: 1.6em;
+	line-height: 1.65em;
 }
 body em {
 	font-style: italic;
@@ -71,7 +71,7 @@ body strong {
 body p code {
 	white-space: nowrap;
 	font-size: .928571429em;
-	/*border: 1px solid #ddd;*/
+	border: 1px solid #ddd;
 	background: #f1f1f1;
 	padding: 2px;
 	font-family: Monaco, Courier, monospace;
@@ -294,6 +294,10 @@ article.post p.post-time {
 	margin-bottom: 2px;
 }
 
+p.delete-link {
+	float: right;
+}
+
 
 /* ---------------------------------------------------------------------------------------
    Forms
@@ -334,6 +338,10 @@ form p {
 
 label.category {
 	margin-top: 0;
+}
+
+input, button {
+	font-family: Helvetica, Arial, sans-serif;
 }
 
 input[type=text], input[type=email], input[type=password], textarea {
@@ -386,16 +394,20 @@ textarea {
 	resize: vertical;
 	line-height: 1.5em;
 }
-input[type=submit] {
+button[type=submit] {
+	font-weight: bold;
+	display: inline-block;
+	line-height: 1em;
 	float: right;
 	border: none;
 	color: #fff;
 	background: #01256e;
-	padding: 8px 12px;
+	padding: 10px;
 	font-size: 1em;
 	border-radius: 0;
 	cursor: pointer;
 	margin-top: 5px;
+	-webkit-font-smoothing: antialiased;
 	-webkit-appearance: none;
 	-moz-appearance: none;
 }
@@ -447,8 +459,14 @@ form p.error.text:before {
 }
 
 /* ---------------------------------------------------------------------------------------
-   Contact Form
+   Post View Forms
    --------------------------------------------------------------------------------------- */
+
+.delete-form button[type=submit] {
+	margin-top: 0;
+	background: #95001a;
+	/*float: none;*/
+}
 
 .contact-form-explanation {
 	padding-top: 15px;
@@ -481,8 +499,8 @@ form p.error.text:before {
 .penn header {
 	background-color: #01256e;
 	background-image: url(../images/franklin.jpg);
-	background-position: 120% 25%;
-	background-size: 90%;
+	background-position: center 25%;
+	background-size: 800px;
 	background-repeat: no-repeat;
 }
 
@@ -502,8 +520,11 @@ form p.error.text:before {
 body.penn {
 	background: #f9fbff;
 }
-.penn .link-button {
+.penn header .link-button, .penn #main .link-button.destructive {
 	background: #95001a;
+}
+.penn #main .link-button {
+	background: #01256e;
 }
 .penn p a, .penn article a {
 	color: #01256e;

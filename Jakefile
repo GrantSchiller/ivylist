@@ -10,7 +10,7 @@ task('seed', {async: true}, function(username, password) {
     Category.findOne({ slug: 'misc' }, function(err, category) {
       var post = new Post({
         title: 'This is a fresh new test post',
-        email: 'mluzuriaga@friendscentral.org',
+        email: 'gschiller@friendscentral.org',
         confirmed: true,
         _category: category._id,
         text_markdown: 'Lorem ipsum dolor **sit amet**, consectetur adipisicing elit, sed do _eiusmod tempor incididunt_ ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
