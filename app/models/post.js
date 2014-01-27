@@ -33,7 +33,7 @@ var post = new mongoose.Schema({
 });
 
 post.path('email').validate(function(email) {
-  return helper.testEmail(email);
+  return helper.emailValid(email);
 });
 
 post.path('title').validate(function(title) {
