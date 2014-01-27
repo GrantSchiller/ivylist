@@ -1,5 +1,4 @@
 var helper = require('../../lib/helper'),
-    mail = require('nodemailer').mail,
     User = require('../models/user');
 
 function add(request, response) {
