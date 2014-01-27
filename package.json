@@ -11,7 +11,7 @@
     "jake": "*",
     "dateformat": "*",
     "marked": "*",
-    "nodemailer": "*",
+    "sendgrid": "*",
     "socket.io": "*",
     "bcrypt": "*"
   },

@@ -40,7 +40,8 @@ function create(request, response) {
 
         helper.renderPartial('emails/confirm_user', { user: user, confirmLink: confirmLink }, function(body) {
           helper.sendEmail({
-            from: "PennGems <penngems@gmail.com>",
+            fromname: "PennGems",
+            from: "penngems@gmail.com",
             to: user.email,
             subject: "Confirm your PennGems account",
             text: body

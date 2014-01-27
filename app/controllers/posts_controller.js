@@ -108,7 +108,8 @@ function create(request, response) {
 
             helper.renderPartial('emails/confirm_post', { post: post, confirmLink: confirmLink }, function(body) {
               helper.sendEmail({
-                from: "PennGems <penngems@gmail.com>",
+                fromname: "PennGems",
+                from: "penngems@gmail.com",
                 to: post.email,
                 subject: 'Confirm your PennGems post: "' + post.title + '"',
                 text: body
@@ -175,7 +176,7 @@ function sendEmail(request, response) {
 
     if (request.user) {
       fromEmail = request.user.email;
-    } else if (helper.testEmail(request.body.email)) {
+    } else if (helper.emailValid(request.body.email)) {
       fromEmail = request.body.email;
     } else {
       helper.renderError(403, response);
@@ -184,9 +185,10 @@ function sendEmail(request, response) {
 
     helper.renderPartial('emails/contact', { fromEmail: fromEmail, emailText: request.body.email_text, post: request.post }, function(body) {
       helper.sendEmail({
-        from: "PennGems <penngems@gmail.com>",
+        fromname: "PennGems",
+        from: "penngems@gmail.com",
         to: toEmail,
-        replyTo: fromEmail,
+        replyto: fromEmail,
         subject: "Response Re: " + request.post.title,
         text: body
       });
