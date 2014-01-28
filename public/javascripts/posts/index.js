@@ -31,3 +31,5 @@ $(function() {
 		sizeTitles();
 	});
 });
+
+$(window).resize(sizeTitles);
