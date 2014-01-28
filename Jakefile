@@ -36,7 +36,7 @@ task('fixlucas', {async: true}, function() {
       _category: new mongoose.Types.ObjectId("52db48f6090f9c0200dada90"),
       confirmed: true,
       title: "Fall Out Boy & Paramore @ Susquehanna Bank Center *PIT* - $122",
-      text: "These tickets are being sold by the North American Ticket Organization (natotickets.com). To view these tickets please visit our website (http://natotickets.com/product/fall-out-boy-and-paramore-the-susquehanna-bank-center-62714/)\r\n\r\nOur tickets are being sold cheaper than tickets on any other website and the show is sold out, you will not find a better deal anywhere else! \r\n\r\nThe tickets are in the PIT section of the venue, directly in front of the stage.\r\n\r\nAll payments are processed through PayPal and we are PayPal verified.\r\n",
+      text_markdown: "These tickets are being sold by the North American Ticket Organization (natotickets.com). To view these tickets please visit our website (http://natotickets.com/product/fall-out-boy-and-paramore-the-susquehanna-bank-center-62714/)\r\n\r\nOur tickets are being sold cheaper than tickets on any other website and the show is sold out, you will not find a better deal anywhere else! \r\n\r\nThe tickets are in the PIT section of the venue, directly in front of the stage.\r\n\r\nAll payments are processed through PayPal and we are PayPal verified.\r\n",
     });
 
     post.save(function(err, post) {
