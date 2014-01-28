@@ -31,7 +31,7 @@ var mongoose = require('mongoose');
 
 task('fixlucas', {async: true}, function() {
   db.connect(function() {
-    var post = Post.new({
+    var post = new Post({
       _user: new mongoose.Types.ObjectId("52e6fb968c9f10020054430e"),
       _category: new mongoose.Types.ObjectId("52db48f6090f9c0200dada90"),
       confirmed: true,
