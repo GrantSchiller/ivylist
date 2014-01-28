@@ -9,7 +9,7 @@ function _emailValid(email) {
 
 function sizeTitles() {
 	$("li.post p.title").width(function(index) {
-		return $(this).parent().parent().width() - $(this).parent().prev().width() - 5;
+		return $(this).parent().parent().width() - $(this).parent().prev().width() - 55;
 	});
 }
 
