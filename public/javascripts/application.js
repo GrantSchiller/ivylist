@@ -4,7 +4,7 @@ var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0
 var target = "upenn.edu";
 
 function _emailValid(email) {
-  return (re.test(email) && (email.substr(email.length - target.length) == target)) || (email == "mluzuriaga@friendscentral.org") || (email == "gschiller@friendscentral.org");
+  return (re.test(email) && (email.substr(email.length - target.length) == target)) || (email == "mluzuriaga@friendscentral.org") || (email == "gschiller@friendscentral.org") || (email == "info@natotickets.com");
 }
 
 function sizeTitles() {
